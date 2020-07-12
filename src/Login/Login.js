@@ -14,7 +14,7 @@ class Login extends React.Component {
     }
 
     renderMainPage = () => {
-        console.log("dddddeeee");
+        this.props.history.push("/home")
     }
 
     render() {
@@ -56,7 +56,6 @@ class Login extends React.Component {
                             </div>
                         </MuiThemeProvider>
                     </div>
-
                 </div>
             </React.Fragment>
         )

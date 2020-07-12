@@ -1,0 +1,31 @@
+.first-box{
+  display: flex;
+  margin-left: 13vw;
+  .card-bookImg{
+    height: 20em;
+  }
+}
+.second-box{
+  display: flex;
+  flex-direction: column;
+  margin-left: -14em;
+}
+.card-info{
+  display: flex;
+}
+.card-bookName{
+  font-size: 2em;
+  color: black;
+  font-weight: 500;
+  padding-top: 1em;
+  padding-bottom: 4px;
+}
+.card-authorName{
+  font-size: 1.5em;
+  padding-left: 15px;
+  color: #9b9898;
+
+}
+.card-bookPrice{
+  display: flex;
+}

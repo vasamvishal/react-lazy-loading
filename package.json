@@ -14,8 +14,11 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-loadable": "^5.5.0",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "redux-loop": "^6.0.1",
     "source-map-explorer": "^2.4.2"
   },
   "scripts": {
@@ -43,6 +46,7 @@
   "devDependencies": {
     "google-map-react": "^1.1.7",
     "history": "^5.0.0",
-    "react-addons-perf": "^15.4.2"
+    "react-addons-perf": "^15.4.2",
+    "reactstrap": "^8.5.1"
   }
 }
