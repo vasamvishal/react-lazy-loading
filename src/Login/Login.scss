@@ -1,0 +1,49 @@
+
+.flex{
+  display: flex;
+}
+.checkbox-css{
+  display: flex;
+  padding-bottom: 2em;
+}
+.button-text{
+  background-color: lightblue;
+  width: 6em;
+  height: 2em;
+}
+.button-css{
+  //margin-top: 16em;
+  margin-left: 7em;
+}
+
+.left-article{
+  background-image: url("../../src/images/pexels-photo-1591447.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  height: 91em;
+  width: 23em;
+}
+.right-article{
+  width: 55em;
+}
+.company-name{
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1em;
+}
+.logo{
+  display: flex;
+  color:lightgreen;
+  padding-top: 2em;
+}
+
+.header {
+  height: 5em;
+  background-color: purple;
+  width: 75em;
+}
+
+.login-button {
+  margin-left: 11em;
+}
