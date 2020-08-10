@@ -1,17 +1,45 @@
-import {GET_BOOKS} from "./HomePageAction"
+import {GET_BOOKS, GET_BOOKS_SUCCESS, getBooksSucces, SET_INITIALSTATE,SEARCH_BOOKS,SEARCH_BOOKS_VALUE,searchBooksValue} from "./HomePageAction"
+import {Cmd, loop} from "redux-loop";
+import {extractDataFromStorage,searchBooksForData} from "./HomePageEffect";
+
 
 export const initialState = {
-    array: []
+    array: [],
+    storeData: false,
+    getAllBookData: [],
+    searchBook:[]
 }
 
-export default (state=initialState, action) => {
-    console.log(action);
+export default (state = initialState, action) => {
     switch (action.type) {
         case GET_BOOKS: {
-            console.log("dd",action)
-            console.log("dds",state)
-            return {...state,array: action.payload}
+            console.log("sdsaaD", state.storeData);
+            return {...state, array: action.payload, storeData: true}
         }
+        case SET_INITIALSTATE: {
+            console.log("initial statedsadasdsad");
+            return loop(initialState, Cmd.run(extractDataFromStorage, {
+                successActionCreator: getBooksSucces
+            }));
+        }
+        case GET_BOOKS_SUCCESS: {
+            console.log("action",action.payload);
+            return Object.assign({}, state, {
+                getAllBookData: action.payload
+            });
+        }
+        case SEARCH_BOOKS: {
+            console.log("action",action.payload.target.value);
+            return loop(state, Cmd.run(searchBooksForData, {
+                successActionCreator: searchBooksValue
+            }));
+        }
+        case SEARCH_BOOKS_VALUE: {
+            console.log("action",action.payload.target.value);
+            const searchData=searchBooksForData(action.payload)
+            return {...state,searchBook:searchData}
+        }
+
         default:
             return state
     }

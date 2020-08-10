@@ -1,4 +1,4 @@
-import reducers from "./reducer"
+import reducers from "../src/reducer";
 import {compose, createStore} from "redux";
 import {install} from "redux-loop";
 

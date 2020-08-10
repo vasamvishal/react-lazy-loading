@@ -5,16 +5,12 @@ import './Login.scss';
 import Button from "@material-ui/core/Button";
 
 class Login extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     renderRegisterPage = () => {
         console.log("ddddd");
     }
 
     renderMainPage = () => {
-        this.props.history.push("/home")
+        this.props.history.push("/home");
     }
 
     render() {
@@ -28,7 +24,6 @@ class Login extends React.Component {
                                     onClick={this.renderRegisterPage}>REGISTER</Button>
                         </div>
                     </div>
-
                     <div className={"right-article"}>
                         <MuiThemeProvider>
                             <h1 className={"company-name"}>XBAY</h1>

@@ -1,19 +1,40 @@
 .description{
   display: flex;
-  padding-top: 3.5em;
+  padding-top: 1.5em;
   padding-bottom: 0.5em;
   font-size: 34px;
-  margin-left: 8vw;
+  margin-left: 24vw;
   font-family: sans-serif;
+
+  @media screen and (max-width: 700px){
+    padding-top: 1em;
+    font-size: 1em;
+    margin-left: 5vw;
+    padding-bottom: 0.25em;
+    font-family: sans-serif;
+    }
 }
 
 .description-text{
-  margin-left: 8vw;
+  margin-left: 24vw;
+  @media screen and (max-width: 700px){
+    margin-left: 5vw;
+  }
 }
-.button-new-card{
-  margin-left: 8vw;
+
+.button-new-card {
+  margin-left: 24vw;
   background-color: #a03037;
   height: 2em;
   margin-top: 2em;
   width: 8em;
+  @media screen and (max-width: 700px){
+    float: right;
+    margin-right: 15vw;
+  }
+}
+
+.text-button{
+  display: flex;
+  margin-top: 1em;
 }

@@ -1,31 +1,70 @@
 .first-box{
   display: flex;
-  margin-left: 13vw;
+  justify-content:center;
+
   .card-bookImg{
     height: 20em;
+    @media screen and (max-width: 700px) {
+     height: 14em;
+    }
   }
 }
 .second-box{
   display: flex;
   flex-direction: column;
-  margin-left: -14em;
+}
+.card-button{
+  background-color: orange;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+  padding-left: 2em;
+  padding-right: 2em;
+  @media screen and (max-width: 700px) {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0em;
+    padding-right: 0em;
+  }
 }
 .card-info{
   display: flex;
+  justify-content: center;
+  @media screen and (max-width: 700px) {
+   flex-direction: column;
+  }
+}
+.text-box{
+  padding-right: 6vw;
+  @media screen and (max-width: 700px) {
+    margin-left: 29vw;
+    padding-right: 0vw;
+  }
 }
 .card-bookName{
-  font-size: 2em;
+  font-size: 1em;
   color: black;
   font-weight: 500;
-  padding-top: 1em;
+  padding-top: 3em;
   padding-bottom: 4px;
+
+  @media screen and (max-width: 700px) {
+    padding-left: 2em;
+    padding-top: 1em;
+  }
 }
+
 .card-authorName{
   font-size: 1.5em;
   padding-left: 15px;
   color: #9b9898;
+  @media screen and (max-width: 700px) {
+    padding-left: 2em;
+  }
 
 }
 .card-bookPrice{
   display: flex;
+  @media screen and (max-width: 700px) {
+    margin-left: 2em;
+  }
 }

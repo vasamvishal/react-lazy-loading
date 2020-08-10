@@ -1,6 +1,11 @@
 import {combineReducers} from "redux-loop";
-import getBookDetails from "../src/HomePage/HomePageReducer";
+import homePage from "../src/HomePage/HomePageReducer";
+import buyBookDetails from "../src/BuyPage/BuyPriceReducer";
+import header from "./HeaderIcons/HeaderIconsReducer";
 
-export default combineReducers(
-    getBookDetails
+export default combineReducers({
+        homePage,
+        buyBookDetails,
+        header
+    }
 )

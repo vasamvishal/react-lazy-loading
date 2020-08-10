@@ -1,19 +1,25 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Login from "./Login/Login";
-import AsyncHeavy from "./AsyncSetting";
-import Heavy from "./Heavy";
 import HomePage from "./HomePage/HomePage";
 import BuyPage from "./BuyPage/BuyPage";
+import AddToCart from "./AddToCart/AddToCart";
+import MenuBurger from "./SiteHeader/MenuBurger";
+import HamburgerMenu from "./Component/HamberGerMenu";
 
 export default function App() {
     return (
         <Router>
             <div>
-                <Route path={"/"} exact component={Login}/>
-                <Route path={"/home"} exact component={HomePage}/>
-                <Route path={"/buyPrice"} exact component={BuyPage}/>
+                <div className="App">
+                    <Route path={"/login"} exact component={Login} />
+                    <Route path={"/home"} exact component={HomePage} />
+                    <Route path={"/buyPrice"} exact component={BuyPage} />
+                    <Route path={"/cart"} exact component={AddToCart} />
+                    <Route path={"/exampleDemo"} exact component={MenuBurger} />
+                    <Route path={"/example"} exact component={HamburgerMenu} />
+                </div>
             </div>
         </Router>
     )
