@@ -4,9 +4,9 @@
 }
 
 .main-content {
-  margin-right: 16em;
-  height: 46em;
-  margin-left: 20em;
+  margin-right: 8em;
+    height: 46em;
+    margin-left: 12em;
 
   @media screen and (max-width: 700px) {
     margin-right: 0em;
@@ -107,6 +107,7 @@
 }
 
 .bookImg {
+  width: 13em;
   height: 13em;
   padding: 22px;
   display: flex;
@@ -114,7 +115,7 @@
   align-items: center;
 
   @media screen and (max-width: 700px) {
-    width: 90vw;
+    width: 83vw;
     height: 30vh;
   }
 }
@@ -125,17 +126,17 @@
   font-weight: 500;
   padding-top: 4px;
   padding-bottom: 4px;
+  width: 12em;
   @media screen and (max-width: 700px) {
-    font-size: 1.5em;
+    font-size: 1.25em;
   }
 }
 
 .authorName {
   font-size: 1em;
-  padding-left: 15px;
   color: #9b9898;
   @media screen and (max-width: 700px) {
-    font-size: 2em;
+    font-size: 1.25em;
   }
 }
 

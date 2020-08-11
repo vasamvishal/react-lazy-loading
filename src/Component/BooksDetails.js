@@ -8,38 +8,47 @@ class BooksDetails extends React.Component {
         super();
         this.state = {
             validateInput: true,
-            price: 1
+            price: 1,
+            clicked: true
         }
     }
 
     changePrice = (e) => {
-        console.log(e.target);
         data = e.target.value;
         if (isNaN(data)) {
-            text = this.setState({validateInput: false, price: 1})
+            text = this.setState({ validateInput: false, price: 1 })
         } else if (isNaN(data) || data < 1) {
-            text = this.setState({validateInput: true, price: 1})
+            text = this.setState({ validateInput: true, price: 1 })
         } else {
-            text = this.setState({validateInput: true, price: data})
+            text = this.setState({ validateInput: true, price: data })
         }
     }
 
+    buttonClicked=(item)=>{
+            // console.log("ddd",this.props);
+        
+    }
+
     render() {
-        const item = this.props
+        var buttonOnClick = this.state.clicked == true ? "card-button-onClick" : "card-button-unClicked"
+        const item = this.props.item
         return (
             <div className='card-info'>
                 <div className='first-box'>
-                    <img className='bookImg card-bookImg' src={item.image} alt={"bookImg"}/>
+                    <img className='bookImg card-bookImg' src={item.image} alt={"bookImg"} />
                 </div>
                 <div className={"second-box"}>
-                    <div className='card-bookName'>{item.title}</div>
-                    <div className='card-authorName'>{item.author}</div>
-                    <div className='card-bookPrice'>Rs.{item.price * this.state.price}</div>
+                    <div className="card-book-details-flex">
+                        <div className='card-bookName'>{item.title}</div>
+                        <div className='card-authorName'>{item.author}</div>
+                        <div className='card-bookPrice'>Rs.{item.price * this.state.price}</div>
+                    </div>
                     <div className={"text-button"}>
-                        <input id="demo" className={"text-box"} onChange={this.changePrice} required type={"textbox"}/>
-                        <button className={"card-button"} onClick={() => {
-                            this.props.onAddToCart(item)
-                        }}>Add To Cart
+                        <input id="demo" className={"text-box"} onChange={this.changePrice} required type={"textbox"} />
+                        <button className={buttonOnClick}
+                            onClick={(item) => {this.props.onAddToCart(item);
+                                this.setState({clicked:!this.state.clicked})}}>
+                            Add To Cart
                         </button>
                     </div>
                     {!this.state.validateInput ? <div>Please Enter proper value</div> : <div></div>}

@@ -1,14 +1,14 @@
 import React, { Suspense } from "react";
 import "./HomePage.scss";
 import Card from '@material-ui/core/Card';
+import Papa from 'papaparse';
 import SiteHeader from "../SiteHeader/SiteHeader";
 import { connect } from "react-redux";
-import { getBooks, setIntialState,onSearchValue} from "./HomePageAction";
+import { selectedBook, setIntialState, onSearchValue } from "./HomePageAction";
 import { Redirect } from "react-router-dom";
-import { array } from '../Component/Array';
+import array from '../Component/Def.json';
 import ReactPaginate from 'react-paginate';
-
-const BookDetailsComponent = React.lazy(() => import('../Component/BookDetailsComponent'));
+import BookDetailsComponent from '../Component/BookDetailsComponent';
 
 class HomePage extends React.Component {
 
@@ -59,7 +59,7 @@ class HomePage extends React.Component {
                     {this.state.pageOfItems.map((item, i) => (
                         <div className={"card-block"} id={i}>
                             <Card className='card' onClick={() => {
-                                this.props.getBooks(item)
+                                this.props.selectedBook(item)
                             }}>
                                 <Suspense fallback={<div>Loading...</div>}>
                                     <BookDetailsComponent element={i} item={item} />
@@ -88,7 +88,7 @@ class HomePage extends React.Component {
         console.log("Asasas", this.props.homePage.storeData)
         return (
             <div className={"homepage"}>
-                <SiteHeader onSearch={this.props.onSearchValue}/>
+                <SiteHeader onSearch={this.props.onSearchValue} />
                 <div className={"main-content"}>
                     <div>
                         {this.getCard()}
@@ -122,7 +122,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        "getBooks": (item) => (dispatch(getBooks(item))),
+        "selectedBook": (item) => (dispatch(selectedBook(item))),
         "setInitialState": () => (dispatch(setIntialState())),
         "onSearchValue": (e) => (dispatch(onSearchValue(e))),
     };

@@ -1,10 +1,10 @@
-import {GET_BOOKS, GET_BOOKS_SUCCESS, getBooksSucces, SET_INITIALSTATE,SEARCH_BOOKS,SEARCH_BOOKS_VALUE,searchBooksValue} from "./HomePageAction"
+import {SELECTED_BOOKS, GET_BOOKS_SUCCESS, getBooksSucces, SET_INITIALSTATE,SEARCH_BOOKS,SEARCH_BOOKS_VALUE,searchBooksValue} from "./HomePageAction"
 import {Cmd, loop} from "redux-loop";
 import {extractDataFromStorage,searchBooksForData} from "./HomePageEffect";
 
 
 export const initialState = {
-    array: [],
+    selectedBook: [],
     storeData: false,
     getAllBookData: [],
     searchBook:[]
@@ -12,10 +12,12 @@ export const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case GET_BOOKS: {
+        case SELECTED_BOOKS: {
             console.log("sdsaaD", state.storeData);
-            return {...state, array: action.payload, storeData: true}
+            console.log("sdsaaDsadd", action.payload);
+            return {...state, selectedBook: action.payload, storeData: true}
         }
+        
         case SET_INITIALSTATE: {
             console.log("initial statedsadasdsad");
             return loop(initialState, Cmd.run(extractDataFromStorage, {

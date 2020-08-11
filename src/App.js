@@ -7,6 +7,7 @@ import BuyPage from "./BuyPage/BuyPage";
 import AddToCart from "./AddToCart/AddToCart";
 import MenuBurger from "./SiteHeader/MenuBurger";
 import HamburgerMenu from "./Component/HamberGerMenu";
+import Exam from "./Component/Exam";
 
 export default function App() {
     return (
@@ -19,6 +20,7 @@ export default function App() {
                     <Route path={"/cart"} exact component={AddToCart} />
                     <Route path={"/exampleDemo"} exact component={MenuBurger} />
                     <Route path={"/example"} exact component={HamburgerMenu} />
+                    <Route path={"/exam"} exact component={Exam} />
                 </div>
             </div>
         </Router>

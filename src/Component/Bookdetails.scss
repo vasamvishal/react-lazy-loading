@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
 }
-.card-button{
+.card-button-onClick{
   background-color: orange;
   padding-top: 0.5em;
   padding-bottom: 1em;
@@ -22,9 +22,14 @@
   @media screen and (max-width: 700px) {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    padding-left: 0em;
-    padding-right: 0em;
+    padding-left: 1.0em;
+    padding-right: 1.0em;
+    font-size: 0.75em;
   }
+}
+.card-button-unClicked{
+  background-color: red;
+
 }
 .card-info{
   display: flex;
@@ -55,16 +60,20 @@
 
 .card-authorName{
   font-size: 1.5em;
-  padding-left: 15px;
+  padding-left: -0.25em;
   color: #9b9898;
   @media screen and (max-width: 700px) {
-    padding-left: 2em;
+    padding-left: 1.25em;
   }
 
 }
 .card-bookPrice{
-  display: flex;
   @media screen and (max-width: 700px) {
     margin-left: 2em;
   }
+}
+.card-book-details-flex{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }

@@ -1,33 +1,32 @@
 .description{
-  display: flex;
+  text-align: initial;
   padding-top: 1.5em;
   padding-bottom: 0.5em;
   font-size: 34px;
-  margin-left: 24vw;
   font-family: sans-serif;
-
+  font-weight: 900;
   @media screen and (max-width: 700px){
-    padding-top: 1em;
+    font-weight: 900;
     font-size: 1em;
-    margin-left: 5vw;
-    padding-bottom: 0.25em;
+    margin-left: 0vw;
     font-family: sans-serif;
     }
 }
 
 .description-text{
-  margin-left: 24vw;
+    text-align: initial;
+    width: 64vw;
+    height: auto;
   @media screen and (max-width: 700px){
-    margin-left: 5vw;
+    width: 80vw;
   }
 }
 
-.button-new-card {
-  margin-left: 24vw;
+.delete-button {
   background-color: #a03037;
   height: 2em;
   margin-top: 2em;
-  width: 8em;
+  width: 13em;
   @media screen and (max-width: 700px){
     float: right;
     margin-right: 15vw;
@@ -37,4 +36,20 @@
 .text-button{
   display: flex;
   margin-top: 1em;
+}
+
+.about-section{
+  display: flex;
+  flex-direction: column;
+  margin-left: 24em;
+  @media screen and (max-width: 700px){
+    margin-left:8vw;
+  }
+  @media screen and (max-width: 768px) and (min-width: 768px){
+    width: 86vw;
+    margin-left: 7em;
+  }
+  @media screen and (max-width: 1024px) and (min-width: 1024px){
+    margin-left: 15em;
+  }
 }

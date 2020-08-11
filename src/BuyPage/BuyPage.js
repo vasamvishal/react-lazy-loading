@@ -1,11 +1,10 @@
 import React from "react";
 import SiteHeader from "../SiteHeader/SiteHeader";
 import BooksDetails from "../Component/BooksDetails";
-import abc from "../images/pexels-photo-1591447.jpeg";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import "./BuyPage.scss";
-import {addToCart, deleteFromCart, setInitialStateForBuyPage} from "./BuyPriceAction";
-import {Redirect} from "react-router-dom";
+import { addToCart, deleteFromCart, setInitialStateForBuyPage } from "./BuyPriceAction";
+import { Redirect } from "react-router-dom";
 
 class BuyPage extends React.Component {
     componentDidMount() {
@@ -18,43 +17,40 @@ class BuyPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state =
-            {
-                image: abc,
-                title: "The Axis of Bank",
-                author: "Vishal vasam",
-                price: "3467",
-                description: "About banking and all those things",
-                abcd: 2
-            }
-
+        this.state={
+            clicked:true
+        }
     }
 
     render() {
         if (this.props.buyBookDetails.deletedFromCart) {
-            return <Redirect to="/home"/>
+            return <Redirect to="/home" />
         }
         if (this.props.header.signUpPage) {
-            return <Redirect to='/login'/>
+            return <Redirect to='/login' />
         }
         if (this.props.header.cartPage) {
-            return <Redirect to='/cart'/>
+            return <Redirect to='/cart' />
         }
-        let item = this.state
+        let item = this.props.homePage.selectedBook
         return (
             <div>
-                <SiteHeader/>
+                <SiteHeader />
                 <div>
                     <BooksDetails
                         onAddToCart={this.addToCart}
-                        {...item}/>
-                    <div className={"description"}>About this Product</div>
-                    <div className={"description-text"}>{item.description}</div>
-                    <button onClick={() => {
-                        this.props.deleteProduct()
-                    }} className={"button-new-card"}>
-                        Delete Product
+                        item={item} />
+                    <div className="about-section">
+                        <div className={"description"}>About this Product</div>
+                        <div className={"description-text"}><div>{item.description}</div></div>
+                        <button  onClick={() => { this.props.deleteProduct() }}
+                            className={"delete-button"}>
+                            Delete Product
                     </button>
+                        <hr />
+                        <hr />
+                        <hr />
+                    </div>
                 </div>
             </div>
         )
