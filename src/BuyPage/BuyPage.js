@@ -3,25 +3,27 @@ import SiteHeader from "../SiteHeader/SiteHeader";
 import BooksDetails from "../Component/BooksDetails";
 import { connect } from "react-redux";
 import "./BuyPage.scss";
-import { addToCart, deleteFromCart, setInitialStateForBuyPage } from "./BuyPriceAction";
+import { addToCart, deleteFromCart, setInitialStateForBuyPage, selectedNoOfItems } from "./BuyPriceAction";
 import { Redirect } from "react-router-dom";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 class BuyPage extends React.Component {
     componentDidMount() {
         this.props.setInitialStateForBuyPage();
     }
 
-    addToCart = (item) => {
-        this.props.onAddToCart(item)
-    }
-
     constructor(props) {
         super(props);
-        this.state={
-            clicked:true
+        this.state = {
+            clicked: true
         }
     }
-
+    noOfItemsCart = (e) => {
+        this.props.selectednoOfItems(e)
+    }
+    addTocart = (item) => {
+        this.props.onAddToCart(item)
+    }
     render() {
         if (this.props.buyBookDetails.deletedFromCart) {
             return <Redirect to="/home" />
@@ -32,27 +34,34 @@ class BuyPage extends React.Component {
         if (this.props.header.cartPage) {
             return <Redirect to='/cart' />
         }
+        if (this.props.header.homePage) {
+            return <Redirect to='/home' />
+        }
         let item = this.props.homePage.selectedBook
         return (
-            <div>
+            <>
                 <SiteHeader />
                 <div>
                     <BooksDetails
-                        onAddToCart={this.addToCart}
+                        onAddToCart={this.addTocart}
+                        selectednoOfItems={this.noOfItemsCart}
                         item={item} />
                     <div className="about-section">
                         <div className={"description"}>About this Product</div>
                         <div className={"description-text"}><div>{item.description}</div></div>
-                        <button  onClick={() => { this.props.deleteProduct() }}
+                        <button onClick={this.props.deleteProduct}
                             className={"delete-button"}>
-                            Delete Product
-                    </button>
+                            <div className="delete-button-font">
+                                <div><DeleteForeverIcon fontSize="small" /></div>
+                                <div style={{ paddingTop: 2 }}>Delete Product</div>
+                            </div>
+                        </button>
                         <hr />
                         <hr />
                         <hr />
                     </div>
                 </div>
-            </div>
+            </>
         )
     };
 }
@@ -65,6 +74,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         "deleteProduct": () => (dispatch(deleteFromCart())),
         "onAddToCart": (item) => (dispatch(addToCart(item))),
+        "selectednoOfItems": (e) => (dispatch(selectedNoOfItems(e))),
         "setInitialStateForBuyPage": () => (dispatch(setInitialStateForBuyPage()))
     };
 };

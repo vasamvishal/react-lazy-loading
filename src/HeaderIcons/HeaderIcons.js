@@ -9,7 +9,6 @@ import { redirectToCartPage, redirectToAccountPage, redirectToHomePage, redirect
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 class HeaderIcons extends React.Component {
     render() {
-
         return (
             <>
                 <div className={"def"} onClick={this.props.redirectToHomePage}>

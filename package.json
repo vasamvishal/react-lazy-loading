@@ -29,6 +29,7 @@
     "redux": "^4.0.5",
     "redux-loop": "^6.0.1",
     "save": "^2.4.0",
+    "serve": "^11.3.2",
     "source-map-explorer": "^2.4.2"
   },
   "scripts": {
@@ -58,6 +59,7 @@
     "history": "^5.0.0",
     "jw-react-pagination": "^1.1.0",
     "react-addons-perf": "^15.4.2",
+    "react-intl-currency-input": "^0.2.5",
     "reactstrap": "^8.5.1"
   }
 }

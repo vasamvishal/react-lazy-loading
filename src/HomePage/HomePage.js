@@ -9,6 +9,7 @@ import { Redirect } from "react-router-dom";
 import array from '../Component/Def.json';
 import ReactPaginate from 'react-paginate';
 import BookDetailsComponent from '../Component/BookDetailsComponent';
+// import ReactLoading from 'react-loading';
 
 class HomePage extends React.Component {
 
@@ -27,6 +28,9 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
+        // setTimeout(()=>{
+        //     <ReactLoading/>
+        // },3000)
         this.props.setInitialState();
         this.recievedData();
     }
@@ -74,6 +78,9 @@ class HomePage extends React.Component {
     }
 
     render() {
+        console.log("data", this.props.homePage.storeData);
+        console.log("data1", this.props.header.signUpPage);
+        console.log("data2", this.props.header.cartPage);
         if (this.props.homePage.storeData) {
             return <Redirect to="/buyPrice" />
         }
@@ -85,7 +92,6 @@ class HomePage extends React.Component {
         if (this.props.header.cartPage) {
             return <Redirect to='/cart' />
         }
-        console.log("Asasas", this.props.homePage.storeData)
         return (
             <div className={"homepage"}>
                 <SiteHeader onSearch={this.props.onSearchValue} />

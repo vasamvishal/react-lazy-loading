@@ -1,42 +1,5 @@
-.description{
-  text-align: initial;
-  padding-top: 1.5em;
-  padding-bottom: 0.5em;
-  font-size: 34px;
-  font-family: sans-serif;
-  font-weight: 900;
-  @media screen and (max-width: 700px){
-    font-weight: 900;
-    font-size: 1em;
-    margin-left: 0vw;
-    font-family: sans-serif;
-    }
-}
 
-.description-text{
-    text-align: initial;
-    width: 64vw;
-    height: auto;
-  @media screen and (max-width: 700px){
-    width: 80vw;
-  }
-}
 
-.delete-button {
-  background-color: #a03037;
-  height: 2em;
-  margin-top: 2em;
-  width: 13em;
-  @media screen and (max-width: 700px){
-    float: right;
-    margin-right: 15vw;
-  }
-}
-
-.text-button{
-  display: flex;
-  margin-top: 1em;
-}
 
 .about-section{
   display: flex;
@@ -50,6 +13,46 @@
     margin-left: 7em;
   }
   @media screen and (max-width: 1024px) and (min-width: 1024px){
-    margin-left: 15em;
+    margin-left: 9em;
+  }
+
+  .description{
+    text-align: initial;
+    padding-top: 1.5em;
+    padding-bottom: 0.5em;
+    font-size: 34px;
+    font-family: sans-serif;
+    font-weight: 900;
+    @media screen and (max-width: 700px){
+      font-weight: 900;
+      font-size: 1em;
+      margin-left: 0vw;
+      font-family: sans-serif;
+      }
+  }
+  .description-text{
+    text-align: initial;
+    width: 64vw;
+    height: auto;
+  @media screen and (max-width: 700px){
+    width: 80vw;
   }
 }
+.delete-button {
+  background-color: firebrick;
+  height: 2em;
+  margin-top: 2em;
+  width: 13em;
+  cursor: pointer;
+  @media screen and (max-width: 700px){
+    float: right;
+    margin-right: 15vw;
+  }
+  .delete-button-font{
+    display: flex;
+    color:white;
+    justify-content: space-evenly;
+  }
+}
+}
+

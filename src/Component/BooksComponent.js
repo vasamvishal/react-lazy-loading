@@ -1,4 +1,5 @@
 import React from "react";
+import "./BooksComponent.scss";
 
 class BooksComponent extends React.Component {
     render() {
