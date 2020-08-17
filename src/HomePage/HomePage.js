@@ -10,6 +10,7 @@ import array from '../Component/Def.json';
 import ReactPaginate from 'react-paginate';
 import BookDetailsComponent from '../Component/BookDetailsComponent';
 // import ReactLoading from 'react-loading';
+import Loader from 'react-loader-spinner';
 
 class HomePage extends React.Component {
 
@@ -23,16 +24,18 @@ class HomePage extends React.Component {
             data: [],
             perPage: 10,
             currentPage: 0,
-            selectedPage: this.props.header.selectedPage
+            selectedPage: this.props.header.selectedPage,
+            isLoading: true
         }
     }
 
     componentDidMount() {
-        // setTimeout(()=>{
-        //     <ReactLoading/>
-        // },3000)
+        setTimeout(() => {
+            this.setState({ isLoading: false })
+        }, 2000)
         this.props.setInitialState();
         this.recievedData();
+        //  this.setState({ isLoading: false })
     }
 
     recievedData = () => {
@@ -78,6 +81,8 @@ class HomePage extends React.Component {
     }
 
     render() {
+        console.log("DDDDDDDddddddd");
+        console.log("DDDDDDDddddddd", this.state.isLoading);
         console.log("data", this.props.homePage.storeData);
         console.log("data1", this.props.header.signUpPage);
         console.log("data2", this.props.header.cartPage);
@@ -93,31 +98,39 @@ class HomePage extends React.Component {
             return <Redirect to='/cart' />
         }
         return (
-            <div className={"homepage"}>
-                <SiteHeader onSearch={this.props.onSearchValue} />
-                <div className={"main-content"}>
-                    <div>
-                        {this.getCard()}
-                    </div>
-                    <div className={"footer-header"}>
-                        <ReactPaginate
-                            previousLabel={"prev"}
-                            nextLabel={"next"}
-                            breakLabel={"..."}
-                            breakClassName={"break-me"}
-                            pageCount={this.state.pageCount}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            onPageChange={this.handlePageClick}
-                            containerClassName={"pagination"}
-                            subContainerClassName={"pages pagination"}
-                            activeClassName={"active"} />
-                        <br />
-                        <br />
-                        <br />
-                    </div>
+            <>
+                <div className={"homepage"}>
+                    <SiteHeader onSearch={this.props.onSearchValue} />
+                    {this.state.isLoading ? <Loader
+                        type="ThreeDots"
+                        color="#00BFFF"
+                        height={700}
+                        width={200}
+                        timeout={2000} /> :
+                        <div className={"main-content"}>
+                            <div>
+                                {this.getCard()}
+                            </div>
+                            <div className={"footer-header"}>
+                                <ReactPaginate
+                                    previousLabel={"prev"}
+                                    nextLabel={"next"}
+                                    breakLabel={"..."}
+                                    breakClassName={"break-me"}
+                                    pageCount={this.state.pageCount}
+                                    marginPagesDisplayed={2}
+                                    pageRangeDisplayed={5}
+                                    onPageChange={this.handlePageClick}
+                                    containerClassName={"pagination"}
+                                    subContainerClassName={"pages pagination"}
+                                    activeClassName={"active"} />
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+                        </div>}
                 </div>
-            </div>
+            </>
         )
     }
 }
