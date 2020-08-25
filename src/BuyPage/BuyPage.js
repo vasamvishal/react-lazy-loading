@@ -10,13 +10,28 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 class BuyPage extends React.Component {
     componentDidMount() {
         this.props.setInitialStateForBuyPage();
+
     }
 
     constructor(props) {
         super(props);
+        this.getBookFromID(props);
         this.state = {
-            clicked: true
+            clicked: true,
+            booksData:[]
         }
+    }
+
+    getBookFromID = (props) => {
+        const element = this.props.match.params.id
+        console.log("props", this.props.match.params.id)
+        console.log("props", this.props.homePage.getAllBookData)
+        this.props.homePage.getAllBookData.map((item) => {
+            if (item._id === element){
+                this.setState({booksData:item})
+            }
+        })
+
     }
     noOfItemsCart = (e) => {
         this.props.selectednoOfItems(e)
@@ -37,7 +52,9 @@ class BuyPage extends React.Component {
         if (this.props.header.homePage) {
             return <Redirect to='/home' />
         }
-        let item = this.props.homePage.selectedBook
+        // let item = this.props.homePage.selectedBook
+        let item = this.state.booksData
+        console.log(item);
         return (
             <>
                 <SiteHeader />

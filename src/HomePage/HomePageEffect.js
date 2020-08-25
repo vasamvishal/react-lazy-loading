@@ -1,4 +1,4 @@
-import {array} from "../Component/Array";
+import {array} from "../Component/Def";
 
 export const extractDataFromStorage = () => {
     return array;

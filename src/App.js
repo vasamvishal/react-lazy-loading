@@ -17,7 +17,7 @@ export default function App() {
                 <div className="App">
                     <Route path={"/login"} exact component={Login} />
                     <Route path={"/home"} exact component={HomePage} />
-                    <Route path={"/buyPrice"} exact component={BuyPage} />
+                    <Route path={"/buyPrice/:id"} exact component={BuyPage} />
                     <Route path={"/cart"} exact component={AddToCart} />
                     <Route path={"/exampleDemo"} exact component={MenuBurger} />
                     <Route path={"/example"} exact component={HamburgerMenu} />

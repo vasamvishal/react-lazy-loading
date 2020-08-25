@@ -1,23 +1,23 @@
 import React, { Suspense } from "react";
 import "./HomePage.scss";
 import Card from '@material-ui/core/Card';
-import Papa from 'papaparse';
 import SiteHeader from "../SiteHeader/SiteHeader";
 import { connect } from "react-redux";
 import { selectedBook, setIntialState, onSearchValue } from "./HomePageAction";
 import { Redirect } from "react-router-dom";
-import array from '../Component/Def.json';
+// import array from '../Component/Def';
 import ReactPaginate from 'react-paginate';
 import BookDetailsComponent from '../Component/BookDetailsComponent';
-// import ReactLoading from 'react-loading';
 import Loader from 'react-loader-spinner';
+import { array } from "../Component/Def";
 
 class HomePage extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log("constructor", props)
         this.state = {
-            exampleItems: array,
+            exampleItems: this.props.homePage.getAllBookData,
             selectedStateData: this.props.storeData,
             pageOfItems: [],
             offset: 0,
@@ -29,17 +29,29 @@ class HomePage extends React.Component {
         }
     }
 
+
     componentDidMount() {
+        console.log("componentDidMount")
         setTimeout(() => {
             this.setState({ isLoading: false })
         }, 2000)
-        this.props.setInitialState();
-        this.recievedData();
-        //  this.setState({ isLoading: false })
+        this.props.setInitialState(()=>{
+            this.recievedData()
+        });
+
+        // console.log("recieved data")
+        // console.log(result);
+        // });
     }
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.value !== this.props.value) { alert(prevProps.value) }
+    // }
+
 
     recievedData = () => {
-        const data = array;
+        console.log("recieved data")
+        const data = this.props.homePage.getAllBookData;
+        console.log("SADDAD", data)
         const slice = this.state.exampleItems.slice(this.state.offset, this.state.offset + this.state.perPage)
         this.setState({
             pageCount: Math.ceil(data.length / this.state.perPage),
@@ -60,6 +72,7 @@ class HomePage extends React.Component {
     };
 
     getCard = () => {
+        console.log("SADDAData", this.state.pageOfItems)
         return (
             <div className={"root"}>
                 <div>
@@ -86,8 +99,10 @@ class HomePage extends React.Component {
         console.log("data", this.props.homePage.storeData);
         console.log("data1", this.props.header.signUpPage);
         console.log("data2", this.props.header.cartPage);
+        console.log("data2", this.props.homePage.getAllBookData);
         if (this.props.homePage.storeData) {
-            return <Redirect to="/buyPrice" />
+            let id = this.props.homePage.selectedBook._id
+            return <Redirect to={`/buyPrice/${id}`} />
         }
 
         if (this.props.header.signUpPage) {
