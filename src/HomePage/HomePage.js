@@ -17,7 +17,7 @@ class HomePage extends React.Component {
         super(props);
         console.log("constructor", props)
         this.state = {
-            exampleItems: this.props.homePage.getAllBookData,
+            books: [],
             selectedStateData: this.props.storeData,
             pageOfItems: [],
             offset: 0,
@@ -35,24 +35,25 @@ class HomePage extends React.Component {
         setTimeout(() => {
             this.setState({ isLoading: false })
         }, 2000)
-        this.props.setInitialState(()=>{
+        this.props.setInitialState()
+        console.log(this.props.homePage.getAllBookData);
+        if (this.props.homePage.getAllBookData.length > 1) {
+            console.log("sdadasd");
             this.recievedData()
-        });
-
-        // console.log("recieved data")
-        // console.log(result);
-        // });
+        }
     }
-    // componentDidUpdate(prevProps) {
-    //     if (prevProps.value !== this.props.value) { alert(prevProps.value) }
-    // }
 
+    componentWillReceiveProps(nextProps) {
+        const newValue = nextProps.homePage.getAllBookData;
+        if (newValue !== this.props.homePage.getAllBookData.length)
+            this.setState({ books: nextProps.homePage.getAllBookData }, () => {
+                this.recievedData()
+            })
+    }
 
     recievedData = () => {
-        console.log("recieved data")
         const data = this.props.homePage.getAllBookData;
-        console.log("SADDAD", data)
-        const slice = this.state.exampleItems.slice(this.state.offset, this.state.offset + this.state.perPage)
+        const slice = this.state.books.slice(this.state.offset, this.state.offset + this.state.perPage)
         this.setState({
             pageCount: Math.ceil(data.length / this.state.perPage),
             pageOfItems: slice
@@ -72,7 +73,6 @@ class HomePage extends React.Component {
     };
 
     getCard = () => {
-        console.log("SADDAData", this.state.pageOfItems)
         return (
             <div className={"root"}>
                 <div>

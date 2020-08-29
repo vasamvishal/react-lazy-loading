@@ -10,25 +10,23 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 class BuyPage extends React.Component {
     componentDidMount() {
         this.props.setInitialStateForBuyPage();
-
+        this.getBookFromID(this.state.bookId);
     }
 
     constructor(props) {
         super(props);
-        this.getBookFromID(props);
         this.state = {
             clicked: true,
-            booksData:[]
+            booksData: [],
+            bookId: props.match.params.id
         }
     }
 
-    getBookFromID = (props) => {
-        const element = this.props.match.params.id
-        console.log("props", this.props.match.params.id)
-        console.log("props", this.props.homePage.getAllBookData)
-        this.props.homePage.getAllBookData.map((item) => {
-            if (item._id === element){
-                this.setState({booksData:item})
+    getBookFromID = (bookId) => {
+        console.log("sadsda");
+        this.props.homePage.getAllBookData.map((bookDetails) => {
+            if (bookDetails._id === bookId) {
+                this.setState({ booksData: bookDetails })
             }
         })
 
@@ -36,9 +34,11 @@ class BuyPage extends React.Component {
     noOfItemsCart = (e) => {
         this.props.selectednoOfItems(e)
     }
+
     addTocart = (item) => {
         this.props.onAddToCart(item)
     }
+
     render() {
         if (this.props.buyBookDetails.deletedFromCart) {
             return <Redirect to="/home" />
@@ -52,9 +52,8 @@ class BuyPage extends React.Component {
         if (this.props.header.homePage) {
             return <Redirect to='/home' />
         }
-        // let item = this.props.homePage.selectedBook
         let item = this.state.booksData
-        console.log(item);
+        console.log("item", item);
         return (
             <>
                 <SiteHeader />
