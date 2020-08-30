@@ -4,6 +4,8 @@ import SiteHeader from "../SiteHeader/SiteHeader";
 import BookDetailsComponent from "../Component/BookDetailsComponent";
 import "./AddToCart.scss";
 import { Redirect } from "react-router-dom";
+import {toBuyPage} from "../../src/AddToCart/AddToCartAction";
+import BrowserService from "../../src/BrowserService";
 
 class AddToCart extends React.Component {
     constructor(props) {
@@ -40,13 +42,18 @@ class AddToCart extends React.Component {
                 <hr />
             </>
         )
-        // }))
     }
 
     render() {
         if (this.props.header.homePage) {
             return <Redirect to="/home" />
         }
+        // if (this.props.addToCart.routeToBuyPage) {
+        //     console.log("def");
+        //     return <Redirect to="/home"/>
+        // }
+        const def = BrowserService.getLocalStorageValue("bookDetails");
+        console.log("value", def);
         let item = this.props.buyBookDetails.addedToCart;
         console.log("ddd", item);
         return (
@@ -57,7 +64,8 @@ class AddToCart extends React.Component {
                         {this.abc(item)}
                         <div className="checkout-box">
                             <div>SUB TOTAL:{item.price}</div>
-                            <button className="checkout-button">Checkout</button>
+                            <button className="checkout-button" onClick={this.props.routeToBuyPage}>Checkout</button>
+                            {/* <button className="checkout-button" onClick={this.props.routeToBuyPage}>Back</button> */}
                         </div>
                     </div>
                 }
@@ -67,8 +75,13 @@ class AddToCart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log("state", state.homePage.array);
+    console.log("state", state);
     return state
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        "routeToBuyPage": () => (dispatch(toBuyPage())),
+    }
+}
 
-export default connect(mapStateToProps, null)(AddToCart);
+export default connect(mapStateToProps, mapDispatchToProps)(AddToCart);

@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
             return {...state, addedToCart: [], deletedFromCart: true}
         }
         case SELECTED_NO_OF_ITEMS : {
+            console.log("noOFITems",action.payload);
             return {...state,noOfItems:action.payload}
         }
 
