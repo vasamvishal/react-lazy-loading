@@ -93,7 +93,8 @@
     "test": "node scripts/test.js",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "start-sw": "http-server ./build"
   },
   "eslintConfig": {
     "extends": "react-app"

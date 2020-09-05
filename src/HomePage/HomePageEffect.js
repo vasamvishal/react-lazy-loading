@@ -1,6 +1,13 @@
 import {array} from "../Component/Def";
-
+const url="http://localhost:8080/getAll";
 export const extractDataFromStorage = () => {
+    // return fetch(`${url}`)
+    // .then((result) => {
+    //     console.log("result",result);
+    //     return result;
+    // }).catch((err) => {
+    //     return Promise.reject("Error Occured while Fetching Customers " + err);
+    // });
     return array;
 }
 export const searchBooksForData = (payload) => {
