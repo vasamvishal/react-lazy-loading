@@ -1,0 +1,115 @@
+import Dialog from '@material-ui/core/Dialog';
+import React from 'react';
+import Login from '../Login/Login';
+import SiteHeader from '../SiteHeader/SiteHeader';
+import { checkForAgeValidation, checkForColourNameValidation, checkForIdValidation, checkForNameValidation } from "./formValidation";
+import "./SignUp.scss";
+
+// import EditDialog from './EditDialog';
+
+export default class SignUp extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: true,
+            numberError: false,
+            ageError: false,
+            nameError: false,
+            colourNameError: false,
+        }
+        console.log("Signup", props);
+        this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        // this.onCloseSignUpPage = this.onCloseSignUpPage.bind(this);
+
+    }
+
+    handleClickOpen = () => {
+        this.setState({ open: true })
+    };
+
+    // backed=()=>{
+    //     console.log("DDDd");
+    //     this.props.onCloseSignUpPage();
+    // }
+
+    handleClose = () => {
+        console.log("signup", this.state.open);
+        this.setState({ open: false })
+    }
+
+    checkForIdValidation = (e) => {
+        if (checkForIdValidation(e)) {
+            this.setState({ numberError: true })
+        }
+        else {
+            this.setState({ numberError: false })
+            this.setState({ Id: e.target.value })
+        }
+    }
+
+    checkForNameValidation = (e) => {
+        if (checkForNameValidation(e) === false) {
+            this.setState({ nameError: false })
+            this.setState({ nameValue: e.target.value })
+        }
+        else {
+            this.setState({ nameError: true })
+        }
+    }
+
+    checkForAgeValidation = (e) => {
+        if (checkForAgeValidation(e)) {
+            this.setState({ ageError: true })
+        }
+        else {
+            this.setState({ ageError: false })
+            this.setState({ ageValue: e.target.value })
+        }
+    }
+
+    checkForColourNameValidation = (e) => {
+        if (checkForColourNameValidation(e) === false) {
+            this.setState({ colourNameError: false })
+            this.setState({ colourName: e.target.value })
+        }
+        else {
+            this.setState({ colourNameError: true })
+        }
+    }
+    displayNothing() {
+        return alert("Hello! User has ID registered create a new User!");
+    }
+
+    onClosePage = () => {
+        console.log("blah")
+        this.props.onCloseSignUpPage()
+    }
+
+    checkForDisabledButton() {
+        if (this.state.numberError === false && this.state.colourNameError === false
+            && this.state.ageError === false && this.state.nameError === false
+            && this.state.Id !== undefined && this.state.nameValue !== undefined &&
+            this.state.ageValue !== undefined && this.state.colourName !== undefined
+        ) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    render() {
+        console.log("signupPage", this.state.open);
+        return (
+            <>
+                <Dialog
+                    open={this.state.open}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <Login onClose={this.onClosePage} />
+                </Dialog>
+            </>
+        );
+    }
+}

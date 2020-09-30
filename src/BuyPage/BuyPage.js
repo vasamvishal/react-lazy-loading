@@ -24,27 +24,29 @@ class BuyPage extends React.Component {
     }
 
     getBookFromID = (bookId) => {
-        this.props.homePage.getAllBookData.map((bookDetails) => {
-            if (bookDetails._id === bookId) {
+        console.log("DSDSD",this.props.homePage.getAllBookData);
+            let bookDetails=JSON.parse(BrowserService.getLocalStorageValue("selectedBook"));
+            Object.keys(bookDetails).map((key)=> {
+            if (key=== "_id" && bookDetails[key] === bookId) {
                 this.setState({ booksData: bookDetails })
             }
-        })
-
+        });
     }
+
     noOfItemsCart = (e) => {
         this.props.selectednoOfItems(e)
     }
 
     addTocart = (item) => {
         //need to change
-        const addToCart = [];
-        addToCart.push(item._id);
-        const noOfItems = [];
-        noOfItems.push(this.props.buyBookDetails.noOfItems);
-        const itemDetails = JSON.stringify(addToCart)
-        console.log(itemDetails);
-        BrowserService.setLocalStorageValue("noOfItems", noOfItems);
-        BrowserService.setLocalStorageValue("bookDetails", itemDetails);
+        // const addToCart = [];
+        // addToCart.push(item._id);
+        // const noOfItems = [];
+        // noOfItems.push(this.props.buyBookDetails.noOfItems);
+        // const itemDetails = JSON.stringify(addToCart)
+        // console.log(itemDetails);
+        // BrowserService.setLocalStorageValue("noOfItems", noOfItems);
+        // BrowserService.setLocalStorageValue("bookDetails", itemDetails);
         this.props.onAddToCart(item)
     }
 
@@ -52,8 +54,7 @@ class BuyPage extends React.Component {
         const deleteFromCart = [];
         deleteFromCart.push(this.props.buyBookDetails.addedToCart);
         if (deleteFromCart.length > 0) {
-            BrowserService.deleteLocalStorageItem("bookDetails");
-            BrowserService.deleteLocalStorageItem("noOfItems");
+            BrowserService.deleteLocalStorageItem("selectedBook");
         }
         this.props.deleteProduct();
     }
@@ -62,15 +63,7 @@ class BuyPage extends React.Component {
         if (this.props.buyBookDetails.deletedFromCart) {
             return <Redirect to="/home" />
         }
-        if (this.props.header.signUpPage) {
-            return <Redirect to='/login' />
-        }
-        if (this.props.header.cartPage) {
-            return <Redirect to='/cart' />
-        }
-        if (this.props.header.homePage) {
-            return <Redirect to='/home' />
-        }
+        
         let item = this.state.booksData
         console.log("item", item);
         return (

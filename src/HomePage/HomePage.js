@@ -1,15 +1,18 @@
-import React, { Suspense } from "react";
+import React, { Suspense,lazy} from "react";
 import "./HomePage.scss";
 import Card from '@material-ui/core/Card';
 import SiteHeader from "../SiteHeader/SiteHeader";
 import { connect } from "react-redux";
 import { selectedBook, setIntialState, onSearchValue } from "./HomePageAction";
 import { Redirect } from "react-router-dom";
-// import array from '../Component/Def';
 import ReactPaginate from 'react-paginate';
 import BookDetailsComponent from '../Component/BookDetailsComponent';
 import Loader from 'react-loader-spinner';
 import { array } from "../Component/Def";
+import BrowserService from "../BrowserService";
+import SignUp from "../SignUp/SignUp";
+
+// const BookDetailsComponent=lazy(()=>{"../Component/BookDetailsComponent"});
 
 class HomePage extends React.Component {
 
@@ -36,11 +39,6 @@ class HomePage extends React.Component {
             this.setState({ isLoading: false })
         }, 2000)
         this.props.setInitialState()
-        console.log(this.props.homePage.getAllBookData);
-        if (this.props.homePage.getAllBookData.length > 1) {
-            console.log("sdadasd");
-            this.recievedData()
-        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -94,24 +92,19 @@ class HomePage extends React.Component {
     }
 
     render() {
-        console.log("DDDDDDDddddddd");
-        console.log("DDDDDDDddddddd", this.state.isLoading);
-        console.log("data", this.props.homePage.storeData);
-        console.log("data1", this.props.header.signUpPage);
-        console.log("data2", this.props.header.cartPage);
-        console.log("data2", this.props.homePage.getAllBookData);
+        // console.log("DDDDDDDddddddd");
+        // console.log("DDDDDDDddddddd", this.state.isLoading);
+        // console.log("data", this.props.homePage.storeData);
+        // console.log("signuppage", this.props.header.signUpPage);
+        // console.log("data2", this.props.header.cartPage);
+        // console.log("data2", this.props.homePage.getAllBookData);
         if (this.props.homePage.storeData) {
+            const itemDetails = JSON.stringify(this.props.homePage.selectedBook);
             let id = this.props.homePage.selectedBook._id
+            BrowserService.setLocalStorageValue("selectedBook",itemDetails);       
             return <Redirect to={`/buyPrice/${id}`} />
-        }
+        } 
 
-        if (this.props.header.signUpPage) {
-            return <Redirect to='/login' />
-        }
-
-        if (this.props.header.cartPage) {
-            return <Redirect to='/cart' />
-        }
         return (
             <>
                 <div className={"homepage"}>

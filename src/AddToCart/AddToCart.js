@@ -6,6 +6,7 @@ import "./AddToCart.scss";
 import { Redirect } from "react-router-dom";
 import {toBuyPage} from "../../src/AddToCart/AddToCartAction";
 import BrowserService from "../../src/BrowserService";
+import SignUp from "../SignUp/SignUp";
 
 class AddToCart extends React.Component {
     constructor(props) {
@@ -45,13 +46,6 @@ class AddToCart extends React.Component {
     }
 
     render() {
-        if (this.props.header.homePage) {
-            return <Redirect to="/home" />
-        }
-        // if (this.props.addToCart.routeToBuyPage) {
-        //     console.log("def");
-        //     return <Redirect to="/home"/>
-        // }
         const def = BrowserService.getLocalStorageValue("bookDetails");
         console.log("value", def);
         let item = this.props.buyBookDetails.addedToCart;
@@ -59,7 +53,7 @@ class AddToCart extends React.Component {
         return (
             <div>
                 <SiteHeader />
-                {item.length === 0 ? <div className="cartImage"></div> :
+                {item.length === 0 ? <><div className="cartImage"></div></> :<>
                     <div className="checkout-main-box1">
                         {this.abc(item)}
                         <div className="checkout-box">
@@ -68,6 +62,7 @@ class AddToCart extends React.Component {
                             {/* <button className="checkout-button" onClick={this.props.routeToBuyPage}>Back</button> */}
                         </div>
                     </div>
+                    </>
                 }
             </div>
         )

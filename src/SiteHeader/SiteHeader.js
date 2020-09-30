@@ -1,8 +1,13 @@
 import React from "react";
-import "./SiteHeader.scss";
-import SearchIcon from "../SiteHeader/SearchIcon";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import HamburgerMenu from "../Component/HamberGerMenu";
 import HeaderIcons from "../HeaderIcons/HeaderIcons";
+import SignUp from "../SignUp/SignUp";
+import SearchIcon from "../SiteHeader/SearchIcon";
+import "./SiteHeader.scss";
+import { redirectToSignUpPage } from "./SiteHeaderAction"
+import PopupButton from "../Component/PopupButton";
 
 class SiteHeader extends React.Component {
     constructor(props) {
@@ -10,8 +15,14 @@ class SiteHeader extends React.Component {
         this.state = {
             value: ""
         }
+        console.log("prpops");
     }
+ 
     render() {
+        console.log("header",this.props);
+        console.log("prpopseeeeee",this.props.signUpPage);
+        console.log("SiteHeader");
+        
         return (
             <div className={"header-logo"}>
                 <div className={"site-header-tabs"}>
@@ -23,13 +34,16 @@ class SiteHeader extends React.Component {
                         </div>
                     </div>
                     <div className="desktop-icons">
-                        <HeaderIcons />
+                        <HeaderIcons/>
                     </div>
                 </div>
             </div>
         )
     }
 }
+const mapStateToProps = (state) => {
+    return state.header;
+}
 
-export default SiteHeader
+export default connect(mapStateToProps, null)(SiteHeader);
 

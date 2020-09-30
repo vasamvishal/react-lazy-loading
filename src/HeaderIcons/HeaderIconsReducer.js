@@ -11,7 +11,7 @@ export const initialState = {
     accountPage: false,
     homePage: false,
     signUpPage: false,
-    homePage: false,
+    aboutUs: false,
     selectedPage: 1
 }
 

@@ -1,0 +1,50 @@
+li.li-def a::before{
+    // background-color: yellow;
+    color: yellow;
+    content: "red";
+}
+
+.account-popup{
+    min-width: 260px;
+    margin-top: 3em;
+    margin-left: -2em;
+    padding: 10px;
+    position: absolute;
+    color: black;
+    background-color: white;
+    border: 0px solid lightgray;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.my-orders{
+    color: black;
+    font-size: 15px;
+}
+
+.header-links{
+    // min-width: 260px;
+    // top: 100%;
+    // right: -11px;
+    //
+    margin-left: -2em;
+}
+
+.header-links >li{
+    list-style-type: none;
+    margin: 0em;
+    line-height: 1;
+    padding: 0 20px 12px 30px;
+}
+
+.header-links :hover{
+    background-color: #2f445c;
+    color: white;
+}
+
+.button-login{
+    border: 1px solid green;
+    background-color: white;
+    width: 13em;
+    margin-left: -18vh;
+    height: 2em;
+}
