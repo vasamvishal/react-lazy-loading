@@ -1,11 +1,9 @@
 import Dialog from '@material-ui/core/Dialog';
 import React from 'react';
 import Login from '../Login/Login';
-import SiteHeader from '../SiteHeader/SiteHeader';
 import { checkForAgeValidation, checkForColourNameValidation, checkForIdValidation, checkForNameValidation } from "./formValidation";
 import "./SignUp.scss";
 
-// import EditDialog from './EditDialog';
 
 export default class SignUp extends React.Component {
     constructor(props) {
@@ -20,18 +18,11 @@ export default class SignUp extends React.Component {
         console.log("Signup", props);
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        // this.onCloseSignUpPage = this.onCloseSignUpPage.bind(this);
-
     }
 
     handleClickOpen = () => {
         this.setState({ open: true })
     };
-
-    // backed=()=>{
-    //     console.log("DDDd");
-    //     this.props.onCloseSignUpPage();
-    // }
 
     handleClose = () => {
         console.log("signup", this.state.open);

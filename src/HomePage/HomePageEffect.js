@@ -1,5 +1,5 @@
 import {array} from "../Component/Def";
-const url="http://localhost:8080/getAll";
+// const url="http://localhost:8080/getAll";
 export const extractDataFromStorage = () => {
     // return fetch(`${url}`)
     // .then((result) => {

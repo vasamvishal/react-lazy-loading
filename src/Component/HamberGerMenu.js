@@ -23,7 +23,7 @@ class HamburgerMenuExport extends React.Component {
     }
     render() {
         return (
-            <div>
+            <>
                 <div id="myNav" class="overlay">
                     <a class="closebtn" onClick={() => this.closeNav()}>&times;</a>
                     <div class="overlay-content">
@@ -31,7 +31,7 @@ class HamburgerMenuExport extends React.Component {
                     </div>
                 </div>
                 <MenuIcon onClick={() => this.handleClick()} style={{ fontSize: 40,color:'white',paddingTop:'9px',paddingLeft:'27px'}}>openClose</MenuIcon>
-            </div>
+            </>
         )
     }
 }

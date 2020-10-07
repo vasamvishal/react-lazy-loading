@@ -20,7 +20,7 @@
   margin-top: 19vh;
   background-image: url("../../src/images/empty-cart.png");
   background-repeat: no-repeat;
-  height: 91em;
+  height: 30em;
   width: 23em;
   @media screen and (max-width: 1024px){
     margin-left: 24vh;
@@ -88,6 +88,23 @@
 #books-details-cart{
   margin-left: 7vw;
   padding-top: 4vh;
+
+  .item-title{
+    font-weight: 700;
+  }
+  .item{
+    display: flex;
+  .item-price{
+    font-weight: 500;
+  }
+  .item-quantity{
+    font-weight: 500;
+  }
+  }
+  .item-total{
+    font-weight: 500;
+  }
+
 }
 
 }
@@ -103,10 +120,13 @@
 }
 .checkout-button{
   background-color: red;
+  width: 10em;
+  height: 2em;
 }
 }
 .cancel-button{
   margin-left: auto;
   order: 2;
   align-self: center;
+  cursor: pointer;
 }

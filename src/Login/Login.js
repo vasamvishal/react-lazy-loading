@@ -2,40 +2,77 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import './Login.scss';
-import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
 import Registration from '../Registartion/Registration';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+import {login} from "./LoginAction";
+import { ThemeProvider } from '@material-ui/core';
 
 
 class Login extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            show:false
+            show:false,
+            userName:"",
+            password:"",
+            error:this.props.status===undefined ? 200:this.props.status
         }
         console.log("Login",props);
+        console.log("DFDFDF",this.props.login);
         this.back = this.back.bind(this);
     }
     
     back=()=>{
         console.log("blah1");
+        this.setState({error:200},()=>{
         this.props.onClose()
+        });
     }
 
     renderRegisterPage = () => {
         this.setState({show:!this.state.show})
     }
+     
+    userName=(e)=>{
+        this.setState({userName:e.target.value})
+    }
+
+    // password=(e)=>{
+    //     this.setState({password:e.target.value})
+    // }
+
+    onKeyDown=(e)=>{
+        // e.preventDefault();
+        if (e.key === "Delete" || e.key === "Backspace") {
+            this.setState({password:e.target.value},()=>{
+                this.setState({error:200})
+            })
+        }
+        else{
+            this.setState({password:e.target.value})
+        }
+    }
 
     closeRegistration=()=>{
         this.setState({show:!this.state.show})
     }
-    // renderMainPage = () => {
-    //     this.props.history.push("/home");
-    // }
+
+    renderMainPage = () => {
+        console.log("dog")
+        console.log(this.props.status);
+        let userName=this.state.userName;
+        let password=this.state.password;
+        let item={userName,password}
+        this.props.login(item).then(()=>{
+            this.setState({error:this.props.status===undefined ? 400:this.props.status})
+        });
+    }
 
     render() {
-        console.log("render");
-        console.log("login",this.state.show)
+        console.log("DFDFDF",this.state.error);
+        console.log("blahhh",this.props.loginData)
+        console.log("DFDFDFvvvv",this.state.error);
         if(this.state.show){
           return <Registration onClose={this.closeRegistration}/>
         }
@@ -57,14 +94,20 @@ class Login extends React.Component {
                                 <TextField
                                     hintText="Enter your Username"
                                     floatingLabelText="Username"
-                                    id="outlined-basic" label="Outlined" variant="outlined"/>
+                                    id="outlined-basic" label="Outlined" variant="outlined" 
+                                    onChange={this.userName}/>
                                 <br/>
                                 <TextField
                                     hintText="Enter your Password"
                                     floatingLabelText="Password"
-                                    id="outlined-basic" label="Outlined" variant="outlined"/>
+                                    id="outlined-basic" label="Outlined"
+                                     variant="outlined" 
+                                     onChange={this.password}
+                                     onKeyDown={this.onKeyDown}/>
                                 <br></br>
                                 <br></br>
+                                {/* {this.state.error} */}
+                                { this.state.error !== 200 ?<p>Your login credentials could not be verified, please try again.</p>:""}
                                 <button className={"button-text"} onClick={this.renderMainPage}>
                                     Log&nbsp;In
                                 </button>
@@ -84,6 +127,15 @@ class Login extends React.Component {
         )
     }
 }
+const mapStateToProps=(state)=>{
+ return state.loginForm;
+}
 
-export default Login;
+const mapDispatchToProps = (dispatch) => {
+    return{
+    "login":(item)=>(dispatch(login(item)))
+    };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
 

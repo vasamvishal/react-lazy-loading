@@ -5,6 +5,11 @@
 }
 .flex{
   display: flex;
+  width: 38vw;
+  
+  @media screen and (max-width:700px){
+    width: 85vw;
+  }
 }
 .checkbox-css{
   display: flex;
@@ -31,6 +36,9 @@
   height: 27.5em;
   // width: 23em;
 
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 }
 .right-article{
   width: 55em;
@@ -39,6 +47,7 @@
   display: flex;
   justify-content: flex-end;
   margin-right: 1em;
+  cursor: pointer;
 }
 .logo{
   display: flex;
@@ -64,6 +73,10 @@
   padding-left: 8em;
   text-decoration:underline ;
   cursor: pointer;
+
+  @media screen and (max-width:700px){
+    padding-left: 4em;
+  }
 }
 
 .forgot-password{

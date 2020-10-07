@@ -26,7 +26,7 @@ class BuyPage extends React.Component {
     getBookFromID = (bookId) => {
         console.log("DSDSD",this.props.homePage.getAllBookData);
             let bookDetails=JSON.parse(BrowserService.getLocalStorageValue("selectedBook"));
-            Object.keys(bookDetails).map((key)=> {
+            return Object.keys(bookDetails).map((key)=> {
             if (key=== "_id" && bookDetails[key] === bookId) {
                 this.setState({ booksData: bookDetails })
             }
@@ -38,15 +38,6 @@ class BuyPage extends React.Component {
     }
 
     addTocart = (item) => {
-        //need to change
-        // const addToCart = [];
-        // addToCart.push(item._id);
-        // const noOfItems = [];
-        // noOfItems.push(this.props.buyBookDetails.noOfItems);
-        // const itemDetails = JSON.stringify(addToCart)
-        // console.log(itemDetails);
-        // BrowserService.setLocalStorageValue("noOfItems", noOfItems);
-        // BrowserService.setLocalStorageValue("bookDetails", itemDetails);
         this.props.onAddToCart(item)
     }
 

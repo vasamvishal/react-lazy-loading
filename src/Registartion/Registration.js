@@ -9,21 +9,28 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import SiteHeader from "../SiteHeader/SiteHeader";
 import "../SignUp/SignUp.scss";
-import { checkForAgeValidation, checkForColourNameValidation, checkForIdValidation, checkForNameValidation } from "../SignUp/formValidation";
+import { checkForNameValidation, checkForIdValidation,checkForAgeValidation } from "../SignUp/formValidation";
 import Login from '../Login/Login';
 import { red } from '@material-ui/core/colors';
 import './Registration.scss';
+var password=[];
+var confirmPassword=[];
 
 export default class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             open: true,
-            numberError: false,
-            ageError: false,
-            nameError: false,
-            colourNameError: false,
-            showPassword: false
+            // numberError: false,
+            // ageError: false,
+            firstNameError:false,
+            lastNameError: false,
+            userNameError:false,
+            // colourNameError: false,
+            showPassword: false,
+            passwordError:false,
+            confirmPasswordError:false,
+            phoneNumber:false
         }
         console.log("Fff");
         this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -44,52 +51,81 @@ export default class Registration extends React.Component {
         this.setState({ open: !this.state.open })
     }
 
-    checkForIdValidation = (e) => {
+    checkForPhoneNumberValidation = (e) => {
         if (checkForIdValidation(e)) {
-            this.setState({ numberError: true })
+            this.setState({ phoneNumber: true })
         }
         else {
-            this.setState({ numberError: false })
+            this.setState({ phoneNumber: false })
             this.setState({ Id: e.target.value })
         }
     }
 
-    checkForNameValidation = (e) => {
+    checkForFirstNameValidation = (e) => {
         if (checkForNameValidation(e) === false) {
-            this.setState({ nameError: false })
+            this.setState({ firstNameError: false })
             this.setState({ nameValue: e.target.value })
         }
         else {
-            this.setState({ nameError: true })
+            this.setState({ firstNameError: true })
         }
     }
 
-    checkForAgeValidation = (e) => {
-        if (checkForAgeValidation(e)) {
-            this.setState({ ageError: true })
+    checkForLastNameValidation = (e) => {
+        if (checkForNameValidation(e) === false) {
+            this.setState({ lastNameError: false })
+            this.setState({ nameValue: e.target.value })
         }
         else {
-            this.setState({ ageError: false })
-            this.setState({ ageValue: e.target.value })
+            this.setState({ lastNameError: true })
         }
     }
 
-    checkForColourNameValidation = (e) => {
-        if (checkForColourNameValidation(e) === false) {
-            this.setState({ colourNameError: false })
+    checkForPasswordValidation = (e) => {
+        //  if (checkForAgeValidation(e)) {
+        //     this.setState({ ageError: true })
+        // }
+        // else {
+            // this.setState({ passwordError: false })
+            password.push(e.target.value);
+
+            // this.setState({ passwordError: e.target.value })
+        // }
+    }
+
+    checkForConfirmPasswordValidation = (e) => {
+        // if (checkForAgeValidation(e)) {
+        //     this.setState({ ageError: true })
+        // }
+        // else {
+            // this.setState({ ageError: false })
+            confirmPassword.push(e.target.value);
+            console.log(password);
+            console.log(confirmPassword);
+
+            if(password.length!==confirmPassword.length){
+                console.log(password.length)
+                console.log(confirmPassword.length)
+                this.setState({ confirmPasswordError:false})
+            }
+
+            //
+        // }
+    }
+
+    checkForUserNameValidation = (e) => {
+        if (checkForNameValidation(e) === false) {
+            this.setState({ userNameError: false })
             this.setState({ colourName: e.target.value })
         }
         else {
-            this.setState({ colourNameError: true })
+            this.setState({ userNameError: true })
         }
     }
     displayNothing() {
         return alert("Hello! User has ID registered create a new User!");
     }
 
-    css() {
-        return "css-for-eye"
-    }
     closeRegistration=()=>{
         this.props.onClose();
     }
@@ -121,63 +157,63 @@ export default class Registration extends React.Component {
                         <form>
                             <TextField
                                 required
-                                error={this.state.numberError}
+                                error={this.state.firstNameError}
                                 id="outlined-error-helper-text"
-                                label="id"
-                                helperText={this.state.numberError ? "Incorrect entry" : ""}
+                                label="FirstName"
+                                helperText={this.state.firstNameError ? "Incorrect entry" : ""}
                                 variant="outlined"
-                                onChange={(e) => { this.checkForIdValidation(e) }} />&nbsp;&nbsp;&nbsp;
+                                onChange={(e) => { this.checkForFirstNameValidation(e) }} />&nbsp;&nbsp;&nbsp;
                             {/* <div className="mobile-break"></div> */}
                             <TextField required
-                                error={this.state.nameError}
+                                error={this.state.lastNameError}
                                 id="outlined-error-helper-text"
-                                label="name"
-                                helperText={this.state.nameError ? "Incorrect entry" : ""}
+                                label="LastName"
+                                helperText={this.state.lastNameError ? "Incorrect entry" : ""}
                                 variant="outlined"
-                                onChange={(e) => { this.checkForNameValidation(e) }} />
+                                onChange={(e) => { this.checkForLastNameValidation(e) }} />
                             <br />
                             <br />
                             <TextField required
-                                error={this.state.ageError}
+                                error={this.state.userNameError}
                                 id="outlined-error-helper-text"
                                 label="userName"
                                 // style={{marginRight:"91vh"}}
-                                helperText={this.state.ageError ? "Incorrect entry" : ""}
+                                helperText={this.state.userNameError ? "Incorrect entry" : ""}
                                 variant="outlined"
-                                onChange={(e) => { this.checkForAgeValidation(e) }} />
+                                onChange={(e) => { this.checkForUserNameValidation(e) }} />
                             <br />
                             <br />
                             <TextField
                                 required
-                                error={this.state.numberError}
+                                error={this.state.passwordError}
                                 id="outlined-error-helper-text"
                                 label="password"
-                                helperText={this.state.numberError ? "Incorrect entry" : ""}
+                                helperText={this.state.passwordError ? "Incorrect entry" : ""}
                                 type={this.state.showPassword ? 'text' : 'password'}
                                 variant="outlined"
-                                onChange={(e) => { this.checkForIdValidation(e) }} />&nbsp;&nbsp;&nbsp;
+                                onChange={(e) => { this.checkForPasswordValidation(e) }} />&nbsp;&nbsp;&nbsp;
 
                              {/* <div className="mobile-break"></div> */}
 
                             <TextField required
-                                error={this.state.nameError}
+                                error={this.state.confirmPasswordError}
                                 id="outlined-error-helper-text"
                                 label="confirm"
-                                helperText={this.state.nameError ? "Incorrect entry" : ""}
+                                helperText={this.state.confirmPasswordError ? "Incorrect entry" : ""}
                                 type={this.state.showPassword ? 'text' : 'password'}
                                 variant="outlined"
-                                onChange={(e) => { this.checkForNameValidation(e) }} />
+                                onChange={(e) => { this.checkForConfirmPasswordValidation(e) }} />
 
-                            {!this.state.showPassword ? <VisibilityOffIcon fontSize="large" onClick={this.showPassword} /> : <VisibilityIcon onClick={this.showPassword} fontSize="large" />}
+                            {!this.state.showPassword ? <VisibilityOffIcon fontSize="large" style={{paddingTop:"0.25em"}} onClick={this.showPassword} /> : <VisibilityIcon onClick={this.showPassword} fontSize="large" />}
                             <br />
                             <br />
                             <TextField required
-                                error={this.state.colourNameError}
+                                error={this.state.phoneNumber}
                                 id="outlined-error-helper-text"
                                 label="Phone Number"
-                                helperText={this.state.colourNameError ? "Incorrect entry" : ""}
+                                helperText={this.state.phoneNumber ? "Incorrect entry" : ""}
                                 variant="outlined"
-                                onChange={(e) => { this.checkForColourNameValidation(e) }} />
+                                onChange={(e) => { this.checkForPhoneNumberValidation(e) }} />
                             <br />
                             <br />
                         </form>

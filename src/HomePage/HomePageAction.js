@@ -22,6 +22,7 @@ export const onSearchValue = (payload) => ({
     type: SEARCH_BOOKS,
     payload
 });
+
 export const searchBooksValue = (payload) => ({
     type: SEARCH_BOOKS_VALUE,
     payload

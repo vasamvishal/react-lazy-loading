@@ -6,12 +6,18 @@ import "./AddToCart.scss";
 import { Redirect } from "react-router-dom";
 import {toBuyPage} from "../../src/AddToCart/AddToCartAction";
 import BrowserService from "../../src/BrowserService";
+import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+
 import SignUp from "../SignUp/SignUp";
 
 class AddToCart extends React.Component {
     constructor(props) {
         super(props)
     }
+
+    // componentDidMount=()=>{
+    //     this.props.getCartDetails();
+    // }
 
     abc = (item) => {
         console.log("DDD")
@@ -24,10 +30,16 @@ class AddToCart extends React.Component {
                         <img className='bookImage' src={item.image} alt={"bookImg"} />
                     </div>
                     <div id="books-details-cart">
-                        <div >{item.title}</div>
-                        <div>Price{item.price}*{quantity}</div>
+                        <div className="item-title">{item.title}</div>
+                        <div className="item">
+                        <div className="item-price">Price &nbsp;&nbsp;{item.price}</div>
+                        &nbsp;&nbsp;
+                        <div className="item-quantity">Quantity&nbsp;&nbsp;{quantity}</div>
+                        </div>
+                        <br/>
+                        <div className="item-total">Total&nbsp;&nbsp;{item.price}*{quantity}</div>
                     </div>
-                    <div className="cancel-button">X</div>
+                <div className="cancel-button"><CloseOutlinedIcon onClick={this.back}/></div>
                 </div>
                 <hr />
                 <div className="dog">
@@ -35,10 +47,15 @@ class AddToCart extends React.Component {
                         <img className='bookImage' src={item.image} alt={"bookImg"} />
                     </div>
                     <div id="books-details-cart">
-                        <div >{item.title}</div>
-                        <div>Price &nbsp;&nbsp;{item.price}*{quantity}</div>
+                        <div className="item-title">{item.title}</div>
+                        {/* <br/> */}
+                        <div className="item-price">Price &nbsp;&nbsp;{item.price}</div>
+                        {/* <br/> */}
+                        <div className="item-quantity">Quantity&nbsp;&nbsp;{quantity}</div>
+                        {/* <br/> */}
+                        <div className="item-total">Total&nbsp;&nbsp;{item.price}*{quantity}</div>
                     </div>
-                    <div className="cancel-button">X</div>
+                    <div className="cancel-button"><CloseOutlinedIcon onClick={this.back}/></div>
                 </div>
                 <hr />
             </>
@@ -51,20 +68,20 @@ class AddToCart extends React.Component {
         let item = this.props.buyBookDetails.addedToCart;
         console.log("ddd", item);
         return (
-            <div>
+            <>
                 <SiteHeader />
                 {item.length === 0 ? <><div className="cartImage"></div></> :<>
                     <div className="checkout-main-box1">
                         {this.abc(item)}
                         <div className="checkout-box">
-                            <div>SUB TOTAL:{item.price}</div>
+                            <div style={{fontWeight:"bold"}}>SUB TOTAL:{item.price}</div>
                             <button className="checkout-button" onClick={this.props.routeToBuyPage}>Checkout</button>
                             {/* <button className="checkout-button" onClick={this.props.routeToBuyPage}>Back</button> */}
                         </div>
                     </div>
                     </>
                 }
-            </div>
+            </>
         )
     }
 }
@@ -76,6 +93,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         "routeToBuyPage": () => (dispatch(toBuyPage())),
+        // "getCartDetails":()=>(dispatch(toGetCartDetails())),
+        // "deleteCartDetails":()=>(dispatch(deleteCartDetails()))
     }
 }
 

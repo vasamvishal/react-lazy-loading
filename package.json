@@ -44,6 +44,7 @@
     "material-ui": "^0.20.2",
     "material-ui-search-bar": "^1.0.0",
     "mdbreact": "^4.27.0",
+    "memoizee": "^0.4.14",
     "mini-css-extract-plugin": "0.9.0",
     "moment": "^2.27.0",
     "node-sass": "^4.14.1",
@@ -116,7 +117,6 @@
     "@material-ui/icons": "^4.9.1",
     "history": "^5.0.0",
     "jw-react-pagination": "^1.1.0",
-    "react-addons-perf": "^15.4.2",
     "react-intl-currency-input": "^0.2.5",
     "reactstrap": "^8.5.1",
     "webpack-manifest-plugin": "^2.2.0"
