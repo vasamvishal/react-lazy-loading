@@ -31,8 +31,8 @@ class SiteHeader extends React.Component {
                     <div className="hamberger-menu">
                         <HamburgerMenu />
                         <div className={"def"}>XBAY</div>
-                        <div style={{alignSelf:"center"}}><AccountBoxIcon style={{color:"white"}} fontSize="large"/><span style={{color:"white"}}>Sign&nbsp;Up</span></div>&nbsp;
-                        <div style={{alignSelf:"center"}}><AccountCircleRoundedIcon style={{color: "white",display:"flex"}} fontSize="large" /><span style={{color:"white"}}>Account</span></div>
+                        {/* <div style={{alignSelf:"center"}}><AccountBoxIcon style={{color:"white"}} fontSize="large"/><span style={{color:"white"}}>Sign&nbsp;Up</span></div>&nbsp;
+                        <div style={{alignSelf:"center"}}><AccountCircleRoundedIcon style={{color: "white",display:"flex"}} fontSize="large" /><span style={{color:"white"}}>Account</span></div> */}
                         <div className="searchIcon">
                             <SearchIcon onSearch={this.props.onSearch} />
                         </div>

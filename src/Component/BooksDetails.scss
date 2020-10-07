@@ -64,7 +64,7 @@
     .text-box{
         padding-right: 6vw;
         @media screen and (max-width: 700px) {
-          margin-left: 20vw;
+          margin-left: 9vw;
           padding-right: 0vw;
         }
       }
@@ -77,19 +77,20 @@
       }
       .card-button-unClicked{
         cursor: pointer;
-        background-color: red;
-      
+        background-color: firebrick;
+        color: white;
       }
       
 .button{
     display: flex;
     .button-label{
       padding-top: 0.75vh;
+      font-family: "Times New Roman", Times, serif;
       @media screen and (min-width: 768px) and (max-width:1024px) {
         padding-top: 0.75vh;
       }
       @media screen and (max-width: 700px) {
-        padding-top: 0.75vh;
+        padding-top: 0.5vh;
       }
     }
   }

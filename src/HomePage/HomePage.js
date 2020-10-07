@@ -32,7 +32,7 @@ class HomePage extends React.Component {
 
 
     componentDidMount() {
-        console.log("componentDidMount")
+        // console.log("componentDidMount")
         setTimeout(() => {
             this.setState({ isLoading: false })
         }, 2000)
@@ -102,7 +102,7 @@ class HomePage extends React.Component {
         return (
             <>
                 <div className={"homepage"}>
-                    <SiteHeader onSearch={this.props.onSearchValue} />
+                    <SiteHeader/>
                     {this.state.isLoading ? <Loader
                         type="ThreeDots"
                         color="#00BFFF"

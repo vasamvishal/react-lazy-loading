@@ -55,7 +55,7 @@ class HeaderIcons extends React.Component {
                     XBAY</NavLink>
                 </li>
                 <li className={"def"}>
-                    <NavLink to="">
+                    <NavLink to="/account">
                         <ExitToAppIcon />&nbsp;&nbsp;
                         <div>About&nbsp;Us</div>
                     </NavLink>
