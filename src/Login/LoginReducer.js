@@ -4,9 +4,9 @@ import {loginToStorage} from "./LoginEffect";
 import { Cmd, loop } from "redux-loop";
 
 export const initialState = {
-    login:false,
     loginData:[],
-    status:200
+    status:200,
+    login:false
 }
 
 export default (state = initialState, action) => {
@@ -21,19 +21,21 @@ export default (state = initialState, action) => {
         }
 
         case LOGINSUCESS: {
-            console.log("payloadsucess",action.payload);
+            console.log("payloadsucess",action.payload.status);
             return {
                 ...state,
                 loginData: action.payload,
-                // status:action.payload.status
+                status:action.payload.status,
+                login:true
             };
         }
         case LOGINFAILURE: {
-            console.log("payloadsucess",action.payload);
+            console.log("loginFailure",action.payload);
             return {
                 ...state,
                 loginData:null,
-                status:action.payload.status
+                status:action.payload.status,
+                login:false
             };
         }
         default:

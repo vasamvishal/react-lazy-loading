@@ -1,29 +1,52 @@
-import {ADD_TO_CART, DELETE_FROM_CART, SET_INITIALSTATE_FOR_BUYPAGE,SELECTED_NO_OF_ITEMS} from "./BuyPriceAction";
+import {
+    ADD_TO_CART, DELETE_FROM_CART, successpostCartDetails
+    , failurepostCartDetails, SET_INITIALSTATE_FOR_BUYPAGE,
+    SELECTED_NO_OF_ITEMS, SUCESS_POST_CART_DETAILS,
+    FAILURE_POST_CART_DETAILS
+} from "./BuyPriceAction";
+import { postCartDetails } from "./BuyPageEffect";
+import { Cmd, loop } from "redux-loop";
+import { REDIRECT_TO_CART_PAGE } from "./BuyPriceAction";
 
 export const initialState = {
     addedToCart: [],
     deletedFromCart: false,
-    noOfItems:0
+    noOfItems: 0,
+    cartPage: false
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case ADD_TO_CART: {
-            console.log("ADD CART",action.payload);
-            return {...state, addedToCart: action.payload}
+            return loop(initialState, Cmd.run(postCartDetails, {
+                successActionCreator: successpostCartDetails,
+                failActionCreator: failurepostCartDetails,
+                args: [action.payload]
+            }));
+        }
+
+        case SUCESS_POST_CART_DETAILS: {
+            return { ...state, cartData: action.payload }
+        }
+
+        case FAILURE_POST_CART_DETAILS: {
+            return { ...state, cartData: [] }
         }
 
         case DELETE_FROM_CART: {
-            console.log("SDSADDSAD")
-            return {...state, addedToCart: [], deletedFromCart: true}
+            return { ...state, addedToCart: [], deletedFromCart: true }
         }
-        case SELECTED_NO_OF_ITEMS : {
-            console.log("noOFITems",action.payload);
-            return {...state,noOfItems:action.payload}
+
+        case SELECTED_NO_OF_ITEMS: {
+            return { ...state, noOfItems: action.payload }
         }
 
         case SET_INITIALSTATE_FOR_BUYPAGE: {
-            return {...initialState}
+            return { ...initialState }
+        }
+
+        case REDIRECT_TO_CART_PAGE: {
+            return { ...state, cartPage: true }
         }
 
         default:

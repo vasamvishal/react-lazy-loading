@@ -4,19 +4,20 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from "../SiteHeader/SearchIcon";
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { connect } from "react-redux";
-import { BrowserRouter as Router, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import "./HeaderIcon.scss";
-import { redirectToCartPage, redirectToAccountPage, redirectToHomePage, redirectToSignUpPage } from "./HeaderIconsAction"
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 import SignUp from "../SignUp/SignUp";
 import PopupButton from "../Component/PopupButton";
+import BrowserService from "../BrowserService";
 
 class HeaderIcons extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             signUpPage: false,
-            loginPage: true
+            loginPage: true,
+            isAuthenticated: false,
         }
         this.signUpPage = this.signUpPage.bind(this);
         this.closeSignUpPage = this.closeSignUpPage.bind(this);
@@ -27,11 +28,12 @@ class HeaderIcons extends React.Component {
             this.setState({ signUpPage: !this.state.signUpPage })
         }
     }
+
     accountDetails = () => {
         this.setState({ accountDetails: true })
     }
 
-    closeSignUpPage() {
+    closeSignUpPage = () => {
         if (this.state.signUpPage === true) {
             this.setState({ signUpPage: false })
         }
@@ -47,56 +49,73 @@ class HeaderIcons extends React.Component {
         this.setState({ accountDetails: false })
     }
 
+    search = (e) => {
+        this.props.onSearch(e);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        const value = BrowserService.getLocalStorage();
+        if (value.token === undefined || value.token === null) {
+            return { isAuthenticated: false };
+        }
+        else {
+            return { isAuthenticated: true };
+        }
+    }
+
     render() {
-        console.log("HeaderIcon", this.state)
         return (
-            <ul className="headerexample">
-                <li className={"def"}><NavLink to="/home">
-                    XBAY</NavLink>
-                </li>
-                <li className={"def"}>
-                    <NavLink to="/account">
-                        <ExitToAppIcon />&nbsp;&nbsp;
+            <>
+                <ul className="headerexample">
+                    <li className={"home"}><NavLink to="/home">
+                        XBAY</NavLink>
+                    </li>
+
+                    <li className={"aboutUs"}>
+                        <NavLink to="/account">
+                            <ExitToAppIcon />&nbsp;&nbsp;
                         <div>About&nbsp;Us</div>
-                    </NavLink>
-                </li>
-                <li className={"def"}>
-                    <NavLink to="/cart">
-                        <ShoppingCartIcon />&nbsp;&nbsp;
+                        </NavLink>
+                    </li>
+
+                    <li className={"cart"}>
+                        <NavLink to="/cart">
+                            <ShoppingCartIcon />&nbsp;&nbsp;
                         <div>Cart</div>
-                    </NavLink>
-                </li>
+                        </NavLink>
+                    </li>
 
-                <li className={"def"} onClick={this.accountDetails}>
-                    <AccountCircleRoundedIcon className={"defeee"} />&nbsp;&nbsp;
+                    <li className={"account-data"} onClick={this.accountDetails}>
+                        <AccountCircleRoundedIcon className={"defeee"} />&nbsp;&nbsp;
                         <div>Account</div>
-                    {this.state.accountDetails ? <div><PopupButton onCloseSignUpPage={this.closeSignUpPageOnAccountPage} onCloseAccountPage={this.closeAccountDetails} /></div> : ""}
-                </li>
+                        {this.state.accountDetails ? <div><PopupButton onCloseSignUpPage={this.closeSignUpPageOnAccountPage} onCloseAccountPage={this.closeAccountDetails} isAuthenticated={this.state.isAuthenticated} /></div> : ""}
+                    </li>
 
-                {this.state.loginPage?
-                <li className={"def"} onClick={this.signUpPage} > <AccountBoxIcon />&nbsp;&nbsp;
+                    {this.state.isAuthenticated === false ?
+                        <li className={"signUp"} onClick={this.signUpPage} > <AccountBoxIcon />&nbsp;&nbsp;
                         <div>Sign&nbsp;Up</div>
-                    {this.state.signUpPage ? <div><SignUp onCloseSignUpPage={this.closeSignUpPage} /></div> : ""}
-                </li>
-                :""}
+                            {this.state.signUpPage && this.props.logoutPopinButton.logout === false ? <div><SignUp onCloseSignUpPage={this.closeSignUpPage} /></div> : ""}
+                        </li>
+                        : ""}
 
-                <div className="search-Def">
-                    <SearchIcon />
-                </div>&nbsp;&nbsp;
+                    <div className="search-Def">
+                        <SearchIcon onSearch={this.search} />
+                    </div>&nbsp;&nbsp;
             </ul>
+            </>
         )
     }
 }
 const mapStateToProps = (state) => {
-    return state.header;
+    return state;
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        "redirectToCartPage": () => (dispatch(redirectToCartPage())),
-        "redirectToAccountPage": () => (dispatch(redirectToAccountPage())),
-        "redirectToHomePage": () => (dispatch(redirectToHomePage())),
-        "redirectToSignUpPage": () => (dispatch(redirectToSignUpPage()))
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderIcons);
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         "redirectToCartPage": () => (dispatch(redirectToCartPage())),
+//         "redirectToAccountPage": () => (dispatch(redirectToAccountPage())),
+//         "redirectToHomePage": () => (dispatch(redirectToHomePage())),
+//         "redirectToSignUpPage": () => (dispatch(redirectToSignUpPage()))
+//     };
+// };
+export default connect(mapStateToProps, null)(HeaderIcons);

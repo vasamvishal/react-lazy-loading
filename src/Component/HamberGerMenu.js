@@ -24,9 +24,9 @@ class HamburgerMenuExport extends React.Component {
     render() {
         return (
             <>
-                <div id="myNav" className="overlay">
-                    <a className="closebtn" onClick={() => this.closeNav()}>&times;</a>
-                    <div className="overlay-content">
+                <div id="myNav" class="overlay">
+                    <a class="closebtn" onClick={() => this.closeNav()}>&times;</a>
+                    <div class="overlay-content">
                     <HeaderIcons/>
                     </div>
                 </div>

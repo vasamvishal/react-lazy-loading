@@ -34,7 +34,7 @@
     margin-right: -1px;
     padding-left: 0em;
     padding-bottom: 3em;
-    height:7em;
+    height:4em;
    }
 }
 
@@ -46,6 +46,61 @@
   @media screen and (max-width: 700px) {
       padding: 1.25em 0.5em 1em 0.5em;
   }
+}
+
+  .home{
+    display: flex;
+    color: white;
+    padding: 1em 2em 1.5em 2em;
+  
+    @media screen and (max-width: 700px) {
+        padding: 1.25em 0.5em 1em 0.5em;
+    }
+  }
+
+  .account-data{
+    display: flex;
+    color: white;
+    padding: 1em 2em 1.5em 2em;
+  
+    @media screen and (max-width: 700px) {
+        padding: 1.25em 0.5em 1em 0.5em;
+    }
+    // @media screen and (max-width: 700px) {
+    //   display: none;
+  }
+  
+  .cart{
+    display: flex;
+    color: white;
+    padding: 1em 2em 1.5em 2em;
+  
+    @media screen and (max-width: 700px) {
+        display: none;
+    }
+}
+
+  .aboutUs{
+    display: flex;
+    color: white;
+    padding: 1em 2em 1.5em 2em;
+  
+    @media screen and (max-width: 700px) {
+        display: none;
+    }
+  }
+
+  .signUp{
+    display: flex;
+    color: white;
+    padding: 1em 2em 1.5em 2em;
+  
+    @media screen and (max-width: 700px) {
+        padding: 1.25em 0.5em 1em 0.5em;
+    }
+  }
+
+
   .eee{
     margin-top: -3vh;
     margin-right: -2vh;
@@ -54,7 +109,6 @@
     background-color: red;
     border-radius: 50%;
   }
-}
 .defeee{
   width: 5em;
 }
@@ -75,7 +129,7 @@
 
   @media screen and (max-width:700px){
     margin-top: 3.95em;
-    margin-left: -4em;
+    // margin-left: -4em;
 
   }
 }
@@ -89,6 +143,7 @@
 .desktop-icons{
   display: flex;
   @media screen and (max-width:700px){
-    display:none;
+    display:flex;
+    flex-direction: column;
   }
 }

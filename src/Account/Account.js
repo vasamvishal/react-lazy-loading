@@ -17,6 +17,7 @@ export default class Account extends React.Component {
       <p>REACT</p>
       <p>REDUX-REDUX LOOP</p>
       <p>BOOTSTRAP-4</p>
+      <p>Media Query</p>
       <p></p>
       <p></p>       
     </div>

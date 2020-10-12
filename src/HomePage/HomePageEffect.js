@@ -1,18 +1,16 @@
-import {array} from "../Component/Def";
-// const url="http://localhost:8080/getAll";
+// import {array} from "../Component/Def";
+// const array=[];
 export const extractDataFromStorage = () => {
-    // return fetch(`${url}`)
-    // .then((result) => {
-    //     console.log("result",result);
-    //     return result;
-    // }).catch((err) => {
-    //     return Promise.reject("Error Occured while Fetching Customers " + err);
-    // });
-    return array;
-}
-export const searchBooksForData = (payload) => {
-    console.log("DDDD",array.title);
-    array.map((images)=>{
-        return(images.title.toLowerCase.includes(payload));
+    return fetch("http://localhost:8080/getAll",{
+        mode:"cors",
+        headers:{
+            'Access-Control-Allow-Origin':'*'
+        },
+    })
+    .then(result =>
+         result.json()
+    ).then(data=>{return data})
+    .catch((err) => {
+        return Promise.reject("Error Occured while Fetching Customers " + err);
     })
 }

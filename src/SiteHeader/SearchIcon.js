@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: '12ch',
       '&:focus': {
-        width: '20ch',
+        width: '17ch',
       },
     },
     [theme.breakpoints.down(700)]: {
@@ -65,17 +65,12 @@ const useStyles = makeStyles((theme) => ({
       },
   },
 }));
-// function search(e){
-//     console.log("DDD",e.target.value)
-//     console.log(props)
-//     props.onSearch(e.target.value);
-// }
+
 
 export default function SearchAppBar(props) {
   const classes = useStyles();
 
   const {onSearch} =props;
-  console.log("search",onSearch);
   return (
     <div className={classes.root}>
           <div className={classes.search}>

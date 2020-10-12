@@ -3,7 +3,7 @@ import SiteHeader from "../SiteHeader/SiteHeader";
 import BooksDetails from "../Component/BooksDetails";
 import { connect } from "react-redux";
 import "./BuyPage.scss";
-import { addToCart, deleteFromCart, setInitialStateForBuyPage, selectedNoOfItems } from "./BuyPriceAction";
+import { addToCart, deleteFromCart, setInitialStateForBuyPage, selectedNoOfItems, redirectToCartPage } from "./BuyPriceAction";
 import { Redirect } from "react-router-dom";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BrowserService from "../../src/BrowserService";
@@ -19,26 +19,34 @@ class BuyPage extends React.Component {
         this.state = {
             clicked: true,
             booksData: [],
-            bookId: props.match.params.id
+            bookId: props.match.params.id,
+            noOfBooks: ""
         }
     }
 
     getBookFromID = (bookId) => {
-        console.log("DSDSD",this.props.homePage.getAllBookData);
-            let bookDetails=JSON.parse(BrowserService.getLocalStorageValue("selectedBook"));
-            return Object.keys(bookDetails).map((key)=> {
-            if (key=== "_id" && bookDetails[key] === bookId) {
+        let bookDetails = JSON.parse(BrowserService.getLocalStorageValue("selectedBook"));
+        return Object.keys(bookDetails).map((key) => {
+            if (key === "_id" && bookDetails[key] === bookId) {
                 this.setState({ booksData: bookDetails })
             }
         });
     }
 
-    noOfItemsCart = (e) => {
-        this.props.selectednoOfItems(e)
+    noOfItemsCart = (noOfBooks) => {
+        this.setState({ noOfBooks: { noOfBooks } })
     }
 
     addTocart = (item) => {
-        this.props.onAddToCart(item)
+        if (this.props.loginForm.login) {
+            let noOfBooks = this.state.noOfBooks;
+            this.props.onAddToCart({ item, noOfBooks }, () => {
+                this.props.redirectToCartPage()
+            })
+        }
+        else {
+            this.props.redirectToCartPage()
+        }
     }
 
     deleteProduct = () => {
@@ -54,9 +62,8 @@ class BuyPage extends React.Component {
         if (this.props.buyBookDetails.deletedFromCart) {
             return <Redirect to="/home" />
         }
-        
+
         let item = this.state.booksData
-        console.log("item", item);
         return (
             <>
                 <SiteHeader />
@@ -93,7 +100,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         "deleteProduct": () => (dispatch(deleteFromCart())),
         "onAddToCart": (item) => (dispatch(addToCart(item))),
-        "selectednoOfItems": (e) => (dispatch(selectedNoOfItems(e))),
+        "redirectToCartPage": (e) => (dispatch(redirectToCartPage())),
         "setInitialStateForBuyPage": () => (dispatch(setInitialStateForBuyPage()))
     };
 };

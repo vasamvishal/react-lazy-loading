@@ -21,15 +21,13 @@ export default class Registration extends React.Component {
         super(props);
         this.state = {
             open: true,
-            // numberError: false,
-            // ageError: false,
             firstNameError:false,
             lastNameError: false,
             userNameError:false,
-            // colourNameError: false,
             showPassword: false,
             passwordError:false,
             confirmPasswordError:false,
+            emailError:false,
             phoneNumber:false
         }
         console.log("Fff");
@@ -52,19 +50,22 @@ export default class Registration extends React.Component {
     }
 
     checkForPhoneNumberValidation = (e) => {
-        if (checkForIdValidation(e)) {
-            this.setState({ phoneNumber: true })
+        const phoneNumber=e.target.value;
+        var phoneno = /^\d{10}$/;
+        if(phoneNumber.match(phoneno)) {
+            console.log("FFFF")
+          this.setState({ phoneNumber: false })
+          this.setState({ phone: phoneNumber })
         }
         else {
-            this.setState({ phoneNumber: false })
-            this.setState({ Id: e.target.value })
+            this.setState({ phoneNumber: true })
         }
     }
 
     checkForFirstNameValidation = (e) => {
         if (checkForNameValidation(e) === false) {
             this.setState({ firstNameError: false })
-            this.setState({ nameValue: e.target.value })
+            this.setState({ firstName: e.target.value })
         }
         else {
             this.setState({ firstNameError: true })
@@ -74,7 +75,7 @@ export default class Registration extends React.Component {
     checkForLastNameValidation = (e) => {
         if (checkForNameValidation(e) === false) {
             this.setState({ lastNameError: false })
-            this.setState({ nameValue: e.target.value })
+            this.setState({ lastName: e.target.value })
         }
         else {
             this.setState({ lastNameError: true })
@@ -94,11 +95,6 @@ export default class Registration extends React.Component {
     }
 
     checkForConfirmPasswordValidation = (e) => {
-        // if (checkForAgeValidation(e)) {
-        //     this.setState({ ageError: true })
-        // }
-        // else {
-            // this.setState({ ageError: false })
             confirmPassword.push(e.target.value);
             console.log(password);
             console.log(confirmPassword);
@@ -108,15 +104,12 @@ export default class Registration extends React.Component {
                 console.log(confirmPassword.length)
                 this.setState({ confirmPasswordError:false})
             }
-
-            //
-        // }
     }
 
     checkForUserNameValidation = (e) => {
         if (checkForNameValidation(e) === false) {
             this.setState({ userNameError: false })
-            this.setState({ colourName: e.target.value })
+            this.setState({ userName: e.target.value })
         }
         else {
             this.setState({ userNameError: true })
@@ -130,11 +123,22 @@ export default class Registration extends React.Component {
         this.props.onClose();
     }
 
+    checkForEmailValidation=(e)=>{
+        if (checkForNameValidation(e) === false) {
+            this.setState({ emailError: false })
+            this.setState({ email: e.target.value })
+        }
+        else {
+            this.setState({ emailError: true })
+        }
+    }
+
     checkForDisabledButton() {
-        if (this.state.numberError === false && this.state.colourNameError === false
-            && this.state.ageError === false && this.state.nameError === false
-            && this.state.Id !== undefined && this.state.nameValue !== undefined &&
-            this.state.ageValue !== undefined && this.state.colourName !== undefined
+        if (this.state.firstNameError === false && this.state.lastNameError === false 
+            && this.state.phoneNumber === false && this.state.emailError === false
+            && this.state.firstName !== undefined && this.state.lastName !== undefined &&
+            this.state.phone !== undefined && this.state.password !== undefined 
+            && this.state.emailError !==undefined
         ) {
             return false;
         }
@@ -177,7 +181,6 @@ export default class Registration extends React.Component {
                                 error={this.state.userNameError}
                                 id="outlined-error-helper-text"
                                 label="userName"
-                                // style={{marginRight:"91vh"}}
                                 helperText={this.state.userNameError ? "Incorrect entry" : ""}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForUserNameValidation(e) }} />
@@ -216,6 +219,15 @@ export default class Registration extends React.Component {
                                 onChange={(e) => { this.checkForPhoneNumberValidation(e) }} />
                             <br />
                             <br />
+                            <TextField required
+                                error={this.state.emailError}
+                                id="outlined-error-helper-text"
+                                label="email"
+                                helperText={this.state.emailError ? "Incorrect entry" : ""}
+                                variant="outlined"
+                                onChange={(e) => { this.checkForEmailValidation(e) }} />
+                            <br />
+                            <br />   
                         </form>
                     </DialogContent>
                     <DialogActions>

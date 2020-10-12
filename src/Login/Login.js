@@ -38,12 +38,7 @@ class Login extends React.Component {
         this.setState({userName:e.target.value})
     }
 
-    // password=(e)=>{
-    //     this.setState({password:e.target.value})
-    // }
-
     onKeyDown=(e)=>{
-        // e.preventDefault();
         if (e.key === "Delete" || e.key === "Backspace") {
             this.setState({password:e.target.value},()=>{
                 this.setState({error:200})
@@ -59,20 +54,23 @@ class Login extends React.Component {
     }
 
     renderMainPage = () => {
-        console.log("dog")
-        console.log(this.props.status);
         let userName=this.state.userName;
         let password=this.state.password;
         let item={userName,password}
         this.props.login(item).then(()=>{
-            this.setState({error:this.props.status===undefined ? 400:this.props.status})
+            console.log("status",this.props.status)
+            this.setState({error:this.props.status===undefined ? 400:this.props.status},()=>{
+                if(this.state.error === 200){
+                this.props.onClose();
+                }
+            })
         });
     }
 
     render() {
         console.log("DFDFDF",this.state.error);
         console.log("blahhh",this.props.loginData)
-        console.log("DFDFDFvvvv",this.state.error);
+        console.log("errorValue",this.state.error);
         if(this.state.show){
           return <Registration onClose={this.closeRegistration}/>
         }
@@ -81,10 +79,10 @@ class Login extends React.Component {
                 <div className={"flex"}>
                     <div className={"left-article"}>
                         <h2 style={{color: "white", marginTop: "69%", marginLeft: "2em"}}>XBAY&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-                        <div className={"button-css"}>
+                        {/* <div className={"button-css"}>
                             {/* <Button variant="contained" color="primary"
                                     onClick={this.renderRegisterPage}>REGISTER</Button> */}
-                        </div>
+                        {/* </div>  */}
                     </div>
                     <div className={"right-article"}>
                         <MuiThemeProvider>
@@ -106,9 +104,8 @@ class Login extends React.Component {
                                      onKeyDown={this.onKeyDown}/>
                                 <br></br>
                                 <br></br>
-                                {/* {this.state.error} */}
                                 { this.state.error !== 200 ?<p>Your login credentials could not be verified, please try again.</p>:""}
-                                <button className={"button-text"} onClick={this.renderMainPage}>
+                                <button disabled={this.state.userName ==="" && this.state.password === ""} className={"button-text"} onClick={this.renderMainPage}>
                                     Log&nbsp;In
                                 </button>
                                 <br/>

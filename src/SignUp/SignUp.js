@@ -68,6 +68,7 @@ export default class SignUp extends React.Component {
             this.setState({ colourNameError: true })
         }
     }
+    
     displayNothing() {
         return alert("Hello! User has ID registered create a new User!");
     }

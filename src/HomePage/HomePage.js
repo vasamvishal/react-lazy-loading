@@ -7,7 +7,6 @@ import { Redirect } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import Loader from 'react-loader-spinner';
 import BrowserService from "../BrowserService";
-// import memoize from  "memoizee";
 
 const BookDetailsComponent=lazy(()=>import("../Component/BookDetailsComponent"));
 const SiteHeader=lazy(()=>import("../SiteHeader/SiteHeader"));
@@ -16,7 +15,6 @@ class HomePage extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("constructor", props)
         this.state = {
             books: [],
             selectedStateData: this.props.storeData,
@@ -32,24 +30,24 @@ class HomePage extends React.Component {
 
 
     componentDidMount() {
-        // console.log("componentDidMount")
         setTimeout(() => {
             this.setState({ isLoading: false })
         }, 2000)
         this.props.setInitialState()
     }
-
+      
+    
     componentWillReceiveProps(nextProps) {
         const newValue = nextProps.homePage.getAllBookData;
         if (newValue !== this.props.homePage.getAllBookData.length)
             this.setState({ books: nextProps.homePage.getAllBookData }, () => {
-                this.recievedData()
+                this.recievedData(newValue)
             })
     }
 
-    recievedData = () => {
-        const data = this.props.homePage.getAllBookData;
-        const slice = this.state.books.slice(this.state.offset, this.state.offset + this.state.perPage)
+    recievedData = (data) => {
+        console.log(this.state.books);
+        const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
         this.setState({
             pageCount: Math.ceil(data.length / this.state.perPage),
             pageOfItems: slice
@@ -59,23 +57,22 @@ class HomePage extends React.Component {
     handlePageClick = (e) => {
         const selectedPage = e.selected;
         const offset = selectedPage * this.state.perPage;
+        const props=this.props.homePage.getAllBookData;
 
         this.setState({
             currentPage: selectedPage,
             offset: offset
         }, () => {
-            this.recievedData()
+            this.recievedData(props)
         });
     };
-
-    // memoizedExpensiveFunc =()=>{ memoize(this.getCard)};
 
     getCard = () => {
         return (
             <div className={"root"}>
                 <div>
                     {this.state.pageOfItems.map((item, i) => (
-                        <div className={"card-block"} id={i}>
+                        <div className={"card-block"} key={i}>
                             <Card className='card' onClick={() => {
                                 this.props.selectedBook(item)
                             }}>
@@ -91,6 +88,33 @@ class HomePage extends React.Component {
         )
     }
 
+    searchValue=(e)=>{
+        const payload=e.target.value;
+        if(payload !==""){
+            console.log("PPP",payload)
+        const filteredData = this.state.pageOfItems.filter(element => {
+            return element.title.toLowerCase().includes(payload.toLowerCase());
+          });
+          this.setState({pageOfItems:filteredData})
+          this.recievedData(filteredData);
+          console.log(filteredData);
+        }
+
+        else if(payload===""){
+            const props=this.props.homePage.getAllBookData;
+            const filteredData = props.filter(element => {
+                return element.title.toLowerCase().includes(payload.toLowerCase());
+              });
+              this.setState({pageOfItems:filteredData})
+              this.recievedData(filteredData);
+              console.log(filteredData);
+        }
+        else{
+            const props=this.props.homePage.getAllBookData;
+            this.recievedData(props);
+        }
+    }
+
     render() {
         if (this.props.homePage.storeData) {
             const itemDetails = JSON.stringify(this.props.homePage.selectedBook);
@@ -102,7 +126,7 @@ class HomePage extends React.Component {
         return (
             <>
                 <div className={"homepage"}>
-                    <SiteHeader/>
+                    <SiteHeader onSearchValue={this.searchValue}/>
                     {this.state.isLoading ? <Loader
                         type="ThreeDots"
                         color="#00BFFF"
@@ -111,7 +135,6 @@ class HomePage extends React.Component {
                         timeout={2000} /> :
                         <div className={"main-content"}>
                             <div>
-                                {/* {this.memoizedExpensiveFunc()} */}
                                 {this.getCard()}
                             </div>
                             <div className={"footer-header"}>

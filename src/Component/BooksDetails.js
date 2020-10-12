@@ -51,7 +51,6 @@ class BooksDetails extends React.Component {
                         <input id="demo" className={"text-box"} onChange={this.changePrice} required type={"textbox"} />
                         <button disabled={(this.state.quantity == 0 || this.state.quantity >= item.quantity)} className={buttonOnClick}
                             onClick={() => {
-                                console.log("item", item);
                                 this.props.onAddToCart(item);
                                 this.setState({ clicked: !this.state.clicked })
                             }}>
