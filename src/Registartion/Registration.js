@@ -27,7 +27,8 @@ class Registration extends React.Component {
             passwordError: false,
             confirmPasswordError: false,
             emailError: false,
-            phoneNumberError: false
+            phoneNumberError: false,
+            registerSucess:false
         }
         console.log("Fff");
         this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -141,21 +142,6 @@ class Registration extends React.Component {
     }
 
     checkForDisabledButton() {
-        console.log("firstNameError", this.state.firstNameError)
-        console.log("lastNameError", this.state.lastNameError)
-        console.log("usewrNameError", this.state.userNameError)
-        console.log("phoneNameError", this.state.phoneNumberError)
-        console.log("emailError", this.state.emailError)
-        console.log("emailError", this.state.confirmPasswordError)
-
-        console.log("firstName", this.state.firstName)
-        console.log("lastName", this.state.lastName)
-        console.log("UserName", this.state.userName)
-        console.log("phoneName", this.state.phone)
-        console.log("email", this.state.email)
-        console.log("passw", this.state.password)
-        console.log("conf", this.state.confirmPassword)
-
         if (this.state.firstNameError === false
             && this.state.lastNameError === false
             && this.state.userNameError === false
@@ -177,7 +163,6 @@ class Registration extends React.Component {
         }
     }
     render() {
-        console.log("open", this.state.open);
         return (
             <>
                 <Dialog
@@ -266,6 +251,7 @@ class Registration extends React.Component {
                             color="primary" autoFocus>
                             CREATE
                         </Button>
+                        {this.state.registerPageSucess?<div>ddd</div>:""}
                     </DialogActions>
                 </Dialog>
             </>

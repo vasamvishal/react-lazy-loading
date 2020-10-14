@@ -13,10 +13,11 @@ export const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case SELECTED_BOOKS: {
-            return { ...state, selectedBook: action.payload, storeData: true }
+            return { ...state, selectedBook: action.payload, storeData: !state.storeData }
         }
 
         case SET_INITIALSTATE: {
+            console.log("renderpage")
             return loop(initialState, Cmd.run(extractDataFromStorage, {
                 successActionCreator: getBooksSucces,
                 failActionCreator: searchBooksFailureAction
@@ -25,7 +26,8 @@ export default (state = initialState, action) => {
         case GET_BOOKS_SUCCESS: {
             return {
                 ...state,
-                getAllBookData: action.payload
+                getAllBookData: action.payload,
+                storeData:false
             };
         }
         case SEARCH_BOOKS_FAILURE: {

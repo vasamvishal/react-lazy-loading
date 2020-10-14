@@ -24,7 +24,7 @@ class HomePage extends React.Component {
             perPage: 10,
             currentPage: 0,
             selectedPage: this.props.header.selectedPage,
-            isLoading: true
+            isLoading: true,
         }
     }
 
@@ -97,7 +97,6 @@ class HomePage extends React.Component {
           });
           this.setState({pageOfItems:filteredData})
           this.recievedData(filteredData);
-          console.log(filteredData);
         }
 
         else if(payload===""){
@@ -107,19 +106,14 @@ class HomePage extends React.Component {
               });
               this.setState({pageOfItems:filteredData})
               this.recievedData(filteredData);
-              console.log(filteredData);
-        }
-        else{
-            const props=this.props.homePage.getAllBookData;
-            this.recievedData(props);
         }
     }
-
     render() {
+        console.log("datahome",this.props.homePage.storeData);
         if (this.props.homePage.storeData) {
             const itemDetails = JSON.stringify(this.props.homePage.selectedBook);
             let id = this.props.homePage.selectedBook._id
-            BrowserService.setLocalStorageValue("selectedBook",itemDetails);       
+            BrowserService.setLocalStorageValue("selectedBook",itemDetails);  
             return <Redirect to={`/buyPrice/${id}`} />
         } 
 

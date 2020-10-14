@@ -5,6 +5,7 @@ import { Cmd, loop } from "redux-loop";
 
 export const initialState = {
     registerData: false,
+    status:200
 }
 
 export default (state = initialState, action) => {
@@ -19,7 +20,7 @@ export default (state = initialState, action) => {
         }
 
         case REGISTER_SUCESS: {
-            return { ...state, registerData: true }
+            return { ...state, registerData: true,status:action.payload.status}
         }
 
         case REGISTER_FAILURE: {
