@@ -12,12 +12,12 @@ export const registerUser = (item) => {
         body: JSON.stringify(item)
     })
     .then((response)=>{ 
-        return response.json();
+        console.log("response",response)
+        return response;
     }).then((data)=>{
         return data;
     })
     .catch((err) => {
-        console.log("err",err)
         return Promise.reject("Error Occured while Fetching Customers " + err);
     });
 };

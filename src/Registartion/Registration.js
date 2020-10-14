@@ -10,7 +10,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import SiteHeader from "../SiteHeader/SiteHeader";
 import "../SignUp/SignUp.scss";
 import { registerPage } from "../Registartion/RegistrationAction";
-import { checkForNameValidation, checkForIdValidation, checkForAgeValidation } from "../SignUp/formValidation";
+import { checkForNameValidation} from "../SignUp/formValidation";
 import Login from '../Login/Login';
 import './Registration.scss';
 import { connect } from "react-redux";
@@ -51,7 +51,6 @@ class Registration extends React.Component {
 
     checkForPhoneNumberValidation = (e) => {
         const phoneNumber = e.target.value;
-        console.log(phoneNumber);
         var phoneno = /^\d{10}$/;
         if (phoneNumber.match(phoneno)) {
             console.log("FFFF")
@@ -91,7 +90,6 @@ class Registration extends React.Component {
         var password = document.getElementById("password").value;
         var confirmPassword = document.getElementById("ConfirmPassword").value;
         if (password === confirmPassword) {
-            alert("blah",e.target.value);
             this.setState({ confirmPasswordError: false })
             this.setState({ confirmpassword: e.target.value })
         }
@@ -108,10 +106,6 @@ class Registration extends React.Component {
         else {
             this.setState({ userNameError: true })
         }
-    }
-
-    displayNothing() {
-        return alert("Hello! User has ID registered create a new User!");
     }
 
     closeRegistration = () => {
@@ -136,8 +130,6 @@ class Registration extends React.Component {
         const confirmpassword = this.state.confirmpassword;
         const phoneNumber = this.state.phoneNumber;
         const email = this.state.email;
-        console.log("confirmPassword",confirmpassword);
-
         this.props.registerPage({ firstName, lastName, userName, password, confirmpassword, phoneNumber, email });
     }
 
@@ -241,6 +233,7 @@ class Registration extends React.Component {
                             <br />
                             <br />
                         </form>
+                        {this.props.registrationForm.status !== 200 ?<div className="warning">userName or phoneNumber is already registrated</div>:""}
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose, this.closeRegistration} color="primary">
@@ -251,7 +244,6 @@ class Registration extends React.Component {
                             color="primary" autoFocus>
                             CREATE
                         </Button>
-                        {this.state.registerPageSucess?<div>ddd</div>:""}
                     </DialogActions>
                 </Dialog>
             </>

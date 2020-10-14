@@ -25,6 +25,14 @@ export default function App() {
                         width={200}
                         timeout={2000} /></div>}>
                     <Switch>
+                        <Route exact path="/" render={() => {
+                                return (
+                                    count ?
+                                        <Redirect to="/home" /> :
+                                        <Redirect to="/test1" />
+                                )
+                            }}
+                        />
                         <Route path={"/home"} exact component={HomePage} />
                         <Route path={"/login"} exact component={Login} />
                         <Route path={"/buyPrice/:id"} exact component={BuyPage} />

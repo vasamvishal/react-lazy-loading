@@ -20,6 +20,7 @@ export default (state = initialState, action) => {
         }
 
         case REGISTER_SUCESS: {
+            console.log("DDD",action.payload);
             return { ...state, registerData: true,status:action.payload.status}
         }
 

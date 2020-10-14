@@ -1,4 +1,4 @@
-import React, { Suspense,lazy} from "react";
+import React, { Suspense, lazy } from "react";
 import "./HomePage.scss";
 import Card from '@material-ui/core/Card';
 import { connect } from "react-redux";
@@ -8,8 +8,8 @@ import ReactPaginate from 'react-paginate';
 import Loader from 'react-loader-spinner';
 import BrowserService from "../BrowserService";
 
-const BookDetailsComponent=lazy(()=>import("../Component/BookDetailsComponent"));
-const SiteHeader=lazy(()=>import("../SiteHeader/SiteHeader"));
+const BookDetailsComponent = lazy(() => import("../Component/BookDetailsComponent"));
+const SiteHeader = lazy(() => import("../SiteHeader/SiteHeader"));
 
 class HomePage extends React.Component {
 
@@ -24,10 +24,10 @@ class HomePage extends React.Component {
             perPage: 10,
             currentPage: 0,
             selectedPage: this.props.header.selectedPage,
-            isLoading: true,
+            isLoading: true
         }
+        console.log("constructop")
     }
-
 
     componentDidMount() {
         setTimeout(() => {
@@ -35,9 +35,9 @@ class HomePage extends React.Component {
         }, 2000)
         this.props.setInitialState()
     }
-      
-    
+
     componentWillReceiveProps(nextProps) {
+        console.log("nexrProps", nextProps);
         const newValue = nextProps.homePage.getAllBookData;
         if (newValue !== this.props.homePage.getAllBookData.length)
             this.setState({ books: nextProps.homePage.getAllBookData }, () => {
@@ -57,7 +57,7 @@ class HomePage extends React.Component {
     handlePageClick = (e) => {
         const selectedPage = e.selected;
         const offset = selectedPage * this.state.perPage;
-        const props=this.props.homePage.getAllBookData;
+        const props = this.props.homePage.getAllBookData;
 
         this.setState({
             currentPage: selectedPage,
@@ -88,39 +88,39 @@ class HomePage extends React.Component {
         )
     }
 
-    searchValue=(e)=>{
-        const payload=e.target.value;
-        if(payload !==""){
-            console.log("PPP",payload)
-        const filteredData = this.state.pageOfItems.filter(element => {
-            return element.title.toLowerCase().includes(payload.toLowerCase());
-          });
-          this.setState({pageOfItems:filteredData})
-          this.recievedData(filteredData);
+    searchValue = (e) => {
+        const payload = e.target.value;
+        if (payload !== "") {
+            console.log("PPP", payload)
+            const filteredData = this.state.pageOfItems.filter(element => {
+                return element.title.toLowerCase().includes(payload.toLowerCase());
+            });
+            this.setState({ pageOfItems: filteredData })
+            this.recievedData(filteredData);
         }
 
-        else if(payload===""){
-            const props=this.props.homePage.getAllBookData;
+        else if (payload === "") {
+            const props = this.props.homePage.getAllBookData;
             const filteredData = props.filter(element => {
                 return element.title.toLowerCase().includes(payload.toLowerCase());
-              });
-              this.setState({pageOfItems:filteredData})
-              this.recievedData(filteredData);
+            });
+            this.setState({ pageOfItems: filteredData })
+            this.recievedData(filteredData);
         }
     }
     render() {
-        console.log("datahome",this.props.homePage.storeData);
+        console.log("datahome", this.props.homePage.storeData);
         if (this.props.homePage.storeData) {
             const itemDetails = JSON.stringify(this.props.homePage.selectedBook);
             let id = this.props.homePage.selectedBook._id
-            BrowserService.setLocalStorageValue("selectedBook",itemDetails);  
+            BrowserService.setLocalStorageValue("selectedBook", itemDetails);
             return <Redirect to={`/buyPrice/${id}`} />
-        } 
+        }
 
         return (
             <>
                 <div className={"homepage"}>
-                    <SiteHeader onSearchValue={this.searchValue}/>
+                    <SiteHeader onSearchValue={this.searchValue} />
                     {this.state.isLoading ? <Loader
                         type="ThreeDots"
                         color="#00BFFF"
