@@ -79,10 +79,6 @@ class Login extends React.Component {
                 <div className={"flex"}>
                     <div className={"left-article"}>
                         <h2 style={{color: "white", marginTop: "69%", marginLeft: "2em"}}>XBAY&nbsp;&nbsp;&nbsp;&nbsp;</h2>
-                        {/* <div className={"button-css"}>
-                            {/* <Button variant="contained" color="primary"
-                                    onClick={this.renderRegisterPage}>REGISTER</Button> */}
-                        {/* </div>  */}
                     </div>
                     <div className={"right-article"}>
                         <MuiThemeProvider>

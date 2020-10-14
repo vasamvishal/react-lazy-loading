@@ -9,12 +9,10 @@
   }
 
   @media screen and (max-width:700px){
-    // padding-top: 1em;
-    // margin-left: 0.5em;
-    // margin-right: 7em;
     display: none;
   }
 }
+
 ul.headerexample{
   display: flex;
   list-style-type: none;
@@ -35,4 +33,33 @@ ul.headerexample li a {
   display: flex;
   font-size: 1em;
   padding: 0px;
+}
+
+.mobile-home{
+  display: flex;
+  color: white;
+  padding: 1em 2em 1.5em 2em;
+}
+
+.mobile-aboutUs{
+  display: flex;
+  color: white;
+  // padding: 1em 2em 1.5em 2em;
+}
+.mobile-aboutUs:hover{
+  color: red;
+  // padding: 1em 2em 1.5em 2em;
+}
+
+.mobile-cart{
+  display: flex;
+  color: white;
+  // padding: 1em 2em 1.5em 2em;
+}
+
+.mobile-logout{
+  display: flex;
+  color: black;
+  font-size: 27px;
+  padding-left: 0.35em;
 }

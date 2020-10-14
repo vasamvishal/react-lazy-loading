@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { logout } from "./PopupButtonAction";
 import BrowserService from "../BrowserService"
 import { NavLink, Redirect } from 'react-router-dom';
+import ShowDetails from './ShowDetails';
 
 class PopupExamplePinned extends React.Component {
 
@@ -57,8 +58,6 @@ class PopupExamplePinned extends React.Component {
     }
 
     render() {
-        console.log("propsAuthenticated", this.props.isAuthenticated);
-        console.log("showsignup", this.state.show);
         return (
             <>
                 <div ref={node => this.node = node}>
@@ -69,11 +68,7 @@ class PopupExamplePinned extends React.Component {
                         {this.props.isAuthenticated === true ?
                             <div>
                                 <hr />
-                                <div style={{ padding: "0px 130px 0px 0px" }}>
-                                    <span>Hi</span>&nbsp;
-                                    <span>Vishal</span><br />
-                                    <span style={{ paddingLeft: "35px", fontSize: "12px", color: "#9d9d9d" }}> +91&nbsp;9987517015</span>
-                                </div>
+                                <ShowDetails/>
                                 <hr />
                                 <ul className="header-links">
                                     <NavLink to="/account" className="li-def">&nbsp;&nbsp;&nbsp;&nbsp;<div className="my-orders">&nbsp;&nbsp;&nbsp;&nbsp;My Orders</div></NavLink>

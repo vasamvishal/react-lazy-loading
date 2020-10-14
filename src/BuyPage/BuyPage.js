@@ -9,9 +9,11 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BrowserService from "../../src/BrowserService";
 
 class BuyPage extends React.Component {
+    
     componentDidMount() {
         this.props.setInitialStateForBuyPage();
         this.getBookFromID(this.state.bookId);
+        this.getToken();
     }
 
     constructor(props) {
@@ -20,7 +22,20 @@ class BuyPage extends React.Component {
             clicked: true,
             booksData: [],
             bookId: props.match.params.id,
-            noOfBooks: ""
+            noOfBooks: "",
+            isAuthenticated:false
+        }
+    }
+
+    getToken = () => {
+        console.log("State");
+        const value = BrowserService.getLocalStorage();
+        if (value.token === undefined || value.token === null) {
+            this.setState({ isAuthenticated: false });
+        }
+        else {
+            console.log("true");
+            this.setState({ isAuthenticated: true });
         }
     }
 
@@ -38,7 +53,8 @@ class BuyPage extends React.Component {
     }
 
     addTocart = (item) => {
-        if (this.props.loginForm.login) {
+        console.log(this.state.isAuthenticated);
+        if (this.state.isAuthenticated===true) {
             let noOfBooks = this.state.noOfBooks;
             this.props.onAddToCart({ item, noOfBooks }, () => {
                 this.props.redirectToCartPage()

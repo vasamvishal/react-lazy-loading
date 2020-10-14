@@ -91,11 +91,19 @@
   margin-left: 7vw;
   padding-top: 4vh;
 
+  @media screen and (max-width: 700px){
+    padding-top: 0vh;
+    }
+
   .item-title{
     font-weight: 700;
   }
   .item{
     display: flex;
+    justify-content: center;
+    @media screen and (max-width: 700px){
+      display:block;
+    }
   .item-price{
     font-weight: 500;
   }

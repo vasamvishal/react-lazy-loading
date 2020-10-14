@@ -1,19 +1,21 @@
-import { ROUTE_TO_BUY_PAGE,GET_CART_DETAILS,SUCESS_CART_DETAILS,FAILURE_CART_DETAILS
-    ,successCartDetails,failureCartDetails, CANCEL_ORDER,
-    successCancelOrder,failureCancelOrder, SUCESS_CANCEL_ORDER,FAILURE_CANCEL_ORDER } from "./AddToCartAction";
+import {
+    ROUTE_TO_BUY_PAGE, GET_CART_DETAILS, SUCESS_CART_DETAILS, FAILURE_CART_DETAILS
+    , successCartDetails, failureCartDetails, CANCEL_ORDER,
+    successCancelOrder, failureCancelOrder, SUCESS_CANCEL_ORDER, FAILURE_CANCEL_ORDER
+} from "./AddToCartAction";
 
-import {extractGetCartDetails,cancelOrder} from "./AddToCartEffect";
+import { extractGetCartDetails, cancelOrder } from "./AddToCartEffect";
 import { Cmd, loop } from "redux-loop";
 
 export const initialState = {
     routeToBuyPage: false,
-    cartData:[]
+    cartData: [],
+    payload: []
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case ROUTE_TO_BUY_PAGE: {
-            console.log("rrrr");
             return { ...state, routeToBuyPage: true }
         }
 
@@ -21,34 +23,38 @@ export default (state = initialState, action) => {
             return loop(initialState, Cmd.run(extractGetCartDetails, {
                 successActionCreator: successCartDetails,
                 failActionCreator: failureCartDetails,
-                args:[action.payload]
+                args: [action.payload]
             }));
         }
 
         case SUCESS_CART_DETAILS: {
-            return {...state,cartData:action.payload}
+            console.log(action.payload);
+            return { ...state, cartData: action.payload }
         }
 
-        case FAILURE_CART_DETAILS:{
-            return {...state,cartData:[]}
+        case FAILURE_CART_DETAILS: {
+            console.log("failure", action.payload);
+            return { ...state, cartData: [] }
         }
 
         case CANCEL_ORDER: {
-            return loop(initialState, Cmd.run(cancelOrder, {
+            return loop({ ...initialState, payload: action.payload, cartData: state.cartData }, Cmd.run(cancelOrder, {
                 successActionCreator: successCancelOrder,
                 failActionCreator: failureCancelOrder,
-                args:[action.payload]
+                args: [action.payload]
             }));
         }
 
         case SUCESS_CANCEL_ORDER: {
-            return {...state,cartData:action.payload}
+            var array = state.cartData;
+            array = array.filter(item => item !== state.payload)
+            return { ...state, cartData:array }
         }
 
-        case FAILURE_CANCEL_ORDER:{
-            return {...state,cartData:[]}
+        case FAILURE_CANCEL_ORDER: {
+            return { ...state, cartData: [] }
         }
-        
+
         default:
             return state;
     }

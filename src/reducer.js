@@ -6,6 +6,7 @@ import addToCart from "./AddToCart/AddToCartReducer";
 import siteHeader from "./SiteHeader/SiteHeaderReducer";
 import loginForm from "./Login/LoginReducer";
 import logoutPopinButton from "./Component/PopupButtonReducer";
+import registrationForm from "./Registartion/RegistrationReducer";
 
 
 export default combineReducers({
@@ -15,6 +16,7 @@ export default combineReducers({
         addToCart,
         siteHeader,
         loginForm,
-        logoutPopinButton
+        logoutPopinButton,
+        registrationForm
     }
 )

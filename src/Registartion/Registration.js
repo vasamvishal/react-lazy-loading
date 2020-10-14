@@ -9,26 +9,25 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import SiteHeader from "../SiteHeader/SiteHeader";
 import "../SignUp/SignUp.scss";
-import { checkForNameValidation, checkForIdValidation,checkForAgeValidation } from "../SignUp/formValidation";
+import { registerPage } from "../Registartion/RegistrationAction";
+import { checkForNameValidation, checkForIdValidation, checkForAgeValidation } from "../SignUp/formValidation";
 import Login from '../Login/Login';
-import { red } from '@material-ui/core/colors';
 import './Registration.scss';
-var password=[];
-var confirmPassword=[];
+import { connect } from "react-redux";
 
-export default class Registration extends React.Component {
+class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             open: true,
-            firstNameError:false,
+            firstNameError: false,
             lastNameError: false,
-            userNameError:false,
+            userNameError: false,
             showPassword: false,
-            passwordError:false,
-            confirmPasswordError:false,
-            emailError:false,
-            phoneNumber:false
+            passwordError: false,
+            confirmPasswordError: false,
+            emailError: false,
+            phoneNumberError: false
         }
         console.log("Fff");
         this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -45,20 +44,21 @@ export default class Registration extends React.Component {
     }
 
     handleClose = () => {
-        // console.log(this.state.open);
-        this.setState({ open: !this.state.open })
+        console.log("blah");
+        // this.setState({ open: !this.state.open })
     }
 
     checkForPhoneNumberValidation = (e) => {
-        const phoneNumber=e.target.value;
+        const phoneNumber = e.target.value;
+        console.log(phoneNumber);
         var phoneno = /^\d{10}$/;
-        if(phoneNumber.match(phoneno)) {
+        if (phoneNumber.match(phoneno)) {
             console.log("FFFF")
-          this.setState({ phoneNumber: false })
-          this.setState({ phone: phoneNumber })
+            this.setState({ phoneNumberError: false })
+            this.setState({ phoneNumber: phoneNumber })
         }
         else {
-            this.setState({ phoneNumber: true })
+            this.setState({ phoneNumberError: true })
         }
     }
 
@@ -83,27 +83,20 @@ export default class Registration extends React.Component {
     }
 
     checkForPasswordValidation = (e) => {
-        //  if (checkForAgeValidation(e)) {
-        //     this.setState({ ageError: true })
-        // }
-        // else {
-            // this.setState({ passwordError: false })
-            password.push(e.target.value);
-
-            // this.setState({ passwordError: e.target.value })
-        // }
+        this.setState({ password: e.target.value })
     }
 
     checkForConfirmPasswordValidation = (e) => {
-            confirmPassword.push(e.target.value);
-            console.log(password);
-            console.log(confirmPassword);
-
-            if(password.length!==confirmPassword.length){
-                console.log(password.length)
-                console.log(confirmPassword.length)
-                this.setState({ confirmPasswordError:false})
-            }
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("ConfirmPassword").value;
+        if (password === confirmPassword) {
+            alert("blah",e.target.value);
+            this.setState({ confirmPasswordError: false })
+            this.setState({ confirmpassword: e.target.value })
+        }
+        else {
+            this.setState({ confirmPasswordError: true });
+        }
     }
 
     checkForUserNameValidation = (e) => {
@@ -115,16 +108,17 @@ export default class Registration extends React.Component {
             this.setState({ userNameError: true })
         }
     }
+
     displayNothing() {
         return alert("Hello! User has ID registered create a new User!");
     }
 
-    closeRegistration=()=>{
+    closeRegistration = () => {
         this.props.onClose();
     }
 
-    checkForEmailValidation=(e)=>{
-        if (checkForNameValidation(e) === false) {
+    checkForEmailValidation = (e) => {
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(e.target.value)) {
             this.setState({ emailError: false })
             this.setState({ email: e.target.value })
         }
@@ -133,12 +127,48 @@ export default class Registration extends React.Component {
         }
     }
 
+    saveRegistration = () => {
+        const firstName = this.state.firstName;
+        const lastName = this.state.lastName;
+        const userName = this.state.userName;
+        const password = this.state.password;
+        const confirmpassword = this.state.confirmpassword;
+        const phoneNumber = this.state.phoneNumber;
+        const email = this.state.email;
+        console.log("confirmPassword",confirmpassword);
+
+        this.props.registerPage({ firstName, lastName, userName, password, confirmpassword, phoneNumber, email });
+    }
+
     checkForDisabledButton() {
-        if (this.state.firstNameError === false && this.state.lastNameError === false 
-            && this.state.phoneNumber === false && this.state.emailError === false
-            && this.state.firstName !== undefined && this.state.lastName !== undefined &&
-            this.state.phone !== undefined && this.state.password !== undefined 
-            && this.state.emailError !==undefined
+        console.log("firstNameError", this.state.firstNameError)
+        console.log("lastNameError", this.state.lastNameError)
+        console.log("usewrNameError", this.state.userNameError)
+        console.log("phoneNameError", this.state.phoneNumberError)
+        console.log("emailError", this.state.emailError)
+        console.log("emailError", this.state.confirmPasswordError)
+
+        console.log("firstName", this.state.firstName)
+        console.log("lastName", this.state.lastName)
+        console.log("UserName", this.state.userName)
+        console.log("phoneName", this.state.phone)
+        console.log("email", this.state.email)
+        console.log("passw", this.state.password)
+        console.log("conf", this.state.confirmPassword)
+
+        if (this.state.firstNameError === false
+            && this.state.lastNameError === false
+            && this.state.userNameError === false
+            && this.state.phoneNumberError === false
+            && this.state.emailError === false
+            && this.state.confirmPasswordError === false
+            && this.state.firstName !== undefined
+            && this.state.lastName !== undefined
+            && this.state.userName !== undefined
+            && this.state.phoneNumber !== undefined
+            && this.state.password !== undefined
+            && this.state.confirmpassword !== undefined
+            && this.state.email !== undefined
         ) {
             return false;
         }
@@ -164,15 +194,14 @@ export default class Registration extends React.Component {
                                 error={this.state.firstNameError}
                                 id="outlined-error-helper-text"
                                 label="FirstName"
-                                helperText={this.state.firstNameError ? "Incorrect entry" : ""}
+                                helperText={this.state.firstNameError ? "Incorrect value" : ""}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForFirstNameValidation(e) }} />&nbsp;&nbsp;&nbsp;
-                            {/* <div className="mobile-break"></div> */}
                             <TextField required
                                 error={this.state.lastNameError}
                                 id="outlined-error-helper-text"
                                 label="LastName"
-                                helperText={this.state.lastNameError ? "Incorrect entry" : ""}
+                                helperText={this.state.lastNameError ? "Incorrect value" : ""}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForLastNameValidation(e) }} />
                             <br />
@@ -181,7 +210,7 @@ export default class Registration extends React.Component {
                                 error={this.state.userNameError}
                                 id="outlined-error-helper-text"
                                 label="userName"
-                                helperText={this.state.userNameError ? "Incorrect entry" : ""}
+                                helperText={this.state.userNameError ? "Incorrect value" : ""}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForUserNameValidation(e) }} />
                             <br />
@@ -189,32 +218,30 @@ export default class Registration extends React.Component {
                             <TextField
                                 required
                                 error={this.state.passwordError}
-                                id="outlined-error-helper-text"
+                                id="password"
                                 label="password"
-                                helperText={this.state.passwordError ? "Incorrect entry" : ""}
+                                helperText={this.state.passwordError ? "Incorrect password" : ""}
                                 type={this.state.showPassword ? 'text' : 'password'}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForPasswordValidation(e) }} />&nbsp;&nbsp;&nbsp;
 
-                             {/* <div className="mobile-break"></div> */}
-
                             <TextField required
                                 error={this.state.confirmPasswordError}
-                                id="outlined-error-helper-text"
+                                id="ConfirmPassword"
                                 label="confirm"
-                                helperText={this.state.confirmPasswordError ? "Incorrect entry" : ""}
+                                helperText={this.state.confirmPasswordError ? "Incorrect Password" : ""}
                                 type={this.state.showPassword ? 'text' : 'password'}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForConfirmPasswordValidation(e) }} />
 
-                            {!this.state.showPassword ? <VisibilityOffIcon fontSize="large" style={{paddingTop:"0.25em"}} onClick={this.showPassword} /> : <VisibilityIcon onClick={this.showPassword} fontSize="large" />}
+                            {!this.state.showPassword ? <VisibilityOffIcon fontSize="large" style={{ paddingTop: "0.25em" }} onClick={this.showPassword} /> : <VisibilityIcon onClick={this.showPassword} fontSize="large" />}
                             <br />
                             <br />
                             <TextField required
-                                error={this.state.phoneNumber}
+                                error={this.state.phoneNumberError}
                                 id="outlined-error-helper-text"
                                 label="Phone Number"
-                                helperText={this.state.phoneNumber ? "Incorrect entry" : ""}
+                                helperText={this.state.phoneNumberError ? "Incorrect phone Number" : ""}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForPhoneNumberValidation(e) }} />
                             <br />
@@ -223,18 +250,19 @@ export default class Registration extends React.Component {
                                 error={this.state.emailError}
                                 id="outlined-error-helper-text"
                                 label="email"
-                                helperText={this.state.emailError ? "Incorrect entry" : ""}
+                                helperText={this.state.emailError ? "Incorrect Email Id" : ""}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForEmailValidation(e) }} />
                             <br />
-                            <br />   
+                            <br />
                         </form>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose,this.closeRegistration} color="primary">
+                        <Button onClick={this.handleClose, this.closeRegistration} color="primary">
                             BACK
                         </Button>
                         <Button disabled={this.checkForDisabledButton()}
+                            onClick={this.saveRegistration}
                             color="primary" autoFocus>
                             CREATE
                         </Button>
@@ -244,3 +272,15 @@ export default class Registration extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return state;
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        "registerPage": (item) => (dispatch(registerPage(item))),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Registration);

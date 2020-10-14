@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(700)]: {
         width: '25ch',
         '&:focus': {
-          width: '30ch',
+          width: '28ch',
         },
       },
   },

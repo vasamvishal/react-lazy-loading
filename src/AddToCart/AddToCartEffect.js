@@ -1,49 +1,44 @@
 import BrowserService from "../BrowserService";
+import jwt_decode from "jwt-decode";
 
-export const extractGetCartDetails=()=>{
-    const token=BrowserService.getLocalStorageValue("token");
-    if(token !==undefined){
-    const url="http://localhost:8080/getCartDetails/74";
-    return fetch(`${url}`,{
-        mode:"cors",
-        headers:{
-            'Accept' : 'application/json',
+
+export const extractGetCartDetails = () => {
+    const token = BrowserService.getLocalStorageValue("token");
+    var decoded = jwt_decode(token);
+    let phoneNumber = decoded.sub;
+    const url = `http://localhost:8080/getCartDetails/${phoneNumber}`;
+    return fetch(`${url}`, {
+        mode: "cors",
+        headers: {
+            'Accept': 'application/json',
         },
     })
-    .then((response)=>{ 
-        return response.json()
-    }).then((data)=>{
+        .then((response) => {
+            return response.json()
+        }).then((data) => {
             return data
-    }).catch((err) => {
-        console.log("err",err)
-        return Promise.reject("Error Occured while Fetching Customers " + err);
-    });
- }
+        }).catch((err) => {
+            console.log("err", err)
+            return Promise.reject("Error Occured while Fetching Customers " + err);
+        });
 }
 
-export const cancelOrder=(payload)=>{
-    console.log("EDEDEd");
-    console.log(payload);
-    // const token=BrowserService.getLocalStorageValue("token");
-    // if(token !==undefined){
-    const url="http://localhost:8080/delete/`${payload.phoneNumber}`/${payload._id}";
-    console.log(url);
-    return fetch(`${url}`,{
-        mode:"cors",
-        method: 'DELETE',
-        // headers:{
-        //     'Content-Type': 'application/json',
-        // }
+export const cancelOrder = (payload) => {
+    const token = BrowserService.getLocalStorageValue("token");
+    var decoded = jwt_decode(token);
+    let phoneNumber = decoded.sub;
+    const url = `http://localhost:8080/delete/${phoneNumber}/${payload._id}`;
+    return fetch(`${url}`, {
+        mode: "cors",
+        method: 'DELETE'
     })
-    .then((response)=>{ 
-        return response.json()
-    }).then((data)=>{
-        console.log(data)
-            return data
-    }).catch((err) => {
-        console.log("err",err)
-        return Promise.reject("Error Occured while Fetching Customers " + err);
-    });
+        .then((response) => {
+            return response;
+        }).catch((err) => {
+            console.log("err", err)
+            return Promise.reject("Error Occured while Fetching Customers " + err);
+        });
+
 }
 
 

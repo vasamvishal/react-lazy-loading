@@ -4,10 +4,11 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from "../SiteHeader/SearchIcon";
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { connect } from "react-redux";
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import "./HeaderIcon.scss";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 import SignUp from "../SignUp/SignUp";
+import {logout} from "../Login/LoginAction";
 import PopupButton from "../Component/PopupButton";
 import BrowserService from "../BrowserService";
 
@@ -18,14 +19,30 @@ class HeaderIcons extends React.Component {
             signUpPage: false,
             loginPage: true,
             isAuthenticated: false,
+            showSearch: false
         }
         this.signUpPage = this.signUpPage.bind(this);
         this.closeSignUpPage = this.closeSignUpPage.bind(this);
     }
 
-    signUpPage() {
+    componentDidMount = () => {
+        this.renderSearchIcon();
+    }
+
+    signUpPage = () => {
         if (this.state.signUpPage !== true) {
             this.setState({ signUpPage: !this.state.signUpPage })
+        }
+    }
+
+    renderSearchIcon = () => {
+        const { location } = this.props;
+        console.log("locatiom", location);
+        if (location.pathname.match("/home")) {
+            this.setState({ showSearch: true })
+        }
+        else {
+            this.setState({ showSearch: false })
         }
     }
 
@@ -53,6 +70,7 @@ class HeaderIcons extends React.Component {
         this.props.onSearch(e);
     }
 
+
     static getDerivedStateFromProps(props, state) {
         const value = BrowserService.getLocalStorage();
         if (value.token === undefined || value.token === null) {
@@ -64,6 +82,8 @@ class HeaderIcons extends React.Component {
     }
 
     render() {
+        console.log(this.props, "props");
+        console.log("showsearch", this.state.showSearch)
         return (
             <>
                 <ul className="headerexample">
@@ -71,14 +91,14 @@ class HeaderIcons extends React.Component {
                         XBAY</NavLink>
                     </li>
 
-                    <li className={"aboutUs"}>
+                    <li className={"aboutUs"} >
                         <NavLink to="/account">
                             <ExitToAppIcon />&nbsp;&nbsp;
                         <div>About&nbsp;Us</div>
                         </NavLink>
                     </li>
 
-                    <li className={"cart"}>
+                    <li className={"cart-desktop"}>
                         <NavLink to="/cart">
                             <ShoppingCartIcon />&nbsp;&nbsp;
                         <div>Cart</div>
@@ -92,16 +112,17 @@ class HeaderIcons extends React.Component {
                     </li>
 
                     {this.state.isAuthenticated === false ?
-                        <li className={"signUp"} onClick={this.signUpPage} > <AccountBoxIcon />&nbsp;&nbsp;
+                        <li className={"signUp"} onClick={this.signUpPage}> <AccountBoxIcon />&nbsp;&nbsp;
                         <div>Sign&nbsp;Up</div>
                             {this.state.signUpPage && this.props.logoutPopinButton.logout === false ? <div><SignUp onCloseSignUpPage={this.closeSignUpPage} /></div> : ""}
                         </li>
                         : ""}
 
-                    <div className="search-Def">
-                        <SearchIcon onSearch={this.search} />
-                    </div>&nbsp;&nbsp;
-            </ul>
+                    {this.state.showSearch ?
+                        <div className="search-Def">
+                            <SearchIcon onSearch={this.search} />
+                        </div> :""}
+                </ul>
             </>
         )
     }
@@ -110,12 +131,4 @@ const mapStateToProps = (state) => {
     return state;
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         "redirectToCartPage": () => (dispatch(redirectToCartPage())),
-//         "redirectToAccountPage": () => (dispatch(redirectToAccountPage())),
-//         "redirectToHomePage": () => (dispatch(redirectToHomePage())),
-//         "redirectToSignUpPage": () => (dispatch(redirectToSignUpPage()))
-//     };
-// };
-export default connect(mapStateToProps, null)(HeaderIcons);
+export default connect(mapStateToProps, null)(withRouter(HeaderIcons));

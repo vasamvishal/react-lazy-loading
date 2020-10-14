@@ -6,6 +6,7 @@ export const loginToStorage = (item) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Accept':"application/json"
           },
         mode:"cors",
         credentials:"include",
@@ -17,8 +18,12 @@ export const loginToStorage = (item) => {
                 BrowserService.setLocalStorageValue("token",pair[1])
             }
         }
-        return response
-    }).catch((err) => {
+        return response.text();
+    }).then((data)=>{
+        BrowserService.setLocalStorageValue("user",data)
+        return data;
+    })
+    .catch((err) => {
         console.log("err",err)
         return Promise.reject("Error Occured while Fetching Customers " + err);
     });
