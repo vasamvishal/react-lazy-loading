@@ -17,24 +17,6 @@ class HamburgerMenuExport extends React.Component {
         this.closeNav = this.closeNav.bind(this)
     }
 
-    // componentDidMount=()=>{
-    //     this.getToken()
-    // }
-
-    // componentWillReceiveProps(){
-    //     console.log("rrrrr");
-    // }
-    // static getDerivedStateFromProps(props, state) {
-    //     console.log("state");
-    //     const value = BrowserService.getLocalStorage();
-    //     if (value.token === undefined || value.token === null) {
-    //         return { isAuthenticated: false };
-    //     }
-    //     else {
-    //         return { isAuthenticated: true };
-    //     }
-    // }
-
     getToken=()=>{
         console.log("State");
         const value = BrowserService.getLocalStorage();
@@ -48,7 +30,6 @@ class HamburgerMenuExport extends React.Component {
 
 
     closeNav() {
-        console.log("dddd")
         document.getElementById("myNav").style.width = "0%";
     }
 
@@ -57,14 +38,13 @@ class HamburgerMenuExport extends React.Component {
         document.getElementById("myNav").style.width = "100%";
     }
     render() {
-        console.log("render");
         return (
              <>
                 <div id="myNav" class="overlay">
                     <div>{!this.state.isAuthenticated?<div className="login-signup">LOGIN/SIGNUP</div>:<div className="login-signup"><ShowDetails/></div>}</div>
                     <a class="closebtn" onClick={()=>this.closeNav()}>&times;</a>
                     <div class="overlay-content">
-                    <HeaderMobile/>
+                    <HeaderMobile Authenticated={this.state.isAuthenticated}/>
                     </div>
                 </div>
                 <MenuIcon onClick={() => this.handleClick()} style={{ fontSize: 40,color:'white',marginTop:'1.25vh',

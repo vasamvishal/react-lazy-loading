@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import account from "../src/Account/Account";
 import Loader from 'react-loader-spinner';
 
+
 const Login = lazy(() => import("./Login/Login"));
 const HomePage = lazy(() => import("./HomePage/HomePage"));
 const BuyPage = lazy(() => import("./BuyPage/BuyPage"));

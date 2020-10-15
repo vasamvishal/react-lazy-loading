@@ -6,8 +6,12 @@ import IconComponent from "./IconComponent";
 import BrowserService from "../BrowserService";
 
 class HeaderMobile extends React.Component {
+    constructor(props){
+        super(props);
+    }
     logout = () => {
         BrowserService.deleteLocalStorageItem("token");
+        BrowserService.deleteLocalStorageItem("user");
         BrowserService.deleteLocalStorageItem("selectedBook");
         BrowserService.changeLocation("/home")
     }
@@ -21,17 +25,15 @@ class HeaderMobile extends React.Component {
                     </NavLink>
                 </div>
                 <br/>
-                {/* <hr style="height:3em"/> */}
                 <div className={"mobile-cart"}>
                     <NavLink to="/cart">
                         <IconComponent icon={<ShoppingCartIcon />} name="Cart" />
                     </NavLink>
                 </div>
                 <br/>
-                {/* <br /> */}
-                <div className={"mobile-logout"} onClick={this.logout}>
+                {this.props.Authenticated?<div className={"mobile-logout"} onClick={this.logout}>
                     <IconComponent icon={<ExitToAppIcon />} name="Logout" />
-                </div>
+                </div>:""}
             </ul>
         )
     }

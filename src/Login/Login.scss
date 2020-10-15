@@ -10,6 +10,14 @@
   @media screen and (max-width:700px){
     width: 85vw;
   }
+
+  @media screen and (max-width: 768px) and (min-width: 768px){
+    width: 62vw;
+    }
+
+  @media screen and (max-width: 1024px) and (min-width: 768px){
+      width: 50vw;
+    }
 }
 .checkbox-css{
   display: flex;

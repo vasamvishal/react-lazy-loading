@@ -1,13 +1,8 @@
-export const SELECTED_BOOKS = "SELECTED_BOOKS"
 export const GET_BOOKS_SUCCESS = "GET_BOOKS_SUCCESS"
 export const SET_INITIALSTATE = "SET_INITIALSTATE"
 export const SEARCH_BOOKS = "SEARCH_BOOKS"
 export const SEARCH_BOOKS_VALUE = "SEARCH_BOOKS_VALUE"
 export const SEARCH_BOOKS_FAILURE = "SEARCH_BOOKS_FAILURE"
-export const selectedBook = (item) => ({
-    type: SELECTED_BOOKS,
-    payload: item
-})
 
 export const setIntialState = () => ({
     type: SET_INITIALSTATE

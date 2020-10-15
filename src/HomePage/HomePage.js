@@ -24,20 +24,22 @@ class HomePage extends React.Component {
             perPage: 10,
             currentPage: 0,
             selectedPage: this.props.header.selectedPage,
-            isLoading: true
+            isLoading: true,
+            storeData: this.props.homePage.storeData,
         }
-        console.log("constructop")
+        console.log("constructop HomePage")
     }
 
     componentDidMount() {
         setTimeout(() => {
             this.setState({ isLoading: false })
         }, 2000)
+        this.getToken();
         this.props.setInitialState()
     }
 
+
     componentWillReceiveProps(nextProps) {
-        console.log("nexrProps", nextProps);
         const newValue = nextProps.homePage.getAllBookData;
         if (newValue !== this.props.homePage.getAllBookData.length)
             this.setState({ books: nextProps.homePage.getAllBookData }, () => {
@@ -45,8 +47,14 @@ class HomePage extends React.Component {
             })
     }
 
+
+    getToken = () => {
+        if (this.state.storeData === true) {
+            this.setState({ storeData: false });
+        }
+    }
+
     recievedData = (data) => {
-        console.log(this.state.books);
         const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
         this.setState({
             pageCount: Math.ceil(data.length / this.state.perPage),
@@ -67,14 +75,20 @@ class HomePage extends React.Component {
         });
     };
 
+    selectedBook=(item)=>{
+        const itemDetails = JSON.stringify(item);
+        BrowserService.setLocalStorageValue("selectedBook", itemDetails);
+        this.setState({storeData:true})
+    }
+
     getCard = () => {
         return (
-            <div className={"root"}>
+            <div className={"root-block"}>
                 <div>
                     {this.state.pageOfItems.map((item, i) => (
                         <div className={"card-block"} key={i}>
                             <Card className='card' onClick={() => {
-                                this.props.selectedBook(item)
+                                this.selectedBook(item)
                             }}>
                                 <Suspense fallback={<div>Loading...</div>}>
                                     <BookDetailsComponent element={i} item={item} />
@@ -109,11 +123,10 @@ class HomePage extends React.Component {
         }
     }
     render() {
-        console.log("datahome", this.props.homePage.storeData);
-        if (this.props.homePage.storeData) {
-            const itemDetails = JSON.stringify(this.props.homePage.selectedBook);
-            let id = this.props.homePage.selectedBook._id
-            BrowserService.setLocalStorageValue("selectedBook", itemDetails);
+        if (this.state.storeData) {
+            const value=BrowserService.getLocalStorageValue("selectedBook");
+            const bookDetails=JSON.parse(value);
+            let id = bookDetails._id
             return <Redirect to={`/buyPrice/${id}`} />
         }
 
@@ -161,7 +174,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        "selectedBook": (item) => (dispatch(selectedBook(item))),
         "setInitialState": () => (dispatch(setIntialState())),
         "onSearchValue": (e) => (dispatch(onSearchValue(e))),
     };

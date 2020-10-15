@@ -2,6 +2,17 @@ import React from "react";
 import "./BooksComponent.scss";
 
 class BooksComponent extends React.Component {
+    constructor() {
+        super();
+        this.value();
+    }
+    value = () => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = "https://books.google.com"
+        console.log("image",img);
+    }
+
     render() {
         var item = this.props
         return (

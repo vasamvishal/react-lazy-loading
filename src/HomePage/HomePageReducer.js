@@ -4,7 +4,6 @@ import { extractDataFromStorage } from "./HomePageEffect";
 
 
 export const initialState = {
-    selectedBook: [],
     storeData: false,
     getAllBookData: [],
     searchBook: []
@@ -12,10 +11,6 @@ export const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case SELECTED_BOOKS: {
-            return { ...state, selectedBook: action.payload, storeData: !state.storeData }
-        }
-
         case SET_INITIALSTATE: {
             console.log("renderpage")
             return loop(initialState, Cmd.run(extractDataFromStorage, {
