@@ -28,12 +28,10 @@ export default (state = initialState, action) => {
         }
 
         case SUCESS_CART_DETAILS: {
-            console.log(action.payload);
             return { ...state, cartData: action.payload }
         }
 
         case FAILURE_CART_DETAILS: {
-            console.log("failure", action.payload);
             return { ...state, cartData: [] }
         }
 

@@ -18,7 +18,6 @@ export const extractGetCartDetails = () => {
         }).then((data) => {
             return data
         }).catch((err) => {
-            console.log("err", err)
             return Promise.reject("Error Occured while Fetching Customers " + err);
         });
 }
@@ -35,7 +34,6 @@ export const cancelOrder = (payload) => {
         .then((response) => {
             return response;
         }).catch((err) => {
-            console.log("err", err)
             return Promise.reject("Error Occured while Fetching Customers " + err);
         });
 

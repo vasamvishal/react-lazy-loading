@@ -4,6 +4,8 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconComponent from "./IconComponent";
 import BrowserService from "../BrowserService";
+import LabelImportantIcon from '@material-ui/icons/LabelImportant';
+
 
 class HeaderMobile extends React.Component {
     constructor(props){
@@ -21,7 +23,7 @@ class HeaderMobile extends React.Component {
             <ul className="mobile-hamberger-menu">
                 <div className={"mobile-aboutUs"}>
                     <NavLink to="/account">
-                        <IconComponent icon={<ExitToAppIcon />} name="About Us" />
+                        <IconComponent icon={<LabelImportantIcon />} name="About Us" />
                     </NavLink>
                 </div>
                 <br/>

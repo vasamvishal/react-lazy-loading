@@ -11,7 +11,6 @@ export const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case REGISTER_PAGE: {
-            console.log("payload", action.payload);
             return loop(state, Cmd.run(registerUser, {
                 successActionCreator: registerSucess,
                 failActionCreator: registerFailure,
@@ -20,7 +19,6 @@ export default (state = initialState, action) => {
         }
 
         case REGISTER_SUCESS: {
-            console.log("DDD",action.payload);
             return { ...state, registerData: true,status:action.payload.status}
         }
 

@@ -24,7 +24,7 @@ self.addEventListener('install', function (event) {
     caches.open(CACHE_NAME)
       .then(function (cache) {
 
-        console.log("updates",cache);
+        // console.log("updates",cache);
         const urlsToCache = [
           "/",
           "/home",
@@ -34,6 +34,7 @@ self.addEventListener('install', function (event) {
           "./static/js/0.chunk.js.map",
           "./static/js/1.chunk.js",
           "./static/js/5.chunk.js",
+          "./static/js/7.chunk.js",
           "./static/js/5.chunk.js.map",
           "./static/js/2.chunk.js",
           "./static/js/3.chunk.js",
@@ -51,12 +52,12 @@ self.addEventListener('install', function (event) {
           "asset-manifest.json",
           "http://localhost:8080/getAll",
           // "main.919b8f8ef25f7ba5bea6.hot-update.js"
-          "http://books.google.com/books/content?id=IqPW7mqq6GIC&printsec=frontcover&img=1&zoom=5%27",
-          "http://books.google.com/books/content?id=GHt_uwEACAAJ&printsec=frontcover&img=1&zoom=5%27",
+          // "http://books.google.com/books/content?id=IqPW7mqq6GIC&printsec=frontcover&img=1&zoom=5%27",
+          // "http://books.google.com/books/content?id=GHt_uwEACAAJ&printsec=frontcover&img=1&zoom=5%27",
           // http://books.google.com/books/content?id=4oFoDwAAQBAJ&printsec=frontcover&img=1&zoom=5%27"
         ]
-        console.log('cached');
-        console.log(urlsToCache)
+        // console.log('cached');
+        // console.log(urlsToCache)
         return cache.addAll(urlsToCache)
       })
   )
@@ -69,9 +70,9 @@ self.addEventListener('fetch', function (event) {
     event.respondWith(
     caches.match(event.request).then(function (response) {
       if (response) {
-          console.log("response",response);
-          console.log('I am a request with url: ',
-          event.request.clone().url)
+          // console.log("response",response);
+          // console.log('I am a request with url: ',
+          event.request.clone().url
         return response || fetch(event.request,{
           mode:"cors",
           headers:{
@@ -81,15 +82,10 @@ self.addEventListener('fetch', function (event) {
       }
     })
    );
-  // }
 });
 
-// async function updateSources(){
-//   const res = await fetch(`https://newsapi.org/v2/sources?apiKey=MyApiKey
-// `);
-//   const json = await res.json();
-//   sourceSelector.innerHTML = json.sources.map(src => `<option value =     "${src.id}">${src.name}</option>`).join('\n');
-//   console.log(json);
-// }
+// document.querySelector('.card').addEventListener('click', function(event) {
+//   console.log("dddddddd");
+// })
 
 

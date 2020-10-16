@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import "./HomePage.scss";
 import Card from '@material-ui/core/Card';
 import { connect } from "react-redux";
-import { selectedBook, setIntialState, onSearchValue } from "./HomePageAction";
+import { setIntialState, onSearchValue,selectedBook } from "./HomePageAction";
 import { Redirect } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import Loader from 'react-loader-spinner';
@@ -15,6 +15,7 @@ class HomePage extends React.Component {
 
     constructor(props) {
         super(props);
+        this.getToken();
         this.state = {
             books: [],
             selectedStateData: this.props.storeData,
@@ -25,33 +26,38 @@ class HomePage extends React.Component {
             currentPage: 0,
             selectedPage: this.props.header.selectedPage,
             isLoading: true,
-            storeData: this.props.homePage.storeData,
+            storeData:this.props.homePage.storeData
         }
-        console.log("constructop HomePage")
+        console.log(this.state.storeData, "FFff")
     }
 
     componentDidMount() {
         setTimeout(() => {
             this.setState({ isLoading: false })
         }, 2000)
-        this.getToken();
+        // this.getToken();
         this.props.setInitialState()
     }
 
+    getToken=()=>{
+        console.log("renderconstr")
+        this.setState({storeData:false})
+    }
 
     componentWillReceiveProps(nextProps) {
         const newValue = nextProps.homePage.getAllBookData;
+        const value=nextProps.homePage.storeData;
+        console.log("newValue",value)
+        console.log("value",this.props.homePage.storeData)
+
         if (newValue !== this.props.homePage.getAllBookData.length)
             this.setState({ books: nextProps.homePage.getAllBookData }, () => {
                 this.recievedData(newValue)
             })
-    }
-
-
-    getToken = () => {
-        if (this.state.storeData === true) {
-            this.setState({ storeData: false });
+        if(value !== this.props.homePage.storeData){
+            this.setState({ storeData:true})
         }
+        
     }
 
     recievedData = (data) => {
@@ -75,11 +81,12 @@ class HomePage extends React.Component {
         });
     };
 
-    selectedBook=(item)=>{
-        const itemDetails = JSON.stringify(item);
-        BrowserService.setLocalStorageValue("selectedBook", itemDetails);
-        this.setState({storeData:true})
-    }
+    // selectedBook = (item) => {
+    //     console.log(this.state.storeData, "FFff")
+    //     const itemDetails = JSON.stringify(item);
+    //     BrowserService.setLocalStorageValue("selectedBook", itemDetails);
+    //     this.setState({ storeData: true })
+    // }
 
     getCard = () => {
         return (
@@ -88,15 +95,14 @@ class HomePage extends React.Component {
                     {this.state.pageOfItems.map((item, i) => (
                         <div className={"card-block"} key={i}>
                             <Card className='card' onClick={() => {
-                                this.selectedBook(item)
+                                this.props.selectedBook(item)
                             }}>
                                 <Suspense fallback={<div>Loading...</div>}>
                                     <BookDetailsComponent element={i} item={item} />
                                 </Suspense>
                             </Card>
                         </div>
-                    )
-                    )}
+                    ))}
                 </div>
             </div>
         )
@@ -105,7 +111,6 @@ class HomePage extends React.Component {
     searchValue = (e) => {
         const payload = e.target.value;
         if (payload !== "") {
-            console.log("PPP", payload)
             const filteredData = this.state.pageOfItems.filter(element => {
                 return element.title.toLowerCase().includes(payload.toLowerCase());
             });
@@ -123,10 +128,17 @@ class HomePage extends React.Component {
         }
     }
     render() {
+        console.log(this.state.storeData, "render")
+        // if (this.state.storeData) {
+        //     const value = BrowserService.getLocalStorageValue("selectedBook");
+        //     const bookDetails = JSON.parse(value);
+        //     let id = bookDetails._id
+        //     return <Redirect to={`/buyPrice/${id}`} />
+        // }
         if (this.state.storeData) {
-            const value=BrowserService.getLocalStorageValue("selectedBook");
-            const bookDetails=JSON.parse(value);
-            let id = bookDetails._id
+            const itemDetails = JSON.stringify(this.props.homePage.selectedBook);
+            let id = this.props.homePage.selectedBook._id
+            BrowserService.setLocalStorageValue("selectedBook", itemDetails);
             return <Redirect to={`/buyPrice/${id}`} />
         }
 
@@ -174,6 +186,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        "selectedBook": (item) => (dispatch(selectedBook(item))),
         "setInitialState": () => (dispatch(setIntialState())),
         "onSearchValue": (e) => (dispatch(onSearchValue(e))),
     };

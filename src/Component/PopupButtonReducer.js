@@ -9,7 +9,6 @@ export const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case LOGOUT: {
-            console.log("logout");
             logout();
          return { ...state, logout: true }
         }

@@ -12,7 +12,6 @@ export const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
         case LOGIN: {
-            console.log("payload",action.payload);
             return loop(state, Cmd.run(loginToStorage, {
                 successActionCreator: loginSucess,
                 failActionCreator: loginFailure,
@@ -21,7 +20,6 @@ export default (state = initialState, action) => {
         }
 
         case LOGINSUCESS: {
-            console.log("payloadsucess",action.payload.status);
             return {
                 ...state,
                 loginData: action.payload,
@@ -30,10 +28,9 @@ export default (state = initialState, action) => {
             };
         }
         case LOGINFAILURE: {
-            console.log("loginFailure",action.payload);
             return {
                 ...state,
-                loginData:null,
+                loginData:[],
                 status:action.payload.status,
                 login:false
             };

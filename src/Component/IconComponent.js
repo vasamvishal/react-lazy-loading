@@ -1,6 +1,5 @@
 
 import React from "react";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 export default class IconComponent extends React.Component{
     constructor(props){

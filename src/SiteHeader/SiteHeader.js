@@ -21,7 +21,6 @@ class SiteHeader extends React.Component {
 
     renderSearchIcon = () => {
         const { location } = this.props;
-        console.log("location site ", location);
         if (location.pathname.match("/home")) {
             this.setState({ showSearch: true })
         }
@@ -45,7 +44,6 @@ class SiteHeader extends React.Component {
     }
 
     render() {
-        console.log("Ffff")
         return (
             <div className={"header-logo"}>
                 <div className={"site-header-tabs"}>

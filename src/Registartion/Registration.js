@@ -7,11 +7,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import SiteHeader from "../SiteHeader/SiteHeader";
 import "../SignUp/SignUp.scss";
 import { registerPage } from "../Registartion/RegistrationAction";
 import { checkForNameValidation} from "../SignUp/formValidation";
-import Login from '../Login/Login';
 import './Registration.scss';
 import { connect } from "react-redux";
 
@@ -30,7 +28,6 @@ class Registration extends React.Component {
             phoneNumberError: false,
             registerSucess:false
         }
-        console.log("Fff");
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.showPassword = this.showPassword.bind(this);
@@ -46,14 +43,12 @@ class Registration extends React.Component {
 
     handleClose = () => {
         console.log("blah");
-        // this.setState({ open: !this.state.open })
     }
 
     checkForPhoneNumberValidation = (e) => {
         const phoneNumber = e.target.value;
         var phoneno = /^\d{10}$/;
         if (phoneNumber.match(phoneno)) {
-            console.log("FFFF")
             this.setState({ phoneNumberError: false })
             this.setState({ phoneNumber: phoneNumber })
         }
@@ -236,7 +231,7 @@ class Registration extends React.Component {
                         {this.props.registrationForm.status !== 200 ?<div className="warning">userName or phoneNumber is already registrated</div>:""}
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose, this.closeRegistration} color="primary">
+                        <Button onClick={this.handleClose,this.closeRegistration} color="primary">
                             BACK
                         </Button>
                         <Button disabled={this.checkForDisabledButton()}

@@ -28,13 +28,11 @@ class BuyPage extends React.Component {
     }
 
     getToken = () => {
-        console.log("State");
         const value = BrowserService.getLocalStorage();
         if (value.token === undefined || value.token === null) {
             this.setState({ isAuthenticated: false });
         }
         else {
-            console.log("true");
             this.setState({ isAuthenticated: true });
         }
     }
@@ -53,7 +51,6 @@ class BuyPage extends React.Component {
     }
 
     addTocart = (item) => {
-        console.log(this.state.isAuthenticated);
         if (this.state.isAuthenticated===true) {
             let noOfBooks = this.state.noOfBooks;
             this.props.onAddToCart({ item, noOfBooks }, () => {

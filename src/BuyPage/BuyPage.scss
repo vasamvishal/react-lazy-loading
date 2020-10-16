@@ -36,11 +36,14 @@
   }
 }
 .delete-button {
-  background-color: firebrick;
-  height: 2em;
+  background-color: #C80F25;
   margin-top: 2em;
   width: 13em;
   cursor: pointer;
+  border: 0px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-radius: 5px;
   @media screen and (max-width: 700px){
     float: right;
     margin-right: 15vw;

@@ -15,7 +15,6 @@ export default class SignUp extends React.Component {
             nameError: false,
             colourNameError: false,
         }
-        console.log("Signup", props);
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
@@ -25,7 +24,6 @@ export default class SignUp extends React.Component {
     };
 
     handleClose = () => {
-        console.log("signup", this.state.open);
         this.setState({ open: false })
     }
 
@@ -74,7 +72,6 @@ export default class SignUp extends React.Component {
     }
 
     onClosePage = () => {
-        console.log("blah")
         this.props.onCloseSignUpPage()
     }
 
@@ -91,7 +88,6 @@ export default class SignUp extends React.Component {
         }
     }
     render() {
-        console.log("signupPage", this.state.open);
         return (
             <>
                 <Dialog

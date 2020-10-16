@@ -1,7 +1,7 @@
 .card-info{
     display: flex;
     justify-content: center;
-    padding-top: 2vh;
+    padding-top: 4vh;
     @media screen and (max-width: 700px) {
      flex-direction: column;
     }
@@ -21,7 +21,10 @@
   .second-box{
     display: flex;
     flex-direction: column;
-    margin-left: 1em;
+    margin-left: 3em;
+    @media screen and (max-width: 700px) {
+      margin-left: 1em;
+    }
 
     .card-book-details-flex{
         display: flex;
@@ -48,12 +51,15 @@
         }
       }
       .card-bookPrice{
+        font-weight: 600;
         @media screen and (max-width: 700px) {
           margin-left: 2em;
         }
       } 
       .Books-Available{
           margin-left: 10vw;
+          font-weight: 600;
+
           @media screen and (max-width: 700px) {
             margin-left: 25vw;
           }
@@ -64,32 +70,61 @@
     margin-top: 1em;
     .text-box{
         padding-right: 6vw;
+        padding-top: 1em;
+        padding-bottom: 1em;
         @media screen and (max-width: 700px) {
           margin-left: 9vw;
           padding-right: 0vw;
         }
       }
+
       .card-button-onClick{
         cursor: pointer;
-        background-color: orange;
+        width: 9em;
+        background-color: #E65B1E;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border: 0px;
         @media screen and (max-width: 700px) {
           font-size: 0.75em;
         }
       }
+      .card-button-onClick:focus{
+        outline: none;
+      }
       .card-button-unClicked{
         cursor: pointer;
-        background-color: firebrick;
+        width: 10em;
+        background-color:#3ABDA6 ;
         color: white;
+        border: 0px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+      .card-button-unClicked:focus{
+        outline: none;
       }
       
 .button{
     display: flex;
+    justify-content: center;
     .button-label{
       padding-top: 0.75vh;
-      font-family: "Times New Roman", Times, serif;
+      color: white;
+
+      // font-family: "Times New Roman", Times, serif;
       @media screen and (min-width: 768px) and (max-width:1024px) {
-        padding-top: 0.75vh;
+        padding-top: 0.3vh;
       }
+
+      // @media screen and (min-width: 1024px) and (max-width:1366px) {
+      //   padding-top: 0.3vh;
+      // }
+    @media screen and (min-width: 1024px) and (max-width:1024px){
+      padding-top: 0.3vh;
+    }
+
+      // 0.3vh
       @media screen and (max-width: 700px) {
         padding-top: 0.5vh;
       }

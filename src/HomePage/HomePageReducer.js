@@ -1,4 +1,4 @@
-import { SELECTED_BOOKS, GET_BOOKS_SUCCESS,SEARCH_BOOKS_FAILURE, getBooksSucces, SET_INITIALSTATE,searchBooksFailureAction} from "./HomePageAction"
+import { GET_BOOKS_SUCCESS,SELECTED_BOOKS,SEARCH_BOOKS_FAILURE, getBooksSucces, SET_INITIALSTATE, searchBooksFailureAction } from "./HomePageAction"
 import { Cmd, loop } from "redux-loop";
 import { extractDataFromStorage } from "./HomePageEffect";
 
@@ -11,8 +11,10 @@ export const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SELECTED_BOOKS: {
+            return { ...state, selectedBook: action.payload, storeData: !state.storeData }
+        }
         case SET_INITIALSTATE: {
-            console.log("renderpage")
             return loop(initialState, Cmd.run(extractDataFromStorage, {
                 successActionCreator: getBooksSucces,
                 failActionCreator: searchBooksFailureAction
@@ -22,7 +24,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 getAllBookData: action.payload,
-                storeData:false
+                storeData: false
             };
         }
         case SEARCH_BOOKS_FAILURE: {

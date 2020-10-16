@@ -1,10 +1,10 @@
 import {
+    LOGOUT,
     REDIRECT_TO_ACCOUNT_PAGE,
     REDIRECT_TO_CART_PAGE,
-    REDIRECT_TO_HOME_PAGE,
     REDIRECT_TO_SIGNUP_PAGE
 } from "./HeaderIconsAction";
-import { changeLocation } from "./HeaderIconsEffect";
+import { logout } from "./HeaderIconsEffect";
 
 export const initialState = {
     cartPage: false,
@@ -27,14 +27,11 @@ export default (state = initialState, action) => {
             return { ...state, signUpPage: true, selectedPage: 4 }
         }
 
-        case REDIRECT_TO_HOME_PAGE: {
-            console.log(":sdsada");
-            const changeLocationData = "/home"
-            changeLocation(changeLocationData)
-            // console.log("done");
-            // return { ...state, homePage: true, selectedPage: 1 }
+        case LOGOUT: {
+            // const changeLocationData = "/home"
+            logout()
         }
-
+        
         default:
             return state
     }

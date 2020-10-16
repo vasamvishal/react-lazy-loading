@@ -1,6 +1,5 @@
 import BrowserService from "../BrowserService"
 export const loginToStorage = (item) => {
-    console.log(item);
      const url="http://localhost:8080/login";
     return fetch(`${url}`,{
         method: 'POST',
@@ -24,7 +23,6 @@ export const loginToStorage = (item) => {
         return data;
     })
     .catch((err) => {
-        console.log("err",err)
         return Promise.reject("Error Occured while Fetching Customers " + err);
     });
 };

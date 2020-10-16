@@ -18,7 +18,6 @@ class HamburgerMenuExport extends React.Component {
     }
 
     getToken=()=>{
-        console.log("State");
         const value = BrowserService.getLocalStorage();
         if (value.token === undefined || value.token === null) {
             this.setState({isAuthenticated: false});

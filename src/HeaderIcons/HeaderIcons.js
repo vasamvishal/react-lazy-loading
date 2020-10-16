@@ -8,9 +8,12 @@ import { NavLink, withRouter } from 'react-router-dom';
 import "./HeaderIcon.scss";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 import SignUp from "../SignUp/SignUp";
-import {logout} from "../Login/LoginAction";
 import PopupButton from "../Component/PopupButton";
 import BrowserService from "../BrowserService";
+import LabelImportantIcon from '@material-ui/icons/LabelImportant';
+import {logout} from "./HeaderIconsAction";
+import Badge from '@material-ui/core/Badge';
+
 
 class HeaderIcons extends React.Component {
     constructor(props) {
@@ -37,7 +40,6 @@ class HeaderIcons extends React.Component {
 
     renderSearchIcon = () => {
         const { location } = this.props;
-        console.log("locatiom", location);
         if (location.pathname.match("/home")) {
             this.setState({ showSearch: true })
         }
@@ -82,8 +84,7 @@ class HeaderIcons extends React.Component {
     }
 
     render() {
-        console.log(this.props, "props");
-        console.log("showsearch", this.state.showSearch)
+        // console.log("props",this.props.buyBookDetails.cartData);
         return (
             <>
                 <ul className="headerexample">
@@ -93,7 +94,7 @@ class HeaderIcons extends React.Component {
 
                     <li className={"aboutUs"} >
                         <NavLink to="/account">
-                            <ExitToAppIcon />&nbsp;&nbsp;
+                            <LabelImportantIcon />&nbsp;&nbsp;
                         <div>About&nbsp;Us</div>
                         </NavLink>
                     </li>
@@ -116,12 +117,14 @@ class HeaderIcons extends React.Component {
                         <div>Sign&nbsp;Up</div>
                             {this.state.signUpPage && this.props.logoutPopinButton.logout === false ? <div><SignUp onCloseSignUpPage={this.closeSignUpPage} /></div> : ""}
                         </li>
-                        : ""}
+                        : <li className={"logout"} onClick={this.props.logout}> <ExitToAppIcon/>&nbsp;&nbsp;
+                        <div>Logout</div>
+                        </li>}
 
                     {this.state.showSearch ?
                         <div className="search-Def">
                             <SearchIcon onSearch={this.search} />
-                        </div> :""}
+                        </div> : ""}
                 </ul>
             </>
         )
@@ -130,5 +133,10 @@ class HeaderIcons extends React.Component {
 const mapStateToProps = (state) => {
     return state;
 }
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        "logout": () => (dispatch(logout()))
+    }
+}
 
-export default connect(mapStateToProps, null)(withRouter(HeaderIcons));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HeaderIcons));

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import { Redirect } from "react-router-dom";
@@ -13,8 +13,6 @@ const AddToCart = lazy(() => import("./AddToCart/AddToCart"));
 const notfound = lazy(() => import("./Component/NotFound"));
 
 export default function App() {
-    const [count, setCount] = useState(true);
-    console.log("count", count);
     return (
         <Router>
             <div className="App">
@@ -28,9 +26,7 @@ export default function App() {
                     <Switch>
                         <Route exact path="/" render={() => {
                                 return (
-                                    count ?
-                                        <Redirect to="/home" /> :
-                                        <Redirect to="/test1" />
+                                        <Redirect to="/home" />
                                 )
                             }}
                         />

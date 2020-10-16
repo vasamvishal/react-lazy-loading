@@ -28,7 +28,7 @@ class BooksDetails extends React.Component {
     }
 
     render() {
-        var buttonOnClick = this.state.clicked === true ? "card-button-onClick" : "card-button-unClicked"
+        var buttonOnClick = this.state.clicked ? "card-button-onClick" : "card-button-unClicked"
         const item = this.props.item
         return (
             <div className='card-info'>
@@ -43,20 +43,20 @@ class BooksDetails extends React.Component {
                             <div>OUT OF STOCK</div>
                             : <div style={{ display: "flex", paddingTop: "1em" }}>
                                 <div className='card-bookPrice'>Rs.{item.price * this.state.price}</div>
-                                <div className="Books-Available">Books.Available &nbsp;{item.quantity - this.state.quantity}</div>
+                                <div className="Books-Available">Books Available:&nbsp;{item.quantity - this.state.quantity}</div>
                             </div>
                         }
                     </div>
                     <div className={"text-button"}>
                         <input id="demo" className={"text-box"} onChange={this.changePrice} required type={"textbox"} />
-                        <button disabled={(this.state.quantity == 0 || this.state.quantity >= item.quantity)} className={buttonOnClick}
+                        <button disabled={(this.state.quantity === 0 || this.state.quantity >= item.quantity)} className={buttonOnClick}
                             onClick={() => {
                                 this.props.onAddToCart(item);
                                 this.setState({ clicked: !this.state.clicked })
                             }}>
                             <div className="button">
-                                <div><AddShoppingCartIcon style={{ paddingTop: 2 }} fontSize="small" /></div>
-                                <div className="button-label">Add To Cart</div>
+                                <div><AddShoppingCartIcon style={{ paddingTop: 2,color:"white" }} fontSize="small" />&nbsp;&nbsp;</div>
+                                {this.state.clicked?<div className="button-label">Add To Cart</div>:<div className="button-label">Item Added</div>}
                             </div>
                         </button>
                     </div>

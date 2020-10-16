@@ -41,7 +41,6 @@ class PopupExamplePinned extends React.Component {
     }
 
     renderSignUpPage = () => {
-        console.log("blah", this.state.show);
         if (this.state.show !== true) {
             this.setState({ show: true })
         }

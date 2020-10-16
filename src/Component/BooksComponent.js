@@ -10,7 +10,6 @@ class BooksComponent extends React.Component {
         const img = new Image();
         img.crossOrigin = "anonymous";
         img.src = "https://books.google.com"
-        console.log("image",img);
     }
 
     render() {

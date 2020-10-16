@@ -12,7 +12,8 @@ export const initialState = {
     addedToCart: [],
     deletedFromCart: false,
     noOfItems: 0,
-    cartPage: false
+    cartPage: false,
+    cartData:[]
 }
 
 export default (state = initialState, action) => {
