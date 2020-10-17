@@ -12,6 +12,7 @@ import { registerPage } from "../Registartion/RegistrationAction";
 import { checkForNameValidation} from "../SignUp/formValidation";
 import './Registration.scss';
 import { connect } from "react-redux";
+import UserSucessfulRegistration from '../Component/UserSucessfulRegistration';
 
 class Registration extends React.Component {
     constructor(props) {
@@ -206,7 +207,7 @@ class Registration extends React.Component {
                                 variant="outlined"
                                 onChange={(e) => { this.checkForConfirmPasswordValidation(e) }} />
 
-                            {!this.state.showPassword ? <VisibilityOffIcon fontSize="large" style={{ paddingTop: "0.25em" }} onClick={this.showPassword} /> : <VisibilityIcon onClick={this.showPassword} fontSize="large" />}
+                            {!this.state.showPassword ? <VisibilityOffIcon fontSize="large" style={{ paddingTop: "0.25em" }} onClick={this.showPassword} /> : <VisibilityIcon style={{ paddingTop: "0.25em" }}  onClick={this.showPassword} fontSize="large" />}
                             <br />
                             <br />
                             <TextField required
@@ -240,6 +241,7 @@ class Registration extends React.Component {
                             CREATE
                         </Button>
                     </DialogActions>
+                    {this.props.registrationForm.registerData===false?<UserSucessfulRegistration/>:""}
                 </Dialog>
             </>
         );

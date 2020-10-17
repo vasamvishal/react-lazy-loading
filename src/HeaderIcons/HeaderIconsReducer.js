@@ -2,6 +2,7 @@ import {
     LOGOUT,
     REDIRECT_TO_ACCOUNT_PAGE,
     REDIRECT_TO_CART_PAGE,
+    REDIRECT_TO_HOME_PAGE,
     REDIRECT_TO_SIGNUP_PAGE
 } from "./HeaderIconsAction";
 import { logout } from "./HeaderIconsEffect";
@@ -27,6 +28,10 @@ export default (state = initialState, action) => {
             return { ...state, signUpPage: true, selectedPage: 4 }
         }
 
+        case REDIRECT_TO_HOME_PAGE: {
+            console.log("cddd")
+            return { ...state, homePage: true, selectedPage: 4 }
+        }
         case LOGOUT: {
             // const changeLocationData = "/home"
             logout()

@@ -2,20 +2,22 @@ import React, { Suspense, lazy } from "react";
 import "./HomePage.scss";
 import Card from '@material-ui/core/Card';
 import { connect } from "react-redux";
-import { setIntialState, onSearchValue,selectedBook } from "./HomePageAction";
+import { setIntialState, onSearchValue, selectedBook, setState } from "./HomePageAction";
 import { Redirect } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import Loader from 'react-loader-spinner';
 import BrowserService from "../BrowserService";
+import { ThemeProvider } from "react-bootstrap";
 
 const BookDetailsComponent = lazy(() => import("../Component/BookDetailsComponent"));
 const SiteHeader = lazy(() => import("../SiteHeader/SiteHeader"));
 
 class HomePage extends React.Component {
+    _isMounted = true;
 
     constructor(props) {
         super(props);
-        this.getToken();
+        // this.getToken();
         this.state = {
             books: [],
             selectedStateData: this.props.storeData,
@@ -26,39 +28,53 @@ class HomePage extends React.Component {
             currentPage: 0,
             selectedPage: this.props.header.selectedPage,
             isLoading: true,
-            storeData:this.props.homePage.storeData
+            storeData: this.props.homePage.storeData
         }
-        console.log(this.state.storeData, "FFff")
+        console.log(this.state.storeData, "constructor")
+        console.log("value", this.props.homePage.storeData)
     }
 
     componentDidMount() {
+        console.log("component")
         setTimeout(() => {
             this.setState({ isLoading: false })
         }, 2000)
-        // this.getToken();
-        this.props.setInitialState()
-    }
-
-    getToken=()=>{
-        console.log("renderconstr")
-        this.setState({storeData:false})
+        this.props.setInitialState();
     }
 
     componentWillReceiveProps(nextProps) {
         const newValue = nextProps.homePage.getAllBookData;
-        const value=nextProps.homePage.storeData;
-        console.log("newValue",value)
-        console.log("value",this.props.homePage.storeData)
+        const value = nextProps.homePage.storeData;
+        console.log("newValue", value)
+        console.log("value", this.props.homePage.storeData)
 
         if (newValue !== this.props.homePage.getAllBookData.length)
             this.setState({ books: nextProps.homePage.getAllBookData }, () => {
                 this.recievedData(newValue)
             })
-        if(value !== this.props.homePage.storeData){
-            this.setState({ storeData:true})
+        if (value !== this.props.homePage.storeData) {
+            this.setState({ storeData: true })
         }
-        
+
     }
+
+
+    // componentDidUpdate(prevProps, prevState) {
+    //     // console.log("nextProips", prevProps)
+    //     //    console.log("prevSate",prevState)
+    //     // if (prevState.storeData !== this.state.pathname){
+    //     //     console.log("prevState.pathname", prevState.pathname);
+    //     //     console.log("this.props.pathname", this.props.pathname);
+    //     //     this.animate(0);
+    //     // }
+    //     if(this.state.storeData){
+    //     this.setState({})
+    //     }
+    // }
+
+    // componentWillUnmount = () => {
+    //     this._isMounted = false;
+    // }
 
     recievedData = (data) => {
         const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
@@ -80,13 +96,6 @@ class HomePage extends React.Component {
             this.recievedData(props)
         });
     };
-
-    // selectedBook = (item) => {
-    //     console.log(this.state.storeData, "FFff")
-    //     const itemDetails = JSON.stringify(item);
-    //     BrowserService.setLocalStorageValue("selectedBook", itemDetails);
-    //     this.setState({ storeData: true })
-    // }
 
     getCard = () => {
         return (
@@ -129,12 +138,7 @@ class HomePage extends React.Component {
     }
     render() {
         console.log(this.state.storeData, "render")
-        // if (this.state.storeData) {
-        //     const value = BrowserService.getLocalStorageValue("selectedBook");
-        //     const bookDetails = JSON.parse(value);
-        //     let id = bookDetails._id
-        //     return <Redirect to={`/buyPrice/${id}`} />
-        // }
+        // this.getToken()
         if (this.state.storeData) {
             const itemDetails = JSON.stringify(this.props.homePage.selectedBook);
             let id = this.props.homePage.selectedBook._id
@@ -186,6 +190,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        "setState": () => (dispatch(setState())),
         "selectedBook": (item) => (dispatch(selectedBook(item))),
         "setInitialState": () => (dispatch(setIntialState())),
         "onSearchValue": (e) => (dispatch(onSearchValue(e))),

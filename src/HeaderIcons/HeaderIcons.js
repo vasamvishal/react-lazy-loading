@@ -11,7 +11,7 @@ import SignUp from "../SignUp/SignUp";
 import PopupButton from "../Component/PopupButton";
 import BrowserService from "../BrowserService";
 import LabelImportantIcon from '@material-ui/icons/LabelImportant';
-import {logout} from "./HeaderIconsAction";
+import {logout,redirectToHomePage} from "./HeaderIconsAction";
 import Badge from '@material-ui/core/Badge';
 
 
