@@ -15,6 +15,7 @@ import SucessComponent from "../Component/SucessComponent";
 let price = 0;
 
 class AddToCart extends React.Component {
+    isMethod = true;
 
     constructor(props) {
         super(props);
@@ -25,12 +26,22 @@ class AddToCart extends React.Component {
         }
     }
 
-    componentDidMount = () => {
-        setTimeout(() => {
-            this.setState({ isLoading: false })
-        }, 1000)
+    componentDidMount() {
         this.getToken();
-        this.props.getCartDetails();
+        if (this.isMethod) {
+            setTimeout(() => {
+                this.setState({ isLoading: false })
+            }, 1000)
+            this.props.getCartDetails();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log(prevProps.loginForm);
+        console.log(this.props.loginForm)
+        if (prevProps.loginForm.login !== this.props.loginForm.login) {
+            this.props.getCartDetails();
+        }
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -75,7 +86,7 @@ class AddToCart extends React.Component {
         return (
             <>
                 {items.map((item, i) => (
-                    <div>
+                    <div key={i}>
                         <div className="dog">
                             <div className='cart'>
                                 <img className='bookImage' src={item.image} alt={"bookImg"} />
@@ -106,32 +117,36 @@ class AddToCart extends React.Component {
     render() {
         let item = this.props.addToCart.cartData;
         this.calculateSubTotal(item);
+        console.log("render")
         return (
             <>
                 <SiteHeader />
-                {this.state.isLoading ? <Loader
-                    type="TailSpin"
-                    color="#00BFFF"
-                    height={500}
-                    width={200}
-                    timeout={2000} /> : <>
-                        {this.state.isAuthenticated === false ? <div><LoginToFile /></div> : <div>
-                            {item.length === 0 ? <><div className="cartImage"></div></> : <>
-                                <div className="checkout-main-box1">
-                                    {this.state.showComponent ? <SucessComponent /> : <>{this.abc(item)}</>}
-                                    <div className="checkout-box">
-                                        <div style={{ fontWeight: "bold", display: "flex", paddingTop: "0.25em", paddingLeft: "0.75em" }}>Sub Total:&nbsp;<div style={{ fontWeight: '600' }}>{price}</div></div>
-                                        <div><Checkout amount={price} close={this.handleCloseOpen} /></div>
+                {this.state.isAuthenticated === false ? <div><LoginToFile /></div> : <div>
+                    {this.state.isLoading ? <Loader
+                        type="TailSpin"
+                        color="#00BFFF"
+                        height={500}
+                        width={200}
+                        timeout={2000} /> : <>
+                            {item.length === 0 ? <>
+                                <div className="cartImage" />
+                            </> :
+                                <>
+                                    <div className="checkout-main-box1">
+                                        {this.state.showComponent ? <SucessComponent /> : <>{this.abc(item)}</>}
+                                        <div className="checkout-box">
+                                            <div style={{ fontWeight: "bold", display: "flex", paddingTop: "0.25em", paddingLeft: "0.75em" }}>Sub Total:&nbsp;<div style={{ fontWeight: '600' }}>{price}</div></div>
+                                            <div><Checkout amount={price} close={this.handleCloseOpen} /></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <br />
-                                <NavLink to="/home" style={{ display: "flex", textDecoration: "none", justifyContent: "flex-end", fontWeight: "700", color: "black", fontWeight: "500", paddingRight: "12em" }}><ArrowBackIcon /><div>Back to Main Page</div></NavLink>
-                                <br />
-                            </>
+                                    <br />
+                                    <NavLink to="/home" style={{ display: "flex", textDecoration: "none", justifyContent: "flex-end", fontWeight: "700", color: "black", fontWeight: "500", paddingRight: "12em" }}><ArrowBackIcon /><div>Back to Main Page</div></NavLink>
+                                    <br />
+                                </>
                             }
-                        </div>}
-                    </>
-                }
+                        </>
+                    }
+                </div>}
             </>
         )
     }

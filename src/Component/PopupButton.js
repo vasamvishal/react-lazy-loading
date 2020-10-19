@@ -7,7 +7,7 @@ import BrowserService from "../BrowserService"
 import { NavLink, Redirect } from 'react-router-dom';
 import ShowDetails from './ShowDetails';
 
-class PopupExamplePinned extends React.Component {
+class PopupButton extends React.Component {
 
     constructor(props) {
         super(props);
@@ -67,10 +67,10 @@ class PopupExamplePinned extends React.Component {
                         {this.props.isAuthenticated === true ?
                             <div>
                                 <hr />
-                                <ShowDetails/>
+                                <ShowDetails />
                                 <hr />
                                 <ul className="header-links">
-                                    <NavLink to="/account" className="li-def">&nbsp;&nbsp;&nbsp;&nbsp;<div className="my-orders">&nbsp;&nbsp;&nbsp;&nbsp;My Orders</div></NavLink>
+                                    <div className="li-def"><NavLink to="/cart"><div className="my-orders  my-orders-logout">&nbsp;&nbsp;&nbsp;&nbsp;My Orders</div></NavLink></div>
                                     <hr />
                                     <div onClick={this.logout} className="li-def"><div className="my-orders my-orders-logout">&nbsp;&nbsp;&nbsp;&nbsp;Logout</div></div>
                                 </ul>
@@ -93,4 +93,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PopupExamplePinned)
+export default connect(mapStateToProps, mapDispatchToProps)(PopupButton)

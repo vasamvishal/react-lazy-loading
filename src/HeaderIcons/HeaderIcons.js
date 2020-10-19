@@ -4,14 +4,14 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from "../SiteHeader/SearchIcon";
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { connect } from "react-redux";
-import { NavLink, withRouter } from 'react-router-dom';
+import { Redirect, NavLink, withRouter } from 'react-router-dom';
 import "./HeaderIcon.scss";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 import SignUp from "../SignUp/SignUp";
 import PopupButton from "../Component/PopupButton";
 import BrowserService from "../BrowserService";
 import LabelImportantIcon from '@material-ui/icons/LabelImportant';
-import {logout,redirectToHomePage} from "./HeaderIconsAction";
+import { logout } from "./HeaderIconsAction";
 import Badge from '@material-ui/core/Badge';
 
 
@@ -22,7 +22,7 @@ class HeaderIcons extends React.Component {
             signUpPage: false,
             loginPage: true,
             isAuthenticated: false,
-            showSearch: false
+            showSearch: false,
         }
         this.signUpPage = this.signUpPage.bind(this);
         this.closeSignUpPage = this.closeSignUpPage.bind(this);
@@ -72,7 +72,6 @@ class HeaderIcons extends React.Component {
         this.props.onSearch(e);
     }
 
-
     static getDerivedStateFromProps(props, state) {
         const value = BrowserService.getLocalStorage();
         if (value.token === undefined || value.token === null) {
@@ -84,12 +83,13 @@ class HeaderIcons extends React.Component {
     }
 
     render() {
-        // console.log("props",this.props.buyBookDetails.cartData);
         return (
             <>
                 <ul className="headerexample">
-                    <li className={"home"}><NavLink to="/home">
-                        XBAY</NavLink>
+                    <li className={"home"}>
+                        <NavLink to="/home">
+                            XBAY
+                        </NavLink>
                     </li>
 
                     <li className={"aboutUs"} >
@@ -117,7 +117,7 @@ class HeaderIcons extends React.Component {
                         <div>Sign&nbsp;Up</div>
                             {this.state.signUpPage && this.props.logoutPopinButton.logout === false ? <div><SignUp onCloseSignUpPage={this.closeSignUpPage} /></div> : ""}
                         </li>
-                        : <li className={"logout"} onClick={this.props.logout}> <ExitToAppIcon/>&nbsp;&nbsp;
+                        : <li className={"logout"} onClick={this.props.logout}> <ExitToAppIcon />&nbsp;&nbsp;
                         <div>Logout</div>
                         </li>}
 
@@ -133,7 +133,7 @@ class HeaderIcons extends React.Component {
 const mapStateToProps = (state) => {
     return state;
 }
-const mapDispatchToProps=(dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
     return {
         "logout": () => (dispatch(logout()))
     }

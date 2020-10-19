@@ -11,6 +11,7 @@ class HeaderMobile extends React.Component {
     constructor(props){
         super(props);
     }
+
     logout = () => {
         BrowserService.deleteLocalStorageItem("token");
         BrowserService.deleteLocalStorageItem("user");
@@ -23,18 +24,18 @@ class HeaderMobile extends React.Component {
             <ul className="mobile-hamberger-menu">
                 <div className={"mobile-aboutUs"}>
                     <NavLink to="/account">
-                        <IconComponent icon={<LabelImportantIcon />} name="About Us" />
+                        <IconComponent icon={<LabelImportantIcon fontSize="large"/>} name="About Us" />
                     </NavLink>
                 </div>
                 <br/>
                 <div className={"mobile-cart"}>
                     <NavLink to="/cart">
-                        <IconComponent icon={<ShoppingCartIcon />} name="Cart" />
+                        <IconComponent icon={<ShoppingCartIcon fontSize="large" />} name="Cart" />
                     </NavLink>
                 </div>
                 <br/>
-                {this.props.Authenticated?<div className={"mobile-logout"} onClick={this.logout}>
-                    <IconComponent icon={<ExitToAppIcon />} name="Logout" />
+                {this.props.authenticated?<div className={"mobile-logout"} onClick={this.logout}>
+                    <IconComponent icon={<ExitToAppIcon fontSize="large"/>} name="Logout" />
                 </div>:""}
             </ul>
         )

@@ -4,50 +4,57 @@ import MenuIcon from '@material-ui/icons/Menu';
 import HeaderMobile from "../Component/HeaderMobile";
 import BrowserService from "../BrowserService";
 import ShowDetails from "../Component/ShowDetails";
-
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 
 class HamburgerMenuExport extends React.Component {
     constructor() {
         super()
         this.state = {
             open: true,
-            isAuthenticated:false
+            isAuthenticated: false
         }
         this.handleClick = this.handleClick.bind(this)
         this.closeNav = this.closeNav.bind(this)
     }
 
-    getToken=()=>{
+    getToken = () => {
         const value = BrowserService.getLocalStorage();
         if (value.token === undefined || value.token === null) {
-            this.setState({isAuthenticated: false});
+            this.setState({ isAuthenticated: false });
         }
         else {
-            this.setState({isAuthenticated: true});
+            this.setState({ isAuthenticated: true });
         }
     }
-
 
     closeNav() {
         document.getElementById("myNav").style.width = "0%";
     }
 
     handleClick() {
-         this.getToken();
+        this.getToken();
         document.getElementById("myNav").style.width = "100%";
     }
     render() {
         return (
-             <>
+            <>
                 <div id="myNav" class="overlay">
-                    <div>{!this.state.isAuthenticated?<div className="login-signup">LOGIN/SIGNUP</div>:<div className="login-signup"><ShowDetails/></div>}</div>
-                    <a class="closebtn" onClick={()=>this.closeNav()}>&times;</a>
+                    <div>{!this.state.isAuthenticated ? <div className="login-signup">LOGIN/SIGNUP</div>
+                        : <div className="login-signup">
+                            <div style={{ display: "flex", marginLeft: "0.5em" }}>
+                                <AccountCircleRoundedIcon fontSize="large" />
+                                <div style={{ marginLeft: "-1em" }}><ShowDetails /></div>
+                            </div>
+                        </div>}</div>
+                    <a class="closebtn" onClick={() => this.closeNav()}>&times;</a>
                     <div class="overlay-content">
-                    <HeaderMobile Authenticated={this.state.isAuthenticated}/>
+                        <HeaderMobile authenticated={this.state.isAuthenticated} />
                     </div>
                 </div>
-                <MenuIcon onClick={() => this.handleClick()} style={{ fontSize: 40,color:'white',marginTop:'1.25vh',
-                    paddingLeft: '7px'}}>openClose</MenuIcon>
+                <MenuIcon onClick={() => this.handleClick()} style={{
+                    fontSize: 40, color: 'white', marginTop: '1.25vh',
+                    paddingLeft: '7px'
+                }}>openClose</MenuIcon>
             </>
         )
     }

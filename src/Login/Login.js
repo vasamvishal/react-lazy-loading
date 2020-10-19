@@ -98,13 +98,7 @@ class Login extends React.Component {
                                 <br></br>
                                 {this.state.error !== 200 ? <p>Your login credentials could not be verified, please try again.</p> : ""}
                                 <button disabled={this.state.userName === "" && this.state.password === ""} className={"button-text"} onClick={this.renderMainPage}>
-                                    {(this.props.loginData.length == 0) ? <div>Log&nbsp;In</div> :
-                                        <Loader
-                                            type="TailSpin"
-                                            color="#00BFFF"
-                                            height={20}
-                                            width={200}
-                                            timeout={3000} />}
+                                    <div>Log&nbsp;In</div> 
                                 </button>
                                 {this.state.isLoading ? <Loader
                                     type="TailSpin"

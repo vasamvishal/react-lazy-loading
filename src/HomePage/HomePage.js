@@ -13,14 +13,12 @@ const BookDetailsComponent = lazy(() => import("../Component/BookDetailsComponen
 const SiteHeader = lazy(() => import("../SiteHeader/SiteHeader"));
 
 class HomePage extends React.Component {
-    _isMounted = true;
+    didMount = false;
 
     constructor(props) {
         super(props);
-        // this.getToken();
         this.state = {
             books: [],
-            selectedStateData: this.props.storeData,
             pageOfItems: [],
             offset: 0,
             data: [],
@@ -28,53 +26,46 @@ class HomePage extends React.Component {
             currentPage: 0,
             selectedPage: this.props.header.selectedPage,
             isLoading: true,
-            storeData: this.props.homePage.storeData
+            expanded: this.props.homePage.storeData,
+            // ownUpdate: false
         }
-        console.log(this.state.storeData, "constructor")
-        console.log("value", this.props.homePage.storeData)
+        console.log("constructor",this.props.homePage.storeData)
     }
 
     componentDidMount() {
         console.log("component")
+         this.props.setInitialState();
         setTimeout(() => {
             this.setState({ isLoading: false })
         }, 2000)
-        this.props.setInitialState();
     }
 
-    componentWillReceiveProps(nextProps) {
-        const newValue = nextProps.homePage.getAllBookData;
-        const value = nextProps.homePage.storeData;
-        console.log("newValue", value)
-        console.log("value", this.props.homePage.storeData)
+    componentDidUpdate(prevProps,prevState) {
+        const newValue = prevProps.homePage.getAllBookData;
 
-        if (newValue !== this.props.homePage.getAllBookData.length)
-            this.setState({ books: nextProps.homePage.getAllBookData }, () => {
+        if (newValue.length === this.props.homePage.getAllBookData.length && this.didMount===false)
+            this.setState({ books: prevProps.homePage.getAllBookData }, () => {
+                this.didMount=true;
                 this.recievedData(newValue)
             })
-        if (value !== this.props.homePage.storeData) {
-            this.setState({ storeData: true })
-        }
-
     }
 
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     // console.log("nextProips", prevProps)
-    //     //    console.log("prevSate",prevState)
-    //     // if (prevState.storeData !== this.state.pathname){
-    //     //     console.log("prevState.pathname", prevState.pathname);
-    //     //     console.log("this.props.pathname", this.props.pathname);
-    //     //     this.animate(0);
-    //     // }
-    //     if(this.state.storeData){
-    //     this.setState({})
-    //     }
-    // }
-
-    // componentWillUnmount = () => {
-    //     this._isMounted = false;
-    // }
+    static getDerivedStateFromProps(props,state) {    
+        if(props.homePage.storeData != state.expanded) {
+            console.log("blah");
+            return {
+              expanded: !state.expanded
+            }
+          }
+          else if(state.expanded===true) {
+           return {
+            expanded: !state.expanded
+           }
+          }
+          else{
+              return null;
+          }
+    }
 
     recievedData = (data) => {
         const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
@@ -97,26 +88,6 @@ class HomePage extends React.Component {
         });
     };
 
-    getCard = () => {
-        return (
-            <div className={"root-block"}>
-                <div>
-                    {this.state.pageOfItems.map((item, i) => (
-                        <div className={"card-block"} key={i}>
-                            <Card className='card' onClick={() => {
-                                this.props.selectedBook(item)
-                            }}>
-                                <Suspense fallback={<div>Loading...</div>}>
-                                    <BookDetailsComponent element={i} item={item} />
-                                </Suspense>
-                            </Card>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        )
-    }
-
     searchValue = (e) => {
         const payload = e.target.value;
         if (payload !== "") {
@@ -136,10 +107,33 @@ class HomePage extends React.Component {
             this.recievedData(filteredData);
         }
     }
+
+    getCard = () => {
+        return (
+            <div className={"root-block"}>
+                <div>
+                    {this.state.pageOfItems.map((item, i) => (
+                        <div className={"card-block"} key={i}>
+                            <Card className='card' onClick={() => {
+                                this.props.selectedBook(item)
+                            }}>
+                                <Suspense fallback={<div>Loading...</div>}>
+                                    <BookDetailsComponent element={i} item={item} />
+                                </Suspense>
+                            </Card>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        )
+    }
+    
     render() {
         console.log(this.state.storeData, "render")
-        // this.getToken()
-        if (this.state.storeData) {
+        console.log("state",this.state.expanded)        
+        // console.log("stateupdate",this.state.ownUpdate)
+
+        if (this.state.expanded) {
             const itemDetails = JSON.stringify(this.props.homePage.selectedBook);
             let id = this.props.homePage.selectedBook._id
             BrowserService.setLocalStorageValue("selectedBook", itemDetails);

@@ -29,7 +29,7 @@
     margin-right: -1px;
     padding-left: 0em;
     padding-bottom: 3em;
-    height:4em;
+    // height:auto; //4em
    }
 }
 
@@ -46,6 +46,8 @@
   .home{
     display: flex;
     color: white;
+    font-weight: bold;
+    cursor: pointer;
     padding: 1em 2em 1.5em 2em;
   
     @media screen and (max-width: 700px) {
@@ -53,9 +55,16 @@
     }
   }
 
+  .closed-home{
+    // background-color: red;
+    pointer-events:none;
+  }
+
   .account-data{
     display: flex;
     color: white;
+    font-weight: bold;
+    cursor: pointer;
     padding: 1em 2em 1.5em 2em;
   
     @media screen and (max-width: 700px) {
@@ -87,6 +96,7 @@
   .signUp{
     display: flex;
     color: white;
+    font-weight: bold;
     padding: 1em 2em 1.5em 2em;
   
     @media screen and (max-width: 700px) {
@@ -97,6 +107,8 @@
   .logout{
     display: flex;
     color: white;
+    font-weight: bold;
+    cursor: pointer;
     padding: 1em 2em 1.5em 2em;
   
     @media screen and (max-width: 700px) {

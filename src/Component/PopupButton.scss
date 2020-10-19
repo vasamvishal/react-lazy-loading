@@ -7,7 +7,7 @@ li.li-def a::before{
 .account-popup{
     min-width: 260px;
     margin-top: 3em;
-    margin-left: -2em;
+    margin-left: -9em;
     padding: 10px;
     position: absolute;
     color: black;
@@ -33,19 +33,9 @@ li.li-def a::before{
 
 
 .header-links{
-    // min-width: 260px;
-    // top: 100%;
-    // right: -11px;
-    //
     margin-left: -2em;
 }
 
-.header-links >li{
-    list-style-type: none;
-    margin: 0em;
-    line-height: 1;
-    padding: 0 20px 12px 30px;
-}
 
 .header-links :hover{
     background-color: #2f445c;
@@ -56,6 +46,5 @@ li.li-def a::before{
     border: 1px solid green;
     background-color: white;
     width: 13em;
-    // margin-left: -18vh;
     height: 2em;
 }

@@ -20,6 +20,7 @@ export default (state = initialState, action) => {
             return {...initialState}
         }
         case SET_INITIALSTATE: {
+            console.log("SET_INITIALSTATE");
             return loop(initialState, Cmd.run(extractDataFromStorage, {
                 successActionCreator: getBooksSucces,
                 failActionCreator: searchBooksFailureAction
