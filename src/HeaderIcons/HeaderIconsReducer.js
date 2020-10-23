@@ -29,12 +29,11 @@ export default (state = initialState, action) => {
         }
 
         case REDIRECT_TO_HOME_PAGE: {
-            console.log("cddd")
             return { ...state, homePage: true, selectedPage: 4 }
         }
         case LOGOUT: {
-            // const changeLocationData = "/home"
             logout()
+            break;
         }
         
         default:

@@ -8,8 +8,9 @@ import TextField from '@material-ui/core/TextField';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import "../SignUp/SignUp.scss";
-import { registerPage } from "../Registartion/RegistrationAction";
-import { checkForNameValidation} from "../SignUp/formValidation";
+import Loader from 'react-loader-spinner';
+import { registerPage, intialState } from "../Registartion/RegistrationAction";
+import { checkForNameValidation } from "../SignUp/formValidation";
 import './Registration.scss';
 import { connect } from "react-redux";
 import UserSucessfulRegistration from '../Component/UserSucessfulRegistration';
@@ -27,7 +28,8 @@ class Registration extends React.Component {
             confirmPasswordError: false,
             emailError: false,
             phoneNumberError: false,
-            registerSucess:false
+            registerSucess: false,
+            isloading: false
         }
         this.handleClickOpen = this.handleClickOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -38,12 +40,16 @@ class Registration extends React.Component {
         this.setState({ open: true })
     };
 
+    componentDidMount() {
+        this.props.intialState()
+    }
+
     showPassword = () => {
         this.setState({ showPassword: !this.state.showPassword })
     }
 
     handleClose = () => {
-        console.log("blah");
+        this.props.onClose();
     }
 
     checkForPhoneNumberValidation = (e) => {
@@ -126,6 +132,7 @@ class Registration extends React.Component {
         const confirmpassword = this.state.confirmpassword;
         const phoneNumber = this.state.phoneNumber;
         const email = this.state.email;
+        this.setState({ isloading: true })
         this.props.registerPage({ firstName, lastName, userName, password, confirmpassword, phoneNumber, email });
     }
 
@@ -207,7 +214,7 @@ class Registration extends React.Component {
                                 variant="outlined"
                                 onChange={(e) => { this.checkForConfirmPasswordValidation(e) }} />
 
-                            {!this.state.showPassword ? <VisibilityOffIcon fontSize="large" style={{ paddingTop: "0.25em" }} onClick={this.showPassword} /> : <VisibilityIcon style={{ paddingTop: "0.25em" }}  onClick={this.showPassword} fontSize="large" />}
+                            {!this.state.showPassword ? <VisibilityOffIcon fontSize="large" style={{ paddingTop: "0.25em" }} onClick={this.showPassword} /> : <VisibilityIcon style={{ paddingTop: "0.25em" }} onClick={this.showPassword} fontSize="large" />}
                             <br />
                             <br />
                             <TextField required
@@ -229,10 +236,16 @@ class Registration extends React.Component {
                             <br />
                             <br />
                         </form>
-                        {this.props.registrationForm.status !== 200 ?<div className="warning">userName or phoneNumber is already registrated</div>:""}
+                        {this.props.registrationForm.status !== 200 ? <div className="warning">userName or phoneNumber is already registrated</div> : ""}
                     </DialogContent>
+                    {this.state.isloading === true ? <Loader
+                        type="TailSpin"
+                        color="black"
+                        height={30}
+                        width={500}
+                        timeout={1000} /> : ""}
                     <DialogActions>
-                        <Button onClick={this.handleClose,this.closeRegistration} color="primary">
+                        <Button onClick={this.handleClose, this.closeRegistration} color="primary">
                             BACK
                         </Button>
                         <Button disabled={this.checkForDisabledButton()}
@@ -241,7 +254,7 @@ class Registration extends React.Component {
                             CREATE
                         </Button>
                     </DialogActions>
-                    {this.props.registrationForm.registerData===false?<UserSucessfulRegistration/>:""}
+                    {this.props.registrationForm.status === 200 && this.props.registrationForm.registerData ? <UserSucessfulRegistration close={this.props.onClose} /> : ""}
                 </Dialog>
             </>
         );
@@ -255,6 +268,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         "registerPage": (item) => (dispatch(registerPage(item))),
+        "intialState": () => (dispatch(intialState())),
     };
 };
 

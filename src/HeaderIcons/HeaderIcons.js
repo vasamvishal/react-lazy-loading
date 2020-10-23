@@ -4,7 +4,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from "../SiteHeader/SearchIcon";
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { connect } from "react-redux";
-import { Redirect, NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import "./HeaderIcon.scss";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 import SignUp from "../SignUp/SignUp";
@@ -12,7 +12,6 @@ import PopupButton from "../Component/PopupButton";
 import BrowserService from "../BrowserService";
 import LabelImportantIcon from '@material-ui/icons/LabelImportant';
 import { logout } from "./HeaderIconsAction";
-import Badge from '@material-ui/core/Badge';
 
 
 class HeaderIcons extends React.Component {
@@ -23,6 +22,7 @@ class HeaderIcons extends React.Component {
             loginPage: true,
             isAuthenticated: false,
             showSearch: false,
+            css:true
         }
         this.signUpPage = this.signUpPage.bind(this);
         this.closeSignUpPage = this.closeSignUpPage.bind(this);
@@ -72,6 +72,11 @@ class HeaderIcons extends React.Component {
         this.props.onSearch(e);
     }
 
+    showHeaderCss=()=>{
+        this.setState({css:!this.state.css})
+    }
+
+
     static getDerivedStateFromProps(props, state) {
         const value = BrowserService.getLocalStorage();
         if (value.token === undefined || value.token === null) {
@@ -86,38 +91,38 @@ class HeaderIcons extends React.Component {
         return (
             <>
                 <ul className="headerexample">
-                    <li className={"home"}>
+                    <li id="home" className={"home"}>
                         <NavLink to="/home">
                             XBAY
                         </NavLink>
                     </li>
 
-                    <li className={"aboutUs"} >
+                    <li id="aboutUs" className={"aboutUs"} >
                         <NavLink to="/account">
                             <LabelImportantIcon />&nbsp;&nbsp;
                         <div>About&nbsp;Us</div>
                         </NavLink>
                     </li>
 
-                    <li className={"cart-desktop"}>
+                    <li id="cart-desktop" className={"cart-desktop"}>
                         <NavLink to="/cart">
                             <ShoppingCartIcon />&nbsp;&nbsp;
                         <div>Cart</div>
                         </NavLink>
                     </li>
 
-                    <li className={"account-data"} onClick={this.accountDetails}>
+                    <li id="account-data" className={"account-data"} onClick={this.accountDetails}>
                         <AccountCircleRoundedIcon className={"defeee"} />&nbsp;&nbsp;
                         <div>Account</div>
                         {this.state.accountDetails ? <div><PopupButton onCloseSignUpPage={this.closeSignUpPageOnAccountPage} onCloseAccountPage={this.closeAccountDetails} isAuthenticated={this.state.isAuthenticated} /></div> : ""}
                     </li>
 
                     {this.state.isAuthenticated === false ?
-                        <li className={"signUp"} onClick={this.signUpPage}> <AccountBoxIcon />&nbsp;&nbsp;
+                        <li id="signUp" className={"signUp"} onClick={this.signUpPage}> <AccountBoxIcon />&nbsp;&nbsp;
                         <div>Sign&nbsp;Up</div>
                             {this.state.signUpPage && this.props.logoutPopinButton.logout === false ? <div><SignUp onCloseSignUpPage={this.closeSignUpPage} /></div> : ""}
                         </li>
-                        : <li className={"logout"} onClick={this.props.logout}> <ExitToAppIcon />&nbsp;&nbsp;
+                        : <li id="logout" className={"logout"} onClick={this.props.logout}> <ExitToAppIcon />&nbsp;&nbsp;
                         <div>Logout</div>
                         </li>}
 

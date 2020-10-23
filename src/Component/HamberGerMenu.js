@@ -38,7 +38,7 @@ class HamburgerMenuExport extends React.Component {
     render() {
         return (
             <>
-                <div id="myNav" class="overlay">
+                <div id="myNav" className="overlay">
                     <div>{!this.state.isAuthenticated ? <div className="login-signup">LOGIN/SIGNUP</div>
                         : <div className="login-signup">
                             <div style={{ display: "flex", marginLeft: "0.5em" }}>
@@ -46,8 +46,8 @@ class HamburgerMenuExport extends React.Component {
                                 <div style={{ marginLeft: "-1em" }}><ShowDetails /></div>
                             </div>
                         </div>}</div>
-                    <a class="closebtn" onClick={() => this.closeNav()}>&times;</a>
-                    <div class="overlay-content">
+                    <a className="closebtn" onClick={() => this.closeNav()}>&times;</a>
+                    <div className="overlay-content">
                         <HeaderMobile authenticated={this.state.isAuthenticated} />
                     </div>
                 </div>

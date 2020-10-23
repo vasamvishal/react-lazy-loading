@@ -1,18 +1,13 @@
 
 import React from "react";
 
-export default class IconComponent extends React.Component{
-    constructor(props){
-        super(props);
-
-    }
-    render(){
-        return(
-            <div style={{display:"flex"}}>
-                <div>{this.props.icon}</div>&nbsp;&nbsp;
-                <div>{this.props.name}</div>
-            </div>
-        )
-    }
-
+export function IconComponent({ icon, name }) {
+    return (
+        <div style={{ display: "flex" }}>
+            <div>{icon}</div>&nbsp;&nbsp;
+            <div>{name}</div>
+        </div>
+    )
 }
+
+export const MemoizedIcon = React.memo(IconComponent);

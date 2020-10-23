@@ -7,7 +7,7 @@ import siteHeader from "./SiteHeader/SiteHeaderReducer";
 import loginForm from "./Login/LoginReducer";
 import logoutPopinButton from "./Component/PopupButtonReducer";
 import registrationForm from "./Registartion/RegistrationReducer";
-
+import sucessComponent from "./SucessComponent/SucessComponentReducer";
 
 export default combineReducers({
         homePage,
@@ -17,6 +17,7 @@ export default combineReducers({
         siteHeader,
         loginForm,
         logoutPopinButton,
-        registrationForm
+        registrationForm,
+        sucessComponent
     }
 )

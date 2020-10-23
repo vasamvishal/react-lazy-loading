@@ -112,19 +112,14 @@
       padding-top: 0.75vh;
       color: white;
 
-      // font-family: "Times New Roman", Times, serif;
       @media screen and (min-width: 768px) and (max-width:1024px) {
         padding-top: 0.3vh;
       }
 
-      // @media screen and (min-width: 1024px) and (max-width:1366px) {
-      //   padding-top: 0.3vh;
-      // }
     @media screen and (min-width: 1024px) and (max-width:1024px){
       padding-top: 0.3vh;
     }
 
-      // 0.3vh
       @media screen and (max-width: 700px) {
         padding-top: 0.5vh;
       }

@@ -10,7 +10,7 @@ import BrowserService from "../BrowserService"
 import { NavLink } from "react-router-dom";
 import Checkout from "../Component/Checkout";
 import Loader from 'react-loader-spinner';
-import SucessComponent from "../Component/SucessComponent";
+import SucessComponent from "../SucessComponent/SucessComponent";
 
 let price = 0;
 
@@ -37,8 +37,6 @@ class AddToCart extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log(prevProps.loginForm);
-        console.log(this.props.loginForm)
         if (prevProps.loginForm.login !== this.props.loginForm.login) {
             this.props.getCartDetails();
         }
@@ -57,7 +55,7 @@ class AddToCart extends React.Component {
     calculateSubTotal = (item) => {
         let value = 0;
         item.map((state) => {
-            value += state.price * state.noOfBooks
+            return value += state.price * state.noOfBooks
         })
         price = value;
     }
@@ -117,33 +115,26 @@ class AddToCart extends React.Component {
     render() {
         let item = this.props.addToCart.cartData;
         this.calculateSubTotal(item);
-        console.log("render")
         return (
             <>
                 <SiteHeader />
                 {this.state.isAuthenticated === false ? <div><LoginToFile /></div> : <div>
-                    {this.state.isLoading ? <Loader
-                        type="TailSpin"
-                        color="#00BFFF"
-                        height={500}
-                        width={200}
-                        timeout={2000} /> : <>
-                            {item.length === 0 ? <>
-                                <div className="cartImage" />
-                            </> :
-                                <>
-                                    <div className="checkout-main-box1">
-                                        {this.state.showComponent ? <SucessComponent /> : <>{this.abc(item)}</>}
-                                        <div className="checkout-box">
-                                            <div style={{ fontWeight: "bold", display: "flex", paddingTop: "0.25em", paddingLeft: "0.75em" }}>Sub Total:&nbsp;<div style={{ fontWeight: '600' }}>{price}</div></div>
-                                            <div><Checkout amount={price} close={this.handleCloseOpen} /></div>
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <NavLink to="/home" style={{ display: "flex", textDecoration: "none", justifyContent: "flex-end", fontWeight: "700", color: "black", fontWeight: "500", paddingRight: "12em" }}><ArrowBackIcon /><div>Back to Main Page</div></NavLink>
-                                    <br />
-                                </>
-                            }
+                    {item.length === 0 ? <Loader type="TailSpin" color="#00BFFF" height={500} width={200} timeout={2000} /> : <> </>}
+                    {item.length > 0 ?
+                        <>
+                            <div className="checkout-main-box1">
+                                {this.state.showComponent ? <SucessComponent /> : <>{this.abc(item)}</>}
+                                <div className="checkout-box">
+                                    <div style={{ fontWeight: "bold", display: "flex", paddingTop: "0.25em", paddingLeft: "0.75em" }}>Sub Total:&nbsp;<div style={{ fontWeight: '600' }}>{price}</div></div>
+                                    <div><Checkout amount={price} close={this.handleCloseOpen} /></div>
+                                </div>
+                            </div>
+                            <br />
+                            <NavLink to="/home" style={{ display: "flex", textDecoration: "none", justifyContent: "flex-end", color: "black", fontWeight: "500", paddingRight: "12em" }}><ArrowBackIcon /><div>Back to Main Page</div></NavLink>
+                            <br />
+                        </>
+                        : <>
+                            <div className="cartImage" />
                         </>
                     }
                 </div>}

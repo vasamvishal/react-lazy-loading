@@ -7,8 +7,6 @@ import { Redirect } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import Loader from 'react-loader-spinner';
 import BrowserService from "../BrowserService";
-import { ThemeProvider } from "react-bootstrap";
-
 const BookDetailsComponent = lazy(() => import("../Component/BookDetailsComponent"));
 const SiteHeader = lazy(() => import("../SiteHeader/SiteHeader"));
 
@@ -27,44 +25,40 @@ class HomePage extends React.Component {
             selectedPage: this.props.header.selectedPage,
             isLoading: true,
             expanded: this.props.homePage.storeData,
-            // ownUpdate: false
         }
-        console.log("constructor",this.props.homePage.storeData)
     }
 
     componentDidMount() {
-        console.log("component")
-         this.props.setInitialState();
+        this.props.setInitialState();
         setTimeout(() => {
             this.setState({ isLoading: false })
-        }, 2000)
+        }, 3000)
     }
 
-    componentDidUpdate(prevProps,prevState) {
+    componentDidUpdate(prevProps, prevState) {
         const newValue = prevProps.homePage.getAllBookData;
-
-        if (newValue.length === this.props.homePage.getAllBookData.length && this.didMount===false)
-            this.setState({ books: prevProps.homePage.getAllBookData }, () => {
-                this.didMount=true;
+        if (newValue.length <= this.props.homePage.getAllBookData.length && this.props.homePage.getAllBookData.length > 0 && this.didMount === false) {
+            this.setState({ books: this.props.homePage.getAllBookData }, () => {
+                this.didMount = true;
                 this.recievedData(newValue)
             })
+        }
     }
 
-    static getDerivedStateFromProps(props,state) {    
-        if(props.homePage.storeData != state.expanded) {
-            console.log("blah");
+    static getDerivedStateFromProps(props, state) {
+        if (props.homePage.storeData !== state.expanded) {
             return {
-              expanded: !state.expanded
+                expanded: !state.expanded
             }
-          }
-          else if(state.expanded===true) {
-           return {
-            expanded: !state.expanded
-           }
-          }
-          else{
-              return null;
-          }
+        }
+        else if (state.expanded === true) {
+            return {
+                expanded: !state.expanded
+            }
+        }
+        else {
+            return null;
+        }
     }
 
     recievedData = (data) => {
@@ -127,12 +121,8 @@ class HomePage extends React.Component {
             </div>
         )
     }
-    
-    render() {
-        console.log(this.state.storeData, "render")
-        console.log("state",this.state.expanded)        
-        // console.log("stateupdate",this.state.ownUpdate)
 
+    render() {
         if (this.state.expanded) {
             const itemDetails = JSON.stringify(this.props.homePage.selectedBook);
             let id = this.props.homePage.selectedBook._id

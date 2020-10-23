@@ -1,5 +1,5 @@
 
-import {LOGIN,loginFailure,loginSucess,LOGINFAILURE,LOGINSUCESS} from "./LoginAction"
+import {LOGIN,loginFailure,loginSucess,LOGINFAILURE,LOGINSUCESS,SET_INITIAL_STATE} from "./LoginAction"
 import {loginToStorage} from "./LoginEffect";
 import { Cmd, loop } from "redux-loop";
 
@@ -27,14 +27,20 @@ export default (state = initialState, action) => {
                 login:true
             };
         }
+
         case LOGINFAILURE: {
             return {
                 ...state,
                 loginData:[],
-                status:action.payload.status,
+                status:400,
                 login:false
             };
         }
+
+        case SET_INITIAL_STATE:{
+            return initialState;
+        }
+
         default:
             return state;
     }

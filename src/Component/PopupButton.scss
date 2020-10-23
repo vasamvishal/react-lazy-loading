@@ -32,16 +32,25 @@ li.li-def a::before{
     }
 
 
-.header-links{
-    margin-left: -2em;
+ul.header-links{
+    padding: 0px;
 }
-
-
-.header-links :hover{
-    background-color: #2f445c;
+div.li-def{
+    display: flex;
+}
+ul.header-links div.li-def a{
+    padding: 0px;
+    display: flex;
+}
+.active{
     color: white;
 }
 
+ul.header-links :hover{
+    background-color: #2f445c;
+    color: white;
+}
+   
 .button-login{
     border: 1px solid green;
     background-color: white;

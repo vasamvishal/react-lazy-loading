@@ -1,5 +1,3 @@
-"use strict";
-import {fromPairs} from "lodash";
 
 export default {
     "getWindow": function () {

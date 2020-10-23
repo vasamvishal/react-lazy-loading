@@ -1,7 +1,7 @@
 import React from "react";
 import "./BooksComponent.scss";
 
-class BooksComponent extends React.Component {
+export default class BooksComponent extends React.PureComponent {
     constructor() {
         super();
         this.value();
@@ -26,4 +26,4 @@ class BooksComponent extends React.Component {
         )
     }
 }
-export default BooksComponent
+

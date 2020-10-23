@@ -5,12 +5,13 @@ import './Login.scss';
 import { connect } from "react-redux";
 import Registration from '../Registartion/Registration';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
-import { login } from "./LoginAction";
-import { ThemeProvider } from '@material-ui/core';
+import { login, setInitialState } from "./LoginAction";
 import Loader from 'react-loader-spinner'
 
 
 class Login extends React.Component {
+    didMount = false;
+
     constructor(props) {
         super(props)
         this.state = {
@@ -18,9 +19,11 @@ class Login extends React.Component {
             userName: "",
             password: "",
             isLoading: false,
-            error: this.props.status === undefined ? 200 : this.props.status
+            error: this.props.status
         }
+        console.log("status", this.props.status)
         this.back = this.back.bind(this);
+        this.renderButtonEffect = this.renderButtonEffect.bind(this);
     }
 
     back = () => {
@@ -33,23 +36,31 @@ class Login extends React.Component {
         this.setState({ show: !this.state.show })
     }
 
+    componentDidMount() {
+        this.props.setInitialState()
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.status === 400 && this.didMount === false) {
+            this.didMount = true;
+            this.setState({ error: this.props.status })
+        }
+    }
+
     userName = (e) => {
         this.setState({ userName: e.target.value })
     }
 
-    onKeyDown = (e) => {
-        if (e.key === "Delete" || e.key === "Backspace") {
-            this.setState({ password: e.target.value }, () => {
-                this.setState({ error: 200 })
-            })
-        }
-        else {
-            this.setState({ password: e.target.value })
-        }
+    password = (e) => {
+        this.setState({ password: e.target.value })
     }
 
     closeRegistration = () => {
         this.setState({ show: !this.state.show })
+    }
+
+    renderButtonEffect = () => {
+        this.setState({ isLoading: true })
     }
 
     renderMainPage = () => {
@@ -66,7 +77,8 @@ class Login extends React.Component {
     }
 
     render() {
-        console.log(this.props.loginData.length, "props")
+        let loginButton = (this.state.userName !== "" && this.state.password !== "") ? "button-text" : "button-text background-button-text"
+
         if (this.state.show) {
             return <Registration onClose={this.closeRegistration} />
         }
@@ -92,20 +104,15 @@ class Login extends React.Component {
                                     floatingLabelText="Password"
                                     id="outlined-basic" label="Outlined"
                                     variant="outlined"
+                                    type="password"
                                     onChange={this.password}
-                                    onKeyDown={this.onKeyDown} />
+                                />
                                 <br></br>
                                 <br></br>
                                 {this.state.error !== 200 ? <p>Your login credentials could not be verified, please try again.</p> : ""}
-                                <button disabled={this.state.userName === "" && this.state.password === ""} className={"button-text"} onClick={this.renderMainPage}>
-                                    <div>Log&nbsp;In</div> 
+                                <button disabled={(this.state.userName === "" && this.state.password === "")} className={loginButton} onClick={this.renderMainPage}>
+                                    <div onClick={this.renderButtonEffect}>Log&nbsp;In</div>
                                 </button>
-                                {this.state.isLoading ? <Loader
-                                    type="TailSpin"
-                                    color="#00BFFF"
-                                    height={20}
-                                    width={200}
-                                    timeout={3000} /> : ""}
                                 <br />
                                 <br />
                                 <div className="forgot-password">Forgot&nbsp;password?</div>
@@ -128,7 +135,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        "login": (item) => (dispatch(login(item)))
+        "login": (item) => (dispatch(login(item))),
+        "setInitialState": () => (dispatch(setInitialState()))
     };
 };
 

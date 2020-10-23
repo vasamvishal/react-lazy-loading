@@ -20,7 +20,6 @@ export default (state = initialState, action) => {
         }
 
         case GET_CART_DETAILS: {
-            console.log("action")
             return loop(initialState, Cmd.run(extractGetCartDetails, {
                 successActionCreator: successCartDetails,
                 failActionCreator: failureCartDetails,

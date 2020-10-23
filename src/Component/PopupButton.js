@@ -3,9 +3,11 @@ import "./PopupButton.scss";
 import SignUp from '../SignUp/SignUp';
 import { connect } from 'react-redux';
 import { logout } from "./PopupButtonAction";
-import BrowserService from "../BrowserService"
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ShowDetails from './ShowDetails';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 
 class PopupButton extends React.Component {
 
@@ -18,7 +20,7 @@ class PopupButton extends React.Component {
         this.renderSignUpPage = this.renderSignUpPage.bind(this);
         this.closeSignUpPage = this.closeSignUpPage.bind(this);
     }
-    componentWillMount() {
+    componentDidMount() {
         document.addEventListener('mousedown', this.handleClick, false);
     }
     componentWillUnmount() {
@@ -70,9 +72,9 @@ class PopupButton extends React.Component {
                                 <ShowDetails />
                                 <hr />
                                 <ul className="header-links">
-                                    <div className="li-def"><NavLink to="/cart"><div className="my-orders  my-orders-logout">&nbsp;&nbsp;&nbsp;&nbsp;My Orders</div></NavLink></div>
+                                    <div className="li-def"><FavoriteIcon style={{ paddingLeft: "26px" }} /><NavLink to="/cart"><div className="my-orders  my-orders-logout">&nbsp;My Orders</div></NavLink></div>
                                     <hr />
-                                    <div onClick={this.logout} className="li-def"><div className="my-orders my-orders-logout">&nbsp;&nbsp;&nbsp;&nbsp;Logout</div></div>
+                                    <div onClick={this.logout} className="li-def"><ExitToAppIcon style={{ paddingLeft: "26px" }} /><div className="my-orders my-orders-logout">&nbsp;Logout</div></div>
                                 </ul>
                             </div> : ""}
                     </div>

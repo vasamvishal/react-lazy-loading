@@ -2,9 +2,6 @@ import React from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 
 export default class Checkout extends React.Component {
-    constructor(props){
-        super(props);
-    }
     token=()=>{
         this.props.close()
     }

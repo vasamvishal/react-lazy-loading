@@ -21,7 +21,6 @@ ul.headerexample{
 
   @media screen and (max-width:700px){
     display: flex;
-    // flex-direction: column;
     margin-left: -17em;
   }
 }
@@ -32,7 +31,15 @@ ul.headerexample li a {
   text-decoration: none;
   display: flex;
   font-size: 1em;
-  padding: 0px;
+  padding: 1em 2em 1.5em 2em;
+
+  @media screen and (max-width:700px){
+    padding:0px
+  }
+}
+
+.active {
+  background: rgba(255, 255, 255, 0.3)
 }
 
 .mobile-home{
@@ -44,17 +51,12 @@ ul.headerexample li a {
 .mobile-aboutUs{
   display: flex;
   color: white;
-  // padding: 1em 2em 1.5em 2em;
 }
-.mobile-aboutUs:hover{
-  color: red;
-  // padding: 1em 2em 1.5em 2em;
-}
+
 
 .mobile-cart{
   display: flex;
   color: white;
-  // padding: 1em 2em 1.5em 2em;
 }
 
 .mobile-logout{

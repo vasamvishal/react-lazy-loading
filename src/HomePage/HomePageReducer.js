@@ -1,4 +1,4 @@
-import { GET_BOOKS_SUCCESS,SELECTED_BOOKS,SEARCH_BOOKS_FAILURE, getBooksSucces, SET_INITIALSTATE, searchBooksFailureAction,SET_STATE } from "./HomePageAction"
+import { GET_BOOKS_SUCCESS, SELECTED_BOOKS, SEARCH_BOOKS_FAILURE, getBooksSucces, SET_INITIALSTATE, searchBooksFailureAction, SET_STATE } from "./HomePageAction"
 import { Cmd, loop } from "redux-loop";
 import { extractDataFromStorage } from "./HomePageEffect";
 
@@ -16,11 +16,9 @@ export default (state = initialState, action) => {
         }
 
         case SET_STATE: {
-            console.log("action")
-            return {...initialState}
+            return { ...initialState }
         }
         case SET_INITIALSTATE: {
-            console.log("SET_INITIALSTATE");
             return loop(initialState, Cmd.run(extractDataFromStorage, {
                 successActionCreator: getBooksSucces,
                 failActionCreator: searchBooksFailureAction

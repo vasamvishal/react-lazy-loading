@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: '12ch',
       '&:focus': {
-        width: '17ch',
+        width: '15ch',
       },
     },
     [theme.breakpoints.down(700)]: {
@@ -69,8 +69,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchAppBar(props) {
   const classes = useStyles();
-
-  const {onSearch} =props;
   return (
     <div className={classes.root}>
           <div className={classes.search}>
@@ -83,7 +81,7 @@ export default function SearchAppBar(props) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              onChange={(e)=>{props.onSearch(e)}}
+              onKeyDown={(e)=>{props.onSearch(e)}}
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>

@@ -1,11 +1,11 @@
 
-import { registerSucess, REGISTER_SUCESS, REGISTER_PAGE, REGISTER_FAILURE, registerFailure } from "./RegistrationAction"
+import { registerSucess, REGISTER_SUCESS, REGISTER_PAGE, INITIAL_STATE, REGISTER_FAILURE, registerFailure } from "./RegistrationAction"
 import { registerUser } from "./RegistrationEffect";
 import { Cmd, loop } from "redux-loop";
 
 export const initialState = {
     registerData: false,
-    status:200
+    status: 200
 }
 
 export default (state = initialState, action) => {
@@ -19,12 +19,21 @@ export default (state = initialState, action) => {
         }
 
         case REGISTER_SUCESS: {
-            return { ...state, registerData: true,status:action.payload.status}
+            return { ...state, registerData: true, status: action.payload.status }
         }
 
         case REGISTER_FAILURE: {
             return { ...state, registerData: false }
         }
+
+        case REGISTER_FAILURE: {
+            return { ...state, registerData: false }
+        }
+
+        case INITIAL_STATE: {
+            return initialState;
+        }
+
 
         default: {
             return state;

@@ -1,5 +1,5 @@
 export const registerUser = (item) => {
-    const url="http://localhost:8080/post/customerInfoDetails";
+    const url="https://springbootbackendjava.herokuapp.com/post/customerInfoDetails";
     return fetch(`${url}`,{
         method: 'POST',
         headers: {

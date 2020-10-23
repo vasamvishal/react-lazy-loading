@@ -2,7 +2,7 @@ import BrowserService from "../BrowserService";
 import jwt_decode from "jwt-decode";
 
 export const postCartDetails = (payload) => {
-    const url = "http://localhost:8080/post/cart";
+    const url = "https://springbootbackendjava.herokuapp.com/post/cart";
     const token = BrowserService.getLocalStorageValue("token");
     var decoded = jwt_decode(token);
     let phoneNumber = decoded.sub;

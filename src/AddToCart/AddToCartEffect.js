@@ -6,7 +6,7 @@ export const extractGetCartDetails = () => {
     const token = BrowserService.getLocalStorageValue("token");
     var decoded = jwt_decode(token);
     let phoneNumber = decoded.sub;
-    const url = `http://localhost:8080/getCartDetails/${phoneNumber}`;
+    const url = `https://springbootbackendjava.herokuapp.com/getCartDetails/${phoneNumber}`;
     return fetch(`${url}`, {
         mode: "cors",
         headers: {
@@ -26,7 +26,7 @@ export const cancelOrder = (payload) => {
     const token = BrowserService.getLocalStorageValue("token");
     var decoded = jwt_decode(token);
     let phoneNumber = decoded.sub;
-    const url = `http://localhost:8080/delete/${phoneNumber}/${payload._id}`;
+    const url = `https://springbootbackendjava.herokuapp.com/delete/${phoneNumber}/${payload._id}`;
     return fetch(`${url}`, {
         mode: "cors",
         method: 'DELETE'

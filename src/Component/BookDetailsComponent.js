@@ -1,8 +1,7 @@
 import React from "react";
 import BooksComponent from "./BooksComponent";
 
-class BookDetailsComponent extends React.Component {
-
+class BookDetailsComponent extends React.PureComponent {
     render() {
         let item = this.props.item;
         let i = this.props.element;

@@ -3,7 +3,7 @@ import SiteHeader from "../SiteHeader/SiteHeader";
 import BooksDetails from "../Component/BooksDetails";
 import { connect } from "react-redux";
 import "./BuyPage.scss";
-import { addToCart, deleteFromCart, setInitialStateForBuyPage, selectedNoOfItems, redirectToCartPage } from "./BuyPriceAction";
+import { addToCart, deleteFromCart, setInitialStateForBuyPage, redirectToCartPage } from "./BuyPriceAction";
 import { Redirect } from "react-router-dom";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import BrowserService from "../../src/BrowserService";
