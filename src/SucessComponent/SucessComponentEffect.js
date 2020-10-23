@@ -6,7 +6,7 @@ export const deleteAllCartDetails = (payload) => {
     var decoded = jwt_decode(token);
     let phoneNumber = decoded.sub;
     payload.map((item => {
-        const url = `http://localhost:8080/delete/${phoneNumber}/${item._id}`;
+        const url = `https://springbootbackendjava.herokuapp.com/delete/${phoneNumber}/${item._id}`;
         return fetch(`${url}`, {
             mode: "cors",
             method: 'DELETE'

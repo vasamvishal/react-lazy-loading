@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import AccountDetails from "./AccountDetails";
 import ComputerIcon from '@material-ui/icons/Computer';
 import StorageRoundedIcon from '@material-ui/icons/StorageRounded';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
 
 export default class Account extends React.Component {
   render() {
@@ -16,7 +17,7 @@ export default class Account extends React.Component {
           <h1>VASAM VISHAL</h1>
           <h4>SOFTWARE DEVELOPER</h4>
         </Container>
-        <div style={{ display: "flex", justifyContent: "space-evenly",marginTop:"5em"}}>
+        <div className="details">
           <Card style={{ width: "22em", height: "22em" }}>
             <div>
             <div className="ba ba-linkedin"><ComputerIcon /></div>
@@ -41,7 +42,7 @@ export default class Account extends React.Component {
             <AccountDetails title="Junit"/>
           </Card>
           <Card style={{ width: "22em", height: "20em" }}>
-              <div className="ba ba-linkedin"><ComputerIcon/></div>
+              <div className="ba ba-linkedin"><WhatshotIcon/></div>
             <br/>
             <br/>
             <h1>Others</h1>
@@ -51,8 +52,9 @@ export default class Account extends React.Component {
           </Card>
         </div>
         <br/>
-        <br/>
         <div style={{display:"flex",justifyContent:"center"}}><h2>Connect:&nbsp;&nbsp;</h2> <a href="https://www.linkedin.com/in/vishal-vasam-70b7611a8/" class="fa fa-linkedin"></a></div>
+        <br/>
+        <br/>
       </>
     );
   }

@@ -85,7 +85,16 @@ class Registration extends React.Component {
     }
 
     checkForPasswordValidation = (e) => {
+        // console.log(e.target.value);
+        console.log(e.defaultPrevented) // true
+        e.preventDefault();
+        if(e.target.value!=="" && e.target.value.length >= 4){
         this.setState({ password: e.target.value })
+        this.setState({ passwordError: false })
+        }
+        else{
+            this.setState({ passwordError: true })
+        }
     }
 
     checkForConfirmPasswordValidation = (e) => {
@@ -142,6 +151,7 @@ class Registration extends React.Component {
             && this.state.userNameError === false
             && this.state.phoneNumberError === false
             && this.state.emailError === false
+            && this.state.passwordError === false
             && this.state.confirmPasswordError === false
             && this.state.firstName !== undefined
             && this.state.lastName !== undefined
@@ -200,7 +210,7 @@ class Registration extends React.Component {
                                 error={this.state.passwordError}
                                 id="password"
                                 label="password"
-                                helperText={this.state.passwordError ? "Incorrect password" : ""}
+                                helperText={this.state.passwordError ? "Password should be greather than 4" : ""}
                                 type={this.state.showPassword ? 'text' : 'password'}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForPasswordValidation(e) }} />&nbsp;&nbsp;&nbsp;
@@ -221,7 +231,7 @@ class Registration extends React.Component {
                                 error={this.state.phoneNumberError}
                                 id="outlined-error-helper-text"
                                 label="Phone Number"
-                                helperText={this.state.phoneNumberError ? "Incorrect phone Number" : ""}
+                                helperText={this.state.phoneNumberError ? "Phone Number should be proper" : ""}
                                 variant="outlined"
                                 onChange={(e) => { this.checkForPhoneNumberValidation(e) }} />
                             <br />

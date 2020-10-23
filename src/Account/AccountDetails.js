@@ -7,7 +7,7 @@ export default class AccountDetails extends React.Component{
             <div><CheckIcon/></div>
             <br/>
             <br/>
-            <div>{this.props.title}</div>
+            <div style={{fontWeight:"700"}}>{this.props.title}</div>
             </div>
         )
     }

@@ -41,8 +41,8 @@ class HamburgerMenuExport extends React.Component {
                 <div id="myNav" className="overlay">
                     <div>{!this.state.isAuthenticated ? <div className="login-signup">LOGIN/SIGNUP</div>
                         : <div className="login-signup">
-                            <div style={{ display: "flex", marginLeft: "0.5em" }}>
-                                <AccountCircleRoundedIcon fontSize="large" />
+                            <div style={{ display: "flex" }}>
+                                <AccountCircleRoundedIcon style={{ fontSize: "60", marginLeft: "0.5em" }} />
                                 <div style={{ marginLeft: "-1em" }}><ShowDetails /></div>
                             </div>
                         </div>}</div>
