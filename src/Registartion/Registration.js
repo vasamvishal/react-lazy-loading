@@ -85,9 +85,6 @@ class Registration extends React.Component {
     }
 
     checkForPasswordValidation = (e) => {
-        // console.log(e.target.value);
-        console.log(e.defaultPrevented) // true
-        e.preventDefault();
         if(e.target.value!=="" && e.target.value.length >= 4){
         this.setState({ password: e.target.value })
         this.setState({ passwordError: false })

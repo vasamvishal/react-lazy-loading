@@ -3,7 +3,7 @@ import "./HamberGerMenu.scss";
 import MenuIcon from '@material-ui/icons/Menu';
 import HeaderMobile from "../Component/HeaderMobile";
 import BrowserService from "../BrowserService";
-import ShowDetails from "../Component/ShowDetails";
+import ShowDetailsHamberGerMenu from "../Component/ShowDetailsHamberGerMenu";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 
 class HamburgerMenuExport extends React.Component {
@@ -43,7 +43,7 @@ class HamburgerMenuExport extends React.Component {
                         : <div className="login-signup">
                             <div style={{ display: "flex" }}>
                                 <AccountCircleRoundedIcon style={{ fontSize: "60", marginLeft: "0.5em" }} />
-                                <div style={{ marginLeft: "-1em" }}><ShowDetails /></div>
+                                <div><ShowDetailsHamberGerMenu /></div>
                             </div>
                         </div>}</div>
                     <a className="closebtn" onClick={() => this.closeNav()}>&times;</a>

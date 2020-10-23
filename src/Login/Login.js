@@ -21,7 +21,6 @@ class Login extends React.Component {
             isLoading: false,
             error: this.props.status
         }
-        console.log("status", this.props.status)
         this.back = this.back.bind(this);
         this.renderButtonEffect = this.renderButtonEffect.bind(this);
     }

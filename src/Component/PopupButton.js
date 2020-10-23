@@ -66,7 +66,6 @@ class PopupButton extends React.Component {
     }
 
     render() {
-        console.log(showAccountPopup,"ssss");
         return (
             <>
                 <div className={showAccountPopup} ref={node => this.node = node}>
