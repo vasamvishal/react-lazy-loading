@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import ShowDetails from './ShowDetails';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+let showAccountPopup;
 
 
 class PopupButton extends React.Component {
@@ -17,9 +18,11 @@ class PopupButton extends React.Component {
             show: false,
             isAuthenticated: false
         }
+        this.resetCss();
         this.renderSignUpPage = this.renderSignUpPage.bind(this);
         this.closeSignUpPage = this.closeSignUpPage.bind(this);
     }
+    
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick, false);
     }
@@ -27,6 +30,9 @@ class PopupButton extends React.Component {
         document.removeEventListener('mousedown', this.handleClick, false);
     }
 
+    resetCss=()=>{
+        showAccountPopup=""
+    }
     handleClickOutside = () => {
         if (this.state.show === false) {
             this.setState({ show: false }, () => {
@@ -43,6 +49,7 @@ class PopupButton extends React.Component {
     }
 
     renderSignUpPage = () => {
+        showAccountPopup="show-account-popup";
         if (this.state.show !== true) {
             this.setState({ show: true })
         }
@@ -59,9 +66,10 @@ class PopupButton extends React.Component {
     }
 
     render() {
+        console.log(showAccountPopup,"ssss");
         return (
             <>
-                <div ref={node => this.node = node}>
+                <div className={showAccountPopup} ref={node => this.node = node}>
                     <div className="account-popup">
                         <div>Your Account</div>
                         {this.props.isAuthenticated === false ? <><br /><button onClick={this.renderSignUpPage} className="button-login">Log&nbsp;In/Sign&nbsp;Up</button></> : ""}

@@ -4,6 +4,9 @@ li.li-def a::before{
     content: "red";
 }
 
+.show-account-popup{
+    display: none
+}
 .account-popup{
     min-width: 260px;
     margin-top: 3em;

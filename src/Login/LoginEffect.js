@@ -20,7 +20,8 @@ export const loginToStorage = (item) => {
             let responseText = response.text();
             return [responseText, response];
         }).then((data) => {
-            var text = data[0].then((data)=>BrowserService.setLocalStorageValue("user",data));
+            console.log(data[0])
+            data[0].then((data)=>BrowserService.setLocalStorageValue("user",data));
             var response = data[1];
             return response;
         })

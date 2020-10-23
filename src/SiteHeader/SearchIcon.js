@@ -81,7 +81,7 @@ export default function SearchAppBar(props) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              onKeyDown={(e)=>{props.onSearch(e)}}
+              onChange={(e)=>{props.onSearch(e)}}
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>

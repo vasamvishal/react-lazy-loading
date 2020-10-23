@@ -20,6 +20,7 @@ export default (state = initialState, action) => {
         }
 
         case LOGINSUCESS: {
+            console.log(action.payload);
             return {
                 ...state,
                 loginData: action.payload,

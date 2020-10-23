@@ -84,6 +84,8 @@ class HomePage extends React.Component {
 
     searchValue = (e) => {
         const payload = e.target.value;
+        console.log("payload",payload.length);
+        console.log("payload",payload);
         if (payload !== "") {
             const filteredData = this.state.pageOfItems.filter(element => {
                 return element.title.toLowerCase().includes(payload.toLowerCase());
@@ -91,8 +93,8 @@ class HomePage extends React.Component {
             this.setState({ pageOfItems: filteredData })
             this.recievedData(filteredData);
         }
-
-        else if (payload === "") {
+        else if (payload.length === 0){
+            console.log("blahaa")
             const props = this.props.homePage.getAllBookData;
             const filteredData = props.filter(element => {
                 return element.title.toLowerCase().includes(payload.toLowerCase());
