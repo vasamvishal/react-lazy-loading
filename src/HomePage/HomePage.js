@@ -52,9 +52,10 @@ class HomePage extends React.PureComponent {
                 this.recievedData(newValue)
             })
         }
-        if (prevProps.homePage.countNoOfPages <= this.props.homePage.countNoOfPages && this.props.homePage.countNoOfPages > 0 && this.countNoOfPages === false) {
+        const newValue1 = prevProps.homePage.countNoOfPages;
+        // console.log(newValue1);
+        if (prevProps.homePage.countNoOfPages <= this.props.homePage.countNoOfPages && this.props.homePage.countNoOfPages > 0) {
             this.setState({ countNoOfPages: this.props.homePage.countNoOfPages })
-            this.countNoOfPages = true;
         }
 
         if (prevProps.homePage.searchData.length <= this.props.homePage.searchData.length && this.props.homePage.searchData.length > 0 && this.searchData === false) {
