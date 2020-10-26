@@ -10,7 +10,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 let showAccountPopup;
 
 
-class PopupButton extends React.Component {
+class PopupButton extends React.PureComponent {
 
     constructor(props) {
         super(props);

@@ -2,7 +2,7 @@ import React from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 import "./DrawComponent.scss";
 
-export default class Checkout extends React.Component {
+export default class Checkout extends React.PureComponent {
     token=()=>{
         this.props.close()
     }

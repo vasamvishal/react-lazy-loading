@@ -1,6 +1,6 @@
 import React from "react";
 import CheckIcon from '@material-ui/icons/Check';
-export default class AccountDetails extends React.Component{
+export default class AccountDetails extends React.PureComponent{
     render(){
         return(
             <div style={{display:"flex",justifyContent:"center"}}>

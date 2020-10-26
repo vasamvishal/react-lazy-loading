@@ -6,7 +6,7 @@ import SearchIcon from "../SiteHeader/SearchIcon";
 import "./SiteHeader.scss";
 import { withRouter } from 'react-router-dom';
 import BrowserService from "../BrowserService";
-class SiteHeader extends React.Component {
+class SiteHeader extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

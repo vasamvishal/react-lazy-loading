@@ -13,7 +13,7 @@ import BrowserService from "../BrowserService";
 import LabelImportantIcon from '@material-ui/icons/LabelImportant';
 import { logout } from "./HeaderIconsAction";
 
-class HeaderIcons extends React.Component {
+class HeaderIcons extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

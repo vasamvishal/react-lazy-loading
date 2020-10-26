@@ -3,7 +3,7 @@ import "./SucessComponent.scss";
 import { connect } from "react-redux";
 import { deleteAllCartDetails } from "./SucessComponentAction";
 
-class SucessComponent extends React.Component {
+class SucessComponent extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

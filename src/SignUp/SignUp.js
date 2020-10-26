@@ -5,7 +5,7 @@ import { checkForAgeValidation, checkForColourNameValidation, checkForIdValidati
 import "./SignUp.scss";
 
 
-export default class SignUp extends React.Component {
+export default class SignUp extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

@@ -6,7 +6,7 @@ import BrowserService from "../BrowserService";
 import ShowDetailsHamberGerMenu from "../Component/ShowDetailsHamberGerMenu";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 
-class HamburgerMenuExport extends React.Component {
+class HamburgerMenuExport extends React.PureComponent {
     constructor() {
         super()
         this.state = {

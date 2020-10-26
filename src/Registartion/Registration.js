@@ -15,7 +15,7 @@ import './Registration.scss';
 import { connect } from "react-redux";
 import UserSucessfulRegistration from '../Component/UserSucessfulRegistration';
 
-class Registration extends React.Component {
+class Registration extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {

@@ -7,7 +7,7 @@ import Registration from '../Registartion/Registration';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import { login, setInitialState } from "./LoginAction";
 
-class Login extends React.Component {
+class Login extends React.PureComponent {
     didMount = false;
 
     constructor(props) {

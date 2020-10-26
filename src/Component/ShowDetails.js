@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 
 import BrowserService from "../BrowserService";
 
-export default class ShowDetails extends React.Component {
+export default class ShowDetails extends React.PureComponent {
     render() {
         let name = BrowserService.getLocalStorageValue("user");
         let token = BrowserService.getLocalStorageValue("token");

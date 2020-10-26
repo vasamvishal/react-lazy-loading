@@ -98,6 +98,7 @@ class HomePage extends React.PureComponent {
     handlePageClick = (e) => {
         const selectedPage = e.selected;
         this.props.setInitialState(selectedPage);
+        this.props.getPageCount();
         this.didMount = false;
     };
 

@@ -8,7 +8,7 @@ import ComputerIcon from '@material-ui/icons/Computer';
 import StorageRoundedIcon from '@material-ui/icons/StorageRounded';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 
-export default class Account extends React.Component {
+export default class Account extends React.PureComponent {
   render() {
     return (
       <>
