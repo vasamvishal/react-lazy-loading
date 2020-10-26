@@ -4,6 +4,7 @@ import './App.css';
 import { Redirect } from "react-router-dom";
 import account from "../src/Account/Account";
 import SiteHeader from "../src/SiteHeader/SiteHeader"
+import DrawComponent from "../src/Component/DrawerComponent";
 const Login = lazy(() => import("./Login/Login"));
 const HomePage = lazy(() => import("./HomePage/HomePage"));
 const BuyPage = lazy(() => import("./BuyPage/BuyPage"));
@@ -27,6 +28,7 @@ export default function App() {
                         <Route path={"/buyPrice/:id"} exact component={BuyPage} />
                         <Route path={"/cart"} exact component={AddToCart} />
                         <Route path={"/account"} exact component={account} />
+                        <Route path={"/account/der"} exact component={DrawComponent} />
                         <Route component={notfound} />
                     </Switch>
                 </Suspense>

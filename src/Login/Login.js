@@ -6,8 +6,6 @@ import { connect } from "react-redux";
 import Registration from '../Registartion/Registration';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import { login, setInitialState } from "./LoginAction";
-import Loader from 'react-loader-spinner'
-
 
 class Login extends React.Component {
     didMount = false;

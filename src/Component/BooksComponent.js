@@ -6,22 +6,27 @@ export default class BooksComponent extends React.PureComponent {
         super();
         this.value();
     }
+
     value = () => {
         const img = new Image();
         img.crossOrigin = "anonymous";
-        img.src = "https://books.google.com"
+        img.src = "https://books.google.com/books/content?id=4oFoDwAAQBAJ&printsec=frontcover&img=1&zoom=5"
     }
 
     render() {
         var item = this.props
         return (
             <>
-                <div className='imageSpace'>
-                    <img className='bookImg' src={item.image} alt={"bookImg"}/>
+                <div className="book-flex">
+                    <div className='imageSpace'>
+                        <img className='bookImg' src={item.image} alt={"bookImg"} />
+                    </div>
+                    <div>
+                        <div className='bookName'>{item.title}</div>
+                        <div className='authorName'>{item.author}</div>
+                        <div className='bookName'>Rs.{item.price}</div>
+                    </div>
                 </div>
-                <div className='bookName'>{item.title}</div>
-                <div className='authorName'>{item.author}</div>
-                <div className='bookName'>Rs.{item.price}</div>
             </>
         )
     }

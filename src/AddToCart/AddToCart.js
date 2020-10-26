@@ -2,15 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import SiteHeader from "../SiteHeader/SiteHeader";
 import "./AddToCart.scss";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { toBuyPage, toGetCartDetails, cancelOrder } from "../../src/AddToCart/AddToCartAction";
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import LoginToFile from "../Component/LoginToFile";
 import BrowserService from "../BrowserService"
-import { NavLink } from "react-router-dom";
 import Checkout from "../Component/Checkout";
 import Loader from 'react-loader-spinner';
 import SucessComponent from "../SucessComponent/SucessComponent";
+import DrawerComponent from "../Component/DrawerComponent";
 
 let price = 0;
 
@@ -62,10 +61,15 @@ class AddToCart extends React.Component {
 
     handleCloseOpen = () => {
         this.setState({ showComponent: true }, () => {
-            document.getElementById("checkout-button").disabled = true
+            document.getElementsByClassName("checkout-button")[1].disabled = true
         });
     }
 
+    handleClose=()=>{
+        this.setState({ showComponent: true }, () => {
+            document.getElementsByClassName("checkout-button")[0].disabled = true
+        });
+    }
     getToken = () => {
         const value = BrowserService.getLocalStorage();
         if (value.token === undefined || value.token === null) {
@@ -122,15 +126,14 @@ class AddToCart extends React.Component {
                     {item.length === 0 ? <Loader type="TailSpin" color="#00BFFF" height={500} width={200} timeout={2000} /> : <> </>}
                     {item.length > 0 ?
                         <>
-                            <div className="checkout-main-box1">
+                            <div className="checkout-main-box">
                                 {this.state.showComponent ? <SucessComponent /> : <>{this.abc(item)}</>}
                                 <div className="checkout-box">
                                     <div style={{ fontWeight: "bold", display: "flex", paddingTop: "0.25em", paddingLeft: "0.75em" }}>Sub Total:&nbsp;<div style={{ fontWeight: '600' }}>{price}</div></div>
-                                    <div><Checkout amount={price} close={this.handleCloseOpen} /></div>
+                                    <div><Checkout amount={price} close={this.handleClose} /></div>
                                 </div>
+                                <DrawerComponent amount={price} showComponent={this.showComponent} close={this.handleCloseOpen}/>
                             </div>
-                            <br />
-                            <NavLink to="/home" style={{ display: "flex", textDecoration: "none", justifyContent: "flex-end", color: "black", fontWeight: "500", paddingRight: "12em" }}><ArrowBackIcon /><div>Back to Main Page</div></NavLink>
                             <br />
                         </>
                         : <>

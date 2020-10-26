@@ -60,7 +60,7 @@ class BooksDetails extends React.Component {
                             </div>
                         </button>
                     </div>
-                    {!this.state.validateInput ? <div style={{ textAlign: "initial" }}>Please Enter proper value</div> : <div></div>}
+                    {!this.state.validateInput ? <div className="text-error">Please Enter proper value</div> : <div></div>}
                 </div>
             </div>
         )

@@ -1,5 +1,6 @@
 import React from 'react'
 import StripeCheckout from 'react-stripe-checkout';
+import "./DrawComponent.scss";
 
 export default class Checkout extends React.Component {
     token=()=>{
@@ -19,7 +20,6 @@ export default class Checkout extends React.Component {
             >
             <button id="checkout-button" className="checkout-button" onClick={this.handleCloseOpen}>Checkout</button>
             </StripeCheckout>
-
         )
     }
 }

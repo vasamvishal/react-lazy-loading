@@ -18,7 +18,7 @@ export default class Account extends React.Component {
           <h4>SOFTWARE DEVELOPER</h4>
         </Container>
         <div className="details">
-          <Card style={{ width: "22em", height: "22em" }}>
+          <Card style={{ width: "22em", height: "25em" }}>
             <div>
             <div className="ba ba-linkedin"><ComputerIcon /></div>
             </div>
@@ -26,9 +26,11 @@ export default class Account extends React.Component {
             <br/>
             <h1>FrontEnd</h1>
             <AccountDetails title="React JS"/>
+            <AccountDetails title="React Redux"/>
             <AccountDetails title="Responsive Website"/>
             <AccountDetails title="Media Query"/>
             <AccountDetails title="Enzyme & Jest"/>
+            <AccountDetails title="Frontend Unit testing"/>
           </Card>
           <Card style={{ width: "22em", height: "25em" }}>
             <div className="ba ba-linkedin"><StorageRoundedIcon/></div>
@@ -59,32 +61,3 @@ export default class Account extends React.Component {
     );
   }
 }
-
-
-//         <div className="container">
-//   <div className="row">
-//     <div className="col-sm-6 col-md-6 col-lg-6">
-//       <h3>FrontEnd</h3>
-//       <p>REACT</p>
-//       <p>REDUX-REDUX LOOP</p>
-//       <p>Media Query</p>
-//       <p></p>
-//       <p></p>
-//     </div>
-//     <br />
-
-//     <div className="col-sm-6 col-md-6 col-lg-6">
-//       <h3>BackEnd</h3>
-//       <p>JAVA</p>
-//       <p>SPRING BOOT</p>
-//       <p>JWT</p>
-//       <p></p>
-//       <p></p>
-//     </div>
-//   </div>
-// </div>
-//       </>
-//     )
-//   }
-
-// }

@@ -5,6 +5,12 @@
     justify-content: center;
     align-items: center;
 
+    @media screen and (max-width: 700px) {
+      width: 50%;
+      background-color: white;
+      justify-content:left;
+    }
+
     .bookImg {
         width: 13em;
         height: 13em;
@@ -14,8 +20,15 @@
         align-items: center;
       
         @media screen and (max-width: 700px) {
-          width: 83vw;
-          height: 30vh;
+          width: 37vw; //83vw
+          height: 22vh;
+          position: absolute;
         }
-      }
+      }   
+  }
+  .book-flex{
+    @media screen and (max-width: 700px) {
+    display: flex;
+    flex-direction: row;
+    }
   }

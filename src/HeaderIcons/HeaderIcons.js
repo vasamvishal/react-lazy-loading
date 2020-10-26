@@ -4,7 +4,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SearchIcon from "../SiteHeader/SearchIcon";
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { connect } from "react-redux";
-import { NavLink, withRouter } from 'react-router-dom';
+import {NavLink, withRouter } from 'react-router-dom';
 import "./HeaderIcon.scss";
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircle';
 import SignUp from "../SignUp/SignUp";
@@ -12,7 +12,6 @@ import PopupButton from "../Component/PopupButton";
 import BrowserService from "../BrowserService";
 import LabelImportantIcon from '@material-ui/icons/LabelImportant';
 import { logout } from "./HeaderIconsAction";
-
 
 class HeaderIcons extends React.Component {
     constructor(props) {
@@ -92,7 +91,9 @@ class HeaderIcons extends React.Component {
             <>
                 <ul className="headerexample">
                     <li id="home" className={"home"}>
-                        <NavLink to="/home">
+                        <NavLink to={{
+                            pathname:"/home" ,
+                            aboutProps:"headerIcon"}}>
                             XBAY
                         </NavLink>
                     </li>

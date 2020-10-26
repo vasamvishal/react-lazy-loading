@@ -20,7 +20,7 @@ class SucessComponent extends React.Component {
     render() {
         return (
             <>
-                <div className="checkout-box">
+                <div className="checkout-box-sucess">
                     <i class="star"></i>
                     <div className="order-done">
                         <div className="sucess">

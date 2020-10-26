@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from "react";
 import "./HomePage.scss";
 import Card from '@material-ui/core/Card';
 import { connect } from "react-redux";
-import { setIntialState, onSearchValue, selectedBook, setState } from "./HomePageAction";
+import { setIntialState, searchValue, selectedBook, setState, getPageCount } from "./HomePageAction";
 import { Redirect } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import Loader from 'react-loader-spinner';
@@ -10,8 +10,10 @@ import BrowserService from "../BrowserService";
 const BookDetailsComponent = lazy(() => import("../Component/BookDetailsComponent"));
 const SiteHeader = lazy(() => import("../SiteHeader/SiteHeader"));
 
-class HomePage extends React.Component {
+class HomePage extends React.PureComponent {
     didMount = false;
+    countNoOfPages = false;
+    searchData = false;
 
     constructor(props) {
         super(props);
@@ -22,25 +24,42 @@ class HomePage extends React.Component {
             data: [],
             perPage: 10,
             currentPage: 0,
+            countNoOfPages: [],
+            searchData: [],
+            paginationValue: 0,
+            clicked: true,
             selectedPage: this.props.header.selectedPage,
             isLoading: true,
             expanded: this.props.homePage.storeData,
+            data: true
         }
     }
 
     componentDidMount() {
-        this.props.setInitialState();
+        this.props.getPageCount()
+        this.props.setInitialState(this.state.currentPage, this.state.perPage);
         setTimeout(() => {
             this.setState({ isLoading: false })
         }, 3000)
+        this.props.searchValue();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         const newValue = prevProps.homePage.getAllBookData;
         if (newValue.length <= this.props.homePage.getAllBookData.length && this.props.homePage.getAllBookData.length > 0 && this.didMount === false) {
             this.setState({ books: this.props.homePage.getAllBookData }, () => {
                 this.didMount = true;
                 this.recievedData(newValue)
+            })
+        }
+        if (prevProps.homePage.countNoOfPages <= this.props.homePage.countNoOfPages && this.props.homePage.countNoOfPages > 0 && this.countNoOfPages === false) {
+            this.setState({ countNoOfPages: this.props.homePage.countNoOfPages })
+            this.countNoOfPages = true;
+        }
+
+        if (prevProps.homePage.searchData.length <= this.props.homePage.searchData.length && this.props.homePage.searchData.length > 0 && this.searchData === false) {
+            this.setState({ searchData: this.props.homePage.searchData }, () => {
+                this.searchData = true;
             })
         }
     }
@@ -51,9 +70,10 @@ class HomePage extends React.Component {
                 expanded: !state.expanded
             }
         }
-        else if (state.expanded === true) {
+        else if (state.expanded === true && props.location.aboutProps === "headerIcon") {
             return {
-                expanded: !state.expanded
+                expanded: !state.expanded,
+                data: false
             }
         }
         else {
@@ -64,15 +84,27 @@ class HomePage extends React.Component {
     recievedData = (data) => {
         const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
         this.setState({
-            pageCount: Math.ceil(data.length / this.state.perPage),
+            paginationValue: Math.ceil(this.state.countNoOfPages / this.state.perPage),
             pageOfItems: slice
+        })
+    }
+
+    searchValuePagination = (data) => {
+        this.setState({
+            pageOfItems: data
         })
     }
 
     handlePageClick = (e) => {
         const selectedPage = e.selected;
+        this.props.setInitialState(selectedPage);
+        this.didMount = false;
+    };
+
+    getData = (e) => {
+        const selectedPage = e.selected;
         const offset = selectedPage * this.state.perPage;
-        const props = this.props.homePage.getAllBookData;
+        const props = this.props.homePage.searchData;
 
         this.setState({
             currentPage: selectedPage,
@@ -85,18 +117,19 @@ class HomePage extends React.Component {
     searchValue = (e) => {
         const payload = e.target.value;
         if (payload !== "") {
-            const filteredData = this.state.pageOfItems.filter(element => {
+            const filteredData = this.state.searchData.filter(element => {
                 return element.title.toLowerCase().includes(payload.toLowerCase());
             });
-            this.setState({ pageOfItems: filteredData })
-            this.recievedData(filteredData);
+            this.setState({ pageOfItems: filteredData, clicked: false })
+            this.searchValuePagination(filteredData);
         }
-        else if (payload.length === 0){
+
+        else if (payload.length === 0) {
             const props = this.props.homePage.getAllBookData;
             const filteredData = props.filter(element => {
                 return element.title.toLowerCase().includes(payload.toLowerCase());
             });
-            this.setState({ pageOfItems: filteredData })
+            this.setState({ pageOfItems: filteredData, clicked: true })
             this.recievedData(filteredData);
         }
     }
@@ -144,18 +177,19 @@ class HomePage extends React.Component {
                                 {this.getCard()}
                             </div>
                             <div className={"footer-header"}>
-                                <ReactPaginate
-                                    previousLabel={"prev"}
-                                    nextLabel={"next"}
-                                    breakLabel={"..."}
-                                    breakClassName={"break-me"}
-                                    pageCount={this.state.pageCount}
-                                    marginPagesDisplayed={2}
-                                    pageRangeDisplayed={5}
-                                    onPageChange={this.handlePageClick}
-                                    containerClassName={"pagination"}
-                                    subContainerClassName={"pages pagination"}
-                                    activeClassName={"active"} />
+                                {this.state.clicked ?
+                                    <ReactPaginate
+                                        previousLabel={"prev"}
+                                        nextLabel={"next"}
+                                        breakLabel={"..."}
+                                        breakClassName={"break-me"}
+                                        pageCount={this.state.paginationValue}
+                                        marginPagesDisplayed={2}
+                                        pageRangeDisplayed={5}
+                                        onPageChange={this.handlePageClick}
+                                        containerClassName={"pagination"}
+                                        subContainerClassName={"pages pagination"}
+                                        activeClassName={"active"} /> : ""}
                                 <br />
                                 <br />
                                 <br />
@@ -174,9 +208,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         "setState": () => (dispatch(setState())),
+        "getPageCount": () => (dispatch(getPageCount())),
         "selectedBook": (item) => (dispatch(selectedBook(item))),
-        "setInitialState": () => (dispatch(setIntialState())),
-        "onSearchValue": (e) => (dispatch(onSearchValue(e))),
+        "setInitialState": (payload) => (dispatch(setIntialState(payload))),
+        "searchValue": () => (dispatch(searchValue()))
     };
 };
 

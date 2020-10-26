@@ -94,7 +94,7 @@
       }
       .card-button-unClicked{
         cursor: pointer;
-        width: 10em;
+        width: 9em;
         background-color:#3ABDA6 ;
         color: white;
         border: 0px;
@@ -128,4 +128,10 @@
   }
 }
 
+}
+.text-error{
+  text-align: initial;
+  @media screen and (max-width: 700px) {
+    margin-left: 2em;
+  }
 }
