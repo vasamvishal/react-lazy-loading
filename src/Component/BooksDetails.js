@@ -1,6 +1,7 @@
 import React from "react";
 import "./BooksDetails.scss";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 var data, text;
 
@@ -61,7 +62,9 @@ class BooksDetails extends React.Component {
                         </button>
                     </div>
                     {!this.state.validateInput ? <div className="text-error">Please Enter proper value</div> : <div></div>}
+                    <br/>
                 </div>
+               
             </div>
         )
     }

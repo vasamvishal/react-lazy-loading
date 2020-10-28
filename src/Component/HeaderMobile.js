@@ -5,7 +5,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {MemoizedIcon} from "./IconComponent";
 import BrowserService from "../BrowserService";
 import LabelImportantIcon from '@material-ui/icons/LabelImportant';
-
+import "./HeaderMobile.scss";
 
 class HeaderMobile extends React.PureComponent {
 
@@ -24,16 +24,17 @@ class HeaderMobile extends React.PureComponent {
                         <MemoizedIcon icon={<LabelImportantIcon fontSize="large"/>} name="About Us" />
                     </NavLink>
                 </div>
-                <br/>
+                <hr className="Class"/>
                 <div className={"mobile-cart"}>
                     <NavLink to="/cart">
                         <MemoizedIcon icon={<ShoppingCartIcon fontSize="large" />} name="Cart" />
                     </NavLink>
                 </div>
-                <br/>
-                {this.props.authenticated?<div className={"mobile-logout"} onClick={this.logout}>
+                <hr className="Class"/>
+                {this.props.authenticated?<><div className={"mobile-logout"} onClick={this.logout}>
                     <MemoizedIcon icon={<ExitToAppIcon fontSize="large"/>} name="Logout" />
-                </div>:""}
+                </div>
+                <hr className="Class"/></>:""}
             </ul>
         )
     }

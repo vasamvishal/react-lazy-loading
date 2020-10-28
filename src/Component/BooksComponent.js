@@ -10,7 +10,7 @@ export default class BooksComponent extends React.PureComponent {
     value = () => {
         const img = new Image();
         img.crossOrigin = "anonymous";
-        img.src = "https://books.google.com/books/content?id=4oFoDwAAQBAJ&printsec=frontcover&img=1&zoom=5"
+        img.src = "https://books.google.com/"
     }
 
     render() {

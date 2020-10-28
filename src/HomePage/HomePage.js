@@ -33,10 +33,10 @@ class HomePage extends React.PureComponent {
             expanded: this.props.homePage.storeData,
             data: true
         }
+        this.props.getPageCount()
     }
 
     componentDidMount() {
-        this.props.getPageCount()
         this.props.setInitialState(this.state.currentPage, this.state.perPage);
         setTimeout(() => {
             this.setState({ isLoading: false })
@@ -53,7 +53,7 @@ class HomePage extends React.PureComponent {
             })
         }
         const newValue1 = prevProps.homePage.countNoOfPages;
-        // console.log(newValue1);
+        console.log(newValue1);
         if (prevProps.homePage.countNoOfPages <= this.props.homePage.countNoOfPages && this.props.homePage.countNoOfPages > 0) {
             this.setState({ countNoOfPages: this.props.homePage.countNoOfPages })
         }

@@ -135,3 +135,15 @@
     margin-left: 2em;
   }
 }
+.wishlist{
+  display: flex;
+  // margin-top: 2em;
+}
+
+hr.someClass {
+  background-color: purple;
+  width: 70%;
+  margin-left: initial;
+  // height: 0px;
+  border-top: 1px solid black
+}
