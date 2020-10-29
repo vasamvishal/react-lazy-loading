@@ -33,7 +33,6 @@ class HomePage extends React.PureComponent {
             expanded: this.props.homePage.storeData,
             data: true
         }
-        this.props.getPageCount()
     }
 
     componentDidMount() {
@@ -52,15 +51,14 @@ class HomePage extends React.PureComponent {
                 this.recievedData(newValue)
             })
         }
-        const newValue1 = prevProps.homePage.countNoOfPages;
-        console.log(newValue1);
-        if (prevProps.homePage.countNoOfPages <= this.props.homePage.countNoOfPages && this.props.homePage.countNoOfPages > 0) {
-            this.setState({ countNoOfPages: this.props.homePage.countNoOfPages })
-        }
+
 
         if (prevProps.homePage.searchData.length <= this.props.homePage.searchData.length && this.props.homePage.searchData.length > 0 && this.searchData === false) {
-            this.setState({ searchData: this.props.homePage.searchData }, () => {
-                this.searchData = true;
+            this.setState({
+                countNoOfPages: this.props.homePage.searchData.length,
+                searchData: this.props.homePage.searchData
+            }, () => {
+                this.recievedGetData()
             })
         }
     }
@@ -90,6 +88,13 @@ class HomePage extends React.PureComponent {
         })
     }
 
+    recievedGetData = () => {
+        // console.log("blahhed");
+        this.setState({
+            paginationValue: Math.ceil(this.state.countNoOfPages / this.state.perPage)
+        })
+    }
+
     searchValuePagination = (data) => {
         this.setState({
             pageOfItems: data
@@ -101,19 +106,6 @@ class HomePage extends React.PureComponent {
         this.props.setInitialState(selectedPage);
         this.props.getPageCount();
         this.didMount = false;
-    };
-
-    getData = (e) => {
-        const selectedPage = e.selected;
-        const offset = selectedPage * this.state.perPage;
-        const props = this.props.homePage.searchData;
-
-        this.setState({
-            currentPage: selectedPage,
-            offset: offset
-        }, () => {
-            this.recievedData(props)
-        });
     };
 
     searchValue = (e) => {
