@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import Loader from 'react-loader-spinner';
 import BrowserService from "../BrowserService";
+import HelpMenu from "../HelpMenu/HelpMenu";
 const BookDetailsComponent = lazy(() => import("../Component/BookDetailsComponent"));
 const SiteHeader = lazy(() => import("../SiteHeader/SiteHeader"));
 
@@ -188,6 +189,7 @@ class HomePage extends React.PureComponent {
                                 <br />
                                 <br />
                             </div>
+                            <HelpMenu/>
                         </div>}
                 </div>
             </>

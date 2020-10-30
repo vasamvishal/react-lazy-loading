@@ -9,7 +9,34 @@
   <link rel="manifest" href="./manifest.json" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <script src="https://books.google.com" crossorigin="anonymous"></script> -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyBhMnFjne9MB8cS81bVH1OuvLwK_Z6zI_Q",
+    authDomain: "xbay-2.firebaseapp.com",
+    databaseURL: "https://xbay-2.firebaseio.com",
+    projectId: "xbay-2",
+    storageBucket: "xbay-2.appspot.com",
+    messagingSenderId: "268201898880",
+    appId: "1:268201898880:web:3a3833b6d3653c045d4765",
+    measurementId: "G-FFTRNZN75W"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
 
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
