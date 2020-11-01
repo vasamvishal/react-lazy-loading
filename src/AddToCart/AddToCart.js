@@ -127,7 +127,7 @@ class AddToCart extends React.Component {
                     {item.length > 0 ?
                         <>
                             <div className="checkout-main-box">
-                                {this.state.showComponent ? <SucessComponent /> : <>{this.abc(item)}</>}
+                                {this.state.showComponent ? <SucessComponent /> : <>{this.abc(item)}<br/><br/></>}
                                 <div className="checkout-box">
                                     <div style={{ fontWeight: "bold", display: "flex", paddingTop: "0.25em", paddingLeft: "0.75em" }}>Sub Total:&nbsp;<div style={{ fontWeight: '600' }}>{price}</div></div>
                                     <div><Checkout amount={price} close={this.handleClose} /></div>
